@@ -1,0 +1,324 @@
+{
+  "date": "2026-11-04",
+  "topic": "Open source",
+  "sections": [
+    {
+      "id": "world",
+      "title": "Global headlines",
+      "stories": [
+        {
+          "title": "Democrats win both chambers of the US Congress",
+          "summary": "taz's live blog, citing US projections, reports Democrats took the House and flipped the Senate with wins including Texas, Ohio, Kansas and Iowa. As of 07:30 CET, Michigan and Alaska were uncalled, Maine was still counting, and no final House total was available. It leaves President Trump facing a Democratic Congress for his last two years.",
+          "label": "Developing. Reported by taz",
+          "links": [
+            {
+              "label": "Read at taz",
+              "url": "https://taz.de/Midterms/!6226893/"
+            }
+          ]
+        },
+        {
+          "title": "Iran calls US reply on Hormuz “unconvincing” as Trump confirms a strike",
+          "summary": "Mohsen Rezaei said Washington must “fully and explicitly address Iran's seven conditions”. Trump called a strike on an Iranian anti-aircraft facility a “minor attack”, while US media report plans for strikes that could begin as early as Wednesday. Qatar says both sides remain committed to talks. Iranian claims about tankers hitting mines are unverified.",
+          "label": "Developing. Reported by Al Jazeera, with Reuters content",
+          "links": [
+            {
+              "label": "Read at Al Jazeera",
+              "url": "https://www.aljazeera.com/news/2026/11/4/iran-says-us-reply-to-hormuz-plan-unconvincing-trump-confirms-strikes"
+            }
+          ]
+        },
+        {
+          "title": "Trump says US will end military aid to Israel from 2027",
+          "summary": "He said the roughly $4 billion a year would stop while arms sales continue, and that Netanyahu first proposed the idea. The current deal runs to 2028. Netanyahu's office had not commented when Euronews published.",
+          "label": "Reported by Euronews",
+          "links": [
+            {
+              "label": "Read at Euronews",
+              "url": "https://www.euronews.com/2026/11/03/trump-says-us-will-end-military-aid-to-israel-as-americans-vote-in-midterms"
+            }
+          ]
+        },
+        {
+          "title": "Ebola death toll passes 5,300",
+          "summary": "Africa CDC data put deaths at 5,376, nearly all in DR Congo, in an outbreak of the Bundibugyo strain, which has no approved vaccine or treatment. About 10,444 people have been infected across DR Congo, Uganda and Kenya.",
+          "label": "Reported by Al Jazeera, with AFP and Reuters",
+          "links": [
+            {
+              "label": "Read at Al Jazeera",
+              "url": "https://www.aljazeera.com/news/2026/11/3/ebola-outbreak-kills-more-than-5300-people-in-dr-congo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "germany",
+      "title": "German politics",
+      "stories": [
+        {
+          "title": "Reiche's fuel price cap draft heads to cabinet under SPD fire",
+          "summary": "The cabinet is due to vote on Wednesday. A cap could apply only if German prices rise at least 5 points more than the EU average for three straight weeks, which taz says has not happened in ten years. SPD deputy leader Anke Rehlinger wants the draft revised, and the Greens and Die Linke want a windfall tax. The current fuel tax cut ends on 1 January.",
+          "label": "Reported by taz",
+          "links": [
+            {
+              "label": "Read at taz",
+              "url": "https://taz.de/Reiches-Entwurf-fuer-Spritpreisdeckel/!6226946/"
+            }
+          ]
+        },
+        {
+          "title": "Merz: the next president “has to be a woman”",
+          "summary": "He said so at a closed CDU meeting, according to party sources, and named no one. The CSU has nominated Ilse Aigner, whom taz says the SPD supports. CDU bodies should decide early next week. Sources differ on the date: AFP says 30 January, taz says February.",
+          "label": "Reported by AFP via The Local, and taz",
+          "links": [
+            {
+              "label": "The Local",
+              "url": "https://www.thelocal.de/20261103/merz-says-next-german-president-should-be-a-woman"
+            },
+            {
+              "label": "taz",
+              "url": "https://taz.de/CDU-in-der-Krise/!6227059/"
+            }
+          ]
+        },
+        {
+          "title": "Merz hosts Zelensky before Abu Dhabi talks",
+          "summary": "Merz said “Es ist Zeit für ein Ende des Krieges” and that Europe wants a decisive role. US-brokered talks are set for 10–11 November. Ukrainian officials say at least 31 people died in Russia's strike on an aid centre in Komyshuvakha.",
+          "label": "Reported by taz and Al Jazeera",
+          "links": [
+            {
+              "label": "taz",
+              "url": "https://taz.de/Merz-empfaengt-Selenskyj/!6226981/"
+            },
+            {
+              "label": "Al Jazeera",
+              "url": "https://www.aljazeera.com/news/2026/11/2/russian-bombing-of-ukrainian-aid-centre-kills-24-people-zelenskyy"
+            }
+          ]
+        },
+        {
+          "title": "Gas plants take every contract in first capacity auction",
+          "summary": "The Bundesnetzagentur awarded 5,160 MW across 11 contracts, six to LEAG and three to RWE, with nothing for storage. Reiche called it a “great success”, while BUND estimates the cost at over €12 billion over 15 years, paid through an electricity levy.",
+          "label": "Reported by taz",
+          "links": [
+            {
+              "label": "Read at taz",
+              "url": "https://taz.de/Kritik-von-Gruenen-und-Umweltschuetzern/!6226929/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spain",
+      "title": "Spanish politics",
+      "stories": [
+        {
+          "title": "Puente's exit leaves Sánchez to fill Transport weeks before 29N",
+          "summary": "Puente stays until his resignation takes effect. Sánchez must then name a new minister or give another minister the ordinary running of the department. Puente says he bore no direct responsibility for Urda, which killed 69 people. He will not stand, though Público says his name stays on the published Valladolid list.",
+          "label": "Reported by EFE via Infobae, and Público",
+          "links": [
+            {
+              "label": "Infobae (EFE)",
+              "url": "https://www.infobae.com/espana/agencias/2026/11/03/sanchez-debe-decidir-si-nombra-nuevo-ministro-u-otro-asume-transportes-a-semanas-del-29n/"
+            },
+            {
+              "label": "Público",
+              "url": "https://www.publico.es/politica/gobierno/puente-dimite-sorpresa-puertas-campana-29n.html"
+            }
+          ]
+        },
+        {
+          "title": "Adif works council agrees a rail safety strike for 17 November",
+          "summary": "The strike is not yet formally called. Renfe's works council was also weighing a stoppage, and a rally is planned for 16 November.",
+          "label": "Reported by EFE via Público",
+          "links": [
+            {
+              "label": "Read at Público",
+              "url": "https://www.publico.es/politica/comite-empresa-adif-acuerda-huelga-proximo-17-noviembre.html"
+            }
+          ]
+        },
+        {
+          "title": "PP and Vox clash with unions over the 11N general strike",
+          "summary": "Feijóo called the housing-focused strike “un grave error” after Urda, and Abascal said Vox would “tomar nota”. CCOO and UGT called the remarks a threat. The PP denies coordinating with Vox.",
+          "label": "Reported by elDiario.es",
+          "links": [
+            {
+              "label": "Read at elDiario.es",
+              "url": "https://www.eldiario.es/politica/pp-vox-abren-frente-sindicatos-huelga-vivienda_1_13635542.html"
+            }
+          ]
+        },
+        {
+          "title": "Judge Llarena closes the Puigdemont investigation",
+          "summary": "The case now goes to the Supreme Court's criminal chamber, which will decide on dismissal under the amnesty law. EFE describes the step as largely formal.",
+          "label": "Reported by EFE via Público",
+          "links": [
+            {
+              "label": "Read at Público",
+              "url": "https://www.publico.es/politica/llarena-cierra-sumario-puigdemont-supremo-le-aplique-amnistia.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rail",
+      "title": "Rail and public transport",
+      "stories": [
+        {
+          "title": "Long-distance punctuality stays below 60% in October",
+          "summary": "It reached 56.2%, about four points up on September but short of Evelyn Palla's 60% target for the year. Construction sites and infrastructure faults are the main causes cited.",
+          "label": "Reported by Bahnblogstelle, from dpa",
+          "links": [
+            {
+              "label": "Read at Bahnblogstelle",
+              "url": "https://bahnblogstelle.com/265724/fernzuege-im-oktober-etwas-puenktlicher-aber-weiter-unter-60-prozent/"
+            }
+          ]
+        },
+        {
+          "title": "“Robuster Fahrplan” commission starts work on fewer trains",
+          "summary": "DB InfraGO's expert panel met from 3 November, with proposals due in the new year. Member Enak Ferlemann has floated hourly instead of half-hourly Berlin–Hamburg trains. Allianz pro Schiene warns of fuller trains, and Die Güterbahnen rejects blanket cuts.",
+          "label": "Reported by Bahnblogstelle and taz, from dpa",
+          "links": [
+            {
+              "label": "Bahnblogstelle",
+              "url": "https://bahnblogstelle.com/265700/mehr-puenktlichkeit-verband-offen-fuer-weniger-zuege-im-schienennetz/"
+            },
+            {
+              "label": "taz",
+              "url": "https://taz.de/Bahn-prueft-Reduzierung-des-Zugverkehrs-fuer-mehr-Puenktlichkeit/!6226284/"
+            }
+          ]
+        },
+        {
+          "title": "Deutschlandticket sales fee dispute goes to a vote on 10 November",
+          "summary": "VRR chief Oliver Wittke opposes raising the fee from €2.87 to €3.15, saying DB would benefit most. The VDV says the Bundeskartellamt set the principle of the sales incentive.",
+          "label": "Reported by Bahnblogstelle",
+          "links": [
+            {
+              "label": "Read at Bahnblogstelle",
+              "url": "https://bahnblogstelle.com/265641/streit-um-hoehere-verkaufsprovision-beim-deutschlandticket/"
+            }
+          ]
+        },
+        {
+          "title": "First Hamburg U5 tunnel section reaches shell completion",
+          "summary": "The roughly 1.5 km stretch runs from west of Sengelmannstraße to City Nord. Test runs are planned from 2028 and opening for the end of 2029. A public tunnel tour takes place on 14 November.",
+          "label": "Reported by Zughalt.de",
+          "links": [
+            {
+              "label": "Read at Zughalt.de",
+              "url": "https://www.zughalt.de/2026/11/hochbahn-laedt-zur-tunnelbegehung/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aviation",
+      "title": "Global aviation",
+      "stories": [
+        {
+          "title": "Lufthansa signs deal for 44.9% of TAP",
+          "summary": "The initial price is €1.025 billion, and the stake could reach 49.9% with a maximum of €1.2 billion. Lisbon would become the group's seventh hub. EU approval is required: Simple Flying expects closing in 2028, while Lufthansa's statement gives no date.",
+          "label": "Lufthansa press release, reported by Simple Flying",
+          "links": [
+            {
+              "label": "Lufthansa Group",
+              "url": "https://newsroom.lufthansagroup.com/en/lufthansa-group-and-portuguese-government-sign-agreement-for-acquisition-of-a-minority-stake-in-tap-air-portugal"
+            },
+            {
+              "label": "Simple Flying",
+              "url": "https://simpleflying.com/lufthansa-signs-12b-deal-purchase-449pc-tap-air-portugal/"
+            }
+          ]
+        },
+        {
+          "title": "Lufthansa narrows its outlook and warns of double-digit fare rises",
+          "summary": "Core profit guidance is now €1.7–2.0 billion, with its 2026 fuel bill seen at €9.3 billion. Finance chief Till Streichert said: “Ticket prices will increase by double digits next year.” Third-quarter net profit rose 30%, but adjusted EBIT fell 11% at the network airlines.",
+          "label": "Reported by The Local and FlightGlobal",
+          "links": [
+            {
+              "label": "The Local",
+              "url": "https://www.thelocal.de/20261103/germanys-lufthansa-warns-of-ticket-price-hikes-amid-iran-war-energy-shock"
+            },
+            {
+              "label": "FlightGlobal",
+              "url": "https://www.flightglobal.com/airlines/2026/11/lufthansa-group-cuts-full-year-guidance-as-high-fuel-costs-bite/"
+            }
+          ]
+        },
+        {
+          "title": "First Lufthansa 777-9 misses summer 2027",
+          "summary": "The delivery has slipped to the second quarter, and the airline has activated its contingency plan. It expects a low single-digit number of deliveries in 2027.",
+          "label": "Reported by FlightGlobal",
+          "links": [
+            {
+              "label": "Read at FlightGlobal",
+              "url": "https://www.flightglobal.com/airlines/2026/11/lufthansa-enacts-contingency-plan-after-first-777-9-delivery-slips-to-second-quarter/"
+            }
+          ]
+        },
+        {
+          "title": "US-bound travellers must attest they have not been in DR Congo",
+          "summary": "The CDC order took effect for flights departing from 23:59 EST on 3 November, covers crew and runs until 18 December unless changed. Anyone who refuses to sign is denied boarding.",
+          "label": "Reported by Simple Flying",
+          "links": [
+            {
+              "label": "Read at Simple Flying",
+              "url": "https://simpleflying.com/cdc-ebola-declaration-us-bound-flights-crew-21-days/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "topic",
+      "title": "Wednesday topic: open source",
+      "stories": [
+        {
+          "title": "French gigabyte tax could cost VLC's makers over €1 million a year",
+          "summary": "The National Assembly backed an amendment charging €0.055 per GB delivered to French subscribers, with no explicit exemption for free software. VideoLAN gives the estimate before a revenue cap, and author Laurent Lhardit says the cap protects small players. The article does not describe later steps.",
+          "label": "Reported by It's FOSS",
+          "links": [
+            {
+              "label": "Read at It's FOSS",
+              "url": "https://itsfoss.com/news/vlc-outrage-at-french-internet-tax/"
+            }
+          ]
+        },
+        {
+          "title": "PostgreSQL 19 runs late under an LLM bug load",
+          "summary": "Developer Robert Haas ties the delay to the project's focus on quality, and to LLM-found bugs and patches that still need human review. Phoronix says November is the earliest date.",
+          "label": "Reported by LWN.net and Phoronix",
+          "links": [
+            {
+              "label": "LWN.net",
+              "url": "https://lwn.net/Articles/1104210/"
+            },
+            {
+              "label": "Phoronix",
+              "url": "https://www.phoronix.com/news/PostgreSQL-19-Late"
+            }
+          ]
+        },
+        {
+          "title": "Fedora Linux 45 ships after two delays",
+          "summary": "Released on 3 November with Linux 7.2, GNOME 51, Plasma 6.7 and Podman 6.1. It also replaces fbcon with kmscon for virtual consoles.",
+          "label": "Reported by It's FOSS",
+          "links": [
+            {
+              "label": "Read at It's FOSS",
+              "url": "https://itsfoss.com/news/fedora-45-features/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": "Source access: Claude's web tools could not open Reuters, AP, BBC News, tagesschau, Der Spiegel, Die Zeit, Süddeutsche Zeitung, RTVE, El País or La Vanguardia. World and politics items therefore come from other reachable reputable outlets, mainly Al Jazeera, Euronews, taz, The Local, Público and elDiario.es, and should be read as attributed reports. The midterm item rests on taz's live blog: NBC, CBC and Washington Post headlines matched it, but those pages could not be opened. Eurailpress and aero.de returned outdated pages, and the federal transport ministry's press page failed to load."
+}
