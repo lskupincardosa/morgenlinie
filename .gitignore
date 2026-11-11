@@ -1,4 +1,7 @@
+ios/build/
+xcuserdata/
+*.xcuserstate
+.DS_Store
 .wrangler/
 .cloudflare/
 node_modules/
-.DS_Store

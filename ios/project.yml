@@ -1,0 +1,54 @@
+name: Morgenlinie
+options:
+  bundleIdPrefix: com.lskupincardosa
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+targets:
+  Morgenlinie:
+    type: application
+    platform: iOS
+    sources:
+      - Morgenlinie
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lskupincardosa.morgenlinie
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    info:
+      path: Morgenlinie/Info.plist
+      properties:
+        CFBundleDisplayName: Morgenlinie
+        UILaunchScreen: {}
+        UIApplicationSupportsIndirectInputEvents: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UIBackgroundModes: [fetch]
+        BGTaskSchedulerPermittedIdentifiers: [com.lskupincardosa.morgenlinie.refresh]
+  MorgenlinieTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - MorgenlinieTests
+    dependencies:
+      - target: Morgenlinie
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  Morgenlinie:
+    build:
+      targets:
+        Morgenlinie: all
+        MorgenlinieTests: [test]
+    test:
+      targets: [MorgenlinieTests]
