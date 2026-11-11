@@ -4,11 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Morgenlinie</title>
-<link rel="alternate" type="application/rss+xml" title="Morgenlinie" href="feed.xml">
+<title>Morgenlinie archive</title>
+<style>
+:root { color-scheme: light dark; --ink: #15252c; --muted: #52646c; --ground: #edf1f2 }
+@media (prefers-color-scheme: dark) { :root { --ink: #e8eff1; --muted: #a2b2b9; --ground: #101a1f } }
+body { margin: 0 auto; max-width: 640px; padding: 24px 16px; background: var(--ground); color: var(--ink); font: 17px/1.5 Georgia, serif }
+h1 { font-family: "Courier New", monospace; letter-spacing: .02em }
+ol { list-style: none; padding: 0 }
+li { padding: 6px 0; border-bottom: 1px solid color-mix(in srgb, var(--muted) 30%, transparent) }
+a { color: inherit }
+.topic { color: var(--muted) }
+.topic::before { content: "· " }
+</style>
 </head>
 <body>
-<h1>Morgenlinie</h1>
-<p><a href="feed.xml">RSS feed</a></p>
+<h1>MORGENLINIE</h1>
+<p>Every archived edition, newest first.</p>
+<ol>
+<li><a href="editions/2026-11-11.html">Wednesday 11 November 2026</a> <span class="topic">Open source</span></li>
+</ol>
 </body>
 </html>

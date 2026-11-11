@@ -1,0 +1,334 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Morgenlinie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Doto:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a transit line. The sign announces the edition; each section is a stop on one continuous route. */
+:root {
+  --ground: #edf1f2; --paper: #fbfcfc; --ink: #15252c; --muted: #52646c; --line-soft: #c9d4d8;
+  --sign: #0f1b20; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #1c6f8c; --de: #b23a48; --es: #a65f00; --rail: #1f7a55; --air: #4a5bb5; --tech: #7a4a9e;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --dot: "Doto", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark }
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: 76px }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55 }
+a { color: inherit }
+a:focus-visible { outline: 3px solid var(--sign-text); outline-offset: 2px }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+
+.sign { background: var(--sign); color: var(--sign-text) }
+.sign .wrap { display: grid; gap: 6px; padding-block: 28px 22px }
+.sign-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: .05em; color: var(--sign-dim); text-transform: uppercase }
+h1 { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(2.7rem, 10.5vw, 6.2rem); line-height: 1; letter-spacing: .01em }
+.sign-note { margin: 4px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.2rem; color: #f3e6cf }
+
+.route { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line-soft) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sign) }
+.route-scroll { overflow-x: auto; scrollbar-width: none }
+.route ol { list-style: none; display: flex; align-items: stretch; gap: 4px; margin: 0; padding: 9px 0; min-width: max-content }
+.route a { display: flex; align-items: center; gap: 7px; padding: 5px 9px 5px 5px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; border-radius: 4px }
+.route a:hover { background: var(--ground) }
+.bug { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding-inline: 5px; border-radius: 3px; color: var(--paper); background: var(--c); font-family: var(--display); font-weight: 700; font-size: .95rem; line-height: 1 }
+
+main { padding-block: 22px 44px }
+.stop { --c: var(--world); position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 16px; padding-bottom: 42px }
+.stop::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 0; width: 8px; background: var(--c) }
+.stop:last-of-type::before { bottom: 36px }
+.dot { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: 8px solid var(--c); margin-top: 4px }
+.stop-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 42px; margin-bottom: 14px }
+h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.05; text-wrap: balance }
+.stop-head svg { width: 104px; height: 52px; flex: none; color: var(--c) }
+.stories { grid-column: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.story { min-width: 0; display: flex; flex-direction: column; background: var(--paper); padding: 18px 20px; border-radius: 4px }
+.story.lead { grid-column: 1 / -1 }
+.story.lead h3 { font-size: clamp(1.65rem, 3.3vw, 2.15rem) }
+.story.lead p { max-width: 68ch }
+h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 1.42rem; line-height: 1.14; text-wrap: balance }
+.story p { margin: 0 0 12px }
+.kind { align-self: flex-start; margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: .84rem; letter-spacing: .07em; text-transform: uppercase; color: var(--c) }
+.links { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: auto; font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--c) }
+.links a { text-underline-offset: 3px }
+
+.closure { --c: var(--rail); margin-top: 2px; margin-bottom: 14px; overflow-x: auto }
+.closure svg { display: block; width: 100%; height: auto; color: var(--ink) }
+
+.notice { background: var(--paper); border-radius: 4px; padding: 20px; margin-left: 50px; display: grid; gap: 8px }
+.notice h2 { font-size: 1.55rem }
+.notice p { margin: 0; max-width: 72ch }
+.sources { columns: 2; column-gap: 28px; margin: 6px 0 0; padding-left: 20px; font-size: .94rem }
+.sources li { break-inside: avoid; margin-bottom: 4px }
+
+@media (max-width: 680px) {
+  body { font-size: 16.5px }
+  .stories { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 2px; position: relative }
+  .stop { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px }
+  .stop::before { display: none }
+  .stop-head svg { width: 76px; height: 38px }
+  .notice { margin-left: 0 }
+  .sources { columns: 1 }
+  html { scroll-padding-top: 66px }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+</style>
+
+<header class="sign">
+  <div class="wrap">
+    <div class="sign-meta"><span>Wednesday 11 November 2026</span><span>Preview edition</span></div>
+    <h1>MORGENLINIE</h1>
+    <p class="sign-note">Your morning news, six stops. About six minutes.</p>
+  </div>
+</header>
+
+<nav class="route" aria-label="Sections">
+  <div class="wrap route-scroll">
+    <ol>
+      <li><a href="#world" style="--c:var(--world)"><span class="bug">1</span>World</a></li>
+      <li><a href="#germany" style="--c:var(--de)"><span class="bug">2</span>Germany</a></li>
+      <li><a href="#spain" style="--c:var(--es)"><span class="bug">3</span>Spain</a></li>
+      <li><a href="#rail" style="--c:var(--rail)"><span class="bug">4</span>Rail</a></li>
+      <li><a href="#aviation" style="--c:var(--air)"><span class="bug">5</span>Aviation</a></li>
+      <li><a href="#topic" style="--c:var(--tech)"><span class="bug">6</span>Open source</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="stop" id="world" style="--c:var(--world)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global headlines</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="52" cy="26" r="23"/><ellipse cx="52" cy="26" rx="10" ry="23"/><path d="M30 18h44M30 34h44M4 26h25M75 26h25"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Developing, day two under way. Reported by ZDFheute and Al Jazeera</span>
+        <h3>Abu Dhabi talks: day one centred on a large prisoner swap</h3>
+        <p>Selenskyj said the first day focused on an exchange: „Man würde gern 1.000 gegen 1.000, möglicherweise 1.500 gegen 1.500 tauschen.“ Russia raised territory, which he called „eine Frage auf der Ebene der Staatschefs“; today's agenda covers energy and Black Sea de-escalation and a possible three-president meeting. Overnight, Russia said it downed 146 drones over the Leningrad region, and NATO jets were scrambled as drones entered Latvian and Lithuanian airspace.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/ausland/ukraine-verhandlungen-abu-dhabi-selenskyj-bilanz-gefangenenaustausch-100.html" target="_blank" rel="noopener">ZDFheute</a><a href="https://www.aljazeera.com/news/2026/11/11/russia-claims-interception-of-146-drones-in-leningrad-region" target="_blank" rel="noopener">Al Jazeera</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported by Al Jazeera</span>
+        <h3>US House blocks Hegseth impeachment over the Iran war</h3>
+        <p>The House voted 211–204 to refer Thomas Massie's resolution to committee, effectively killing it; the articles accused Hegseth of starting the Iran war without congressional authorisation. Hegseth called the effort “sabotage”; Democrats are urging him to resign.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/liveblog/2026/11/11/iran-war-live-hegseth-survives-impeachment-bid-iran-denies-us-talks" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Iran denies involvement. Reported by Al Jazeera</span>
+        <h3>US charges three alleged IRGC-linked men over RAF Fairford plot</h3>
+        <p>Prosecutors say the men acted for the IRGC and Kataib Hezbollah, planned to send vans disguised as fuel trucks to the UK base used by US bombers, and are linked to nearly 20 attacks or attempts in the US and Europe. Iran denies involvement in the Fairford incident.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/11/us-charges-3-iranian-backed-men-over-alleged-plot-at-uk-fairford-air-base" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">New data. Reported by ZDFheute</span>
+        <h3>Global CO2 emissions reach a new high, Global Carbon Project says</h3>
+        <p>Total 2026 emissions are forecast at 43.3 bn t; fossil emissions fall 0.4%, partly as oil use dropped during the Iran war, but fires in equatorial Asia push the total up. At this rate the remaining 1.5°C budget would be used up in under four years, the COP31 delegates in Antalya were told.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/klima-co2-emissionen-global-carbon-project-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="germany" style="--c:var(--de)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>German politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M22 47h60M28 47V28h48v19M36 47V28M46 47V28M58 47V28M68 47V28M28 28h48M38 28c0-13 7-20 14-20s14 7 14 20M52 8V3"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Sides disagree, developing. Reported by ZDFheute</span>
+        <h3>Merz and Fico clash over EU money for Ukraine</h3>
+        <p>Merz wants all member states to share Ukraine's costs and calls agreement a „Vorbedingung für einen erfolgreichen Abschluss der Haushaltsverhandlungen“, asking Costa to put it on the Dublin summit agenda. Fico accuses him of „Erpressung“ („Ich werde dem nicht nachgeben“) and Babiš also refuses; a new EU loan of about €45bn needs unanimity.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/ausland/eu-ukraine-finanzierung-streit-fico-merz-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Proposal, Union sceptical. Reported by Tagesspiegel</span>
+        <h3>Klingbeil wants to abolish tax classes III and V</h3>
+        <p>A Finance Ministry paper would replace them for married couples with the „automatisierte Faktorverfahren“, splitting tax by each spouse's income share. The CDU/CSU group is sceptical, adding to the tax dispute before Thursday's budget session.</p>
+        <div class="links"><a href="https://www.tagesspiegel.de/politik/beliebt-bei-ehepaaren-finanzminister-klingbeil-will-steuerklassen-iii-und-v-abschaffen-16267048.html" target="_blank" rel="noopener">Read at Tagesspiegel</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Proposal. Reported by Tagesspiegel (Reuters)</span>
+        <h3>SPD group pushes residence right for working refugees</h3>
+        <p>A position paper would let refugees on temporary humanitarian permits stay if they work, train or study, potentially several hundred thousand, mainly Syrians and Ukrainians. Those who break rules „muss Deutschland wieder verlassen“; no Union reaction was reported.</p>
+        <div class="links"><a href="https://www.tagesspiegel.de/politik/reuters-hunderttausende-konnten-profitieren-spd-fraktion-dringt-auf-neues-bleiberecht-fur-arbeitende-gefluchtete-16270254.html" target="_blank" rel="noopener">Read at Tagesspiegel</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Reported by ZDFheute</span>
+        <h3>Mecklenburg-Vorpommern signs red-red-green coalition deal</h3>
+        <p>SPD, Die Linke and the Greens agreed the state's first such coalition, with a „Klima-Check“ for projects and 1,000 fewer administration jobs over five years amid a gap of more than €3bn. Schwesig: „Ich will als Ministerpräsidentin fünf Jahre regieren.“ The Landtag votes on Monday.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/deutschland/mecklenburg-vorpommern-koalitionsvertrag-rot-rot-gruen-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="spain" style="--c:var(--es)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Spanish politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M27 25h50v23H27zM39 25l13-8 13 8M41 14l20-8 7 15"/><path d="M45 34h14"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Developing, turnout figures from unions only. Reported by elDiario.es and Público</span>
+        <h3>11-N general strike under way, the first since 2012</h3>
+        <p>The housing-and-wages strike, backed by CCOO and UGT, began with „fuerte seguimiento de madrugada“ per unions: 90% in ports and „paros totales“ at Volkswagen Navarra and SEAT; no government or employer figures yet. Moncloa says it „no es contra nadie“ and Sánchez said „Esta huelga dice mucho de nuestro país y para bien“; Ayuso called the organisers „basura sindical“.</p>
+        <div class="links"><a href="https://eldiario.es/economia/huelga-general-11-noviembre-ultima-hora-directo-arranca-gran-paro-vivienda_133_13653845.html" target="_blank" rel="noopener">elDiario.es live</a><a href="https://www.publico.es/politica/gobierno/gobierno-despeja-agenda-respalda-huelga-inedita-nadie-favor-derechos.html" target="_blank" rel="noopener">Público</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported by elDiario.es</span>
+        <h3>PP programme adopts “prioridad nacional” for public aid</h3>
+        <p>Aid would favour people with „arraigo real, duradero y verificable con España“; the PP also pledges to repeal the 2023 Housing Law, replace the Democratic Memory Law with a „Ley de Concordia“ and replace the IMV with a „renta de activación“.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/pp-asume-programa-electoral-prioridad-nacional-vox-modificar-imv-atajar-absentismo-injustificado_1_13652361.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported by Público</span>
+        <h3>Government takes Valencia's “prioridad nacional” law to the Constitutional Court</h3>
+        <p>The challenge targets housing and aid preferences and education provisions passed by PP and Vox; Elma Saiz said they „contradicen condiciones básicas como la igualdad entre personas“. No Generalitat reaction was reported.</p>
+        <div class="links"><a href="https://www.publico.es/politica/gobierno/gobierno-recurre-constitucional-ley-valenciana-incluyo-prioridad-nacional.html" target="_blank" rel="noopener">Read at Público</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Claims about the PP disputed and unproven. Reported by elDiario.es</span>
+        <h3>Koldo García's lawyer resigns from his defence</h3>
+        <p>Leticia de la Hoz cited „razones profesionales“ and „secreto profesional“; she had filed invoices totalling €242,000 paid to her firm by the publisher of OKdiario. The PSOE is studying a querella over García's claim that he was offered leniency to attack the government.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/abogada-koldo-garcia-renuncia-defensa_1_13652818.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="rail" style="--c:var(--rail)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Rail and public transport</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M10 39h84v-20a8 8 0 0 0-8-8H18a8 8 0 0 0-8 8zM21 11V5h62v6M21 18h20v11H21zM47 18h10v21H47zM63 18h20v11H63zM22 39v5m60-5v5M5 47h94"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Reported by Zughalt.de</span>
+        <h3>Rheinbahn launches tram safety programme after accident review</h3>
+        <p>TÜV Rheinland, Deloitte and Human Factor Consulting found weaknesses in risk assessment, technical safety barriers and driver training after serious Düsseldorf tram accidents. An „Aktionsprogramm Betriebssicherheit“ adds competence tests, network-wide risk checks and switch safeguards; board member Christian Finke said success must be „an ihrer Sicherheitswirkung gemessen werden“.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/rheinbahn-mehr-sicherheitsmassnahmen/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported by Zughalt.de</span>
+        <h3>VRN wants underground platforms beneath Mannheim Hbf</h3>
+        <p>DB's planned tunnel would mainly carry freight and non-stop ICEs; VRN and the city want platforms so main ICE lines keep half-hourly Mannheim stops under the Deutschlandtakt. A tunnel that only passes under the station „greife deshalb zu kurz“.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/vrn-analysiert-knoten-leistung/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Official press release, VRR</span>
+        <h3>Eight transport associations launch joint Deutschlandticket campaign</h3>
+        <p>The „Verbünde-Allianz“ (hvv, MVV, VBN, VVS, VRR, NAH.SH, NVV, RMV) runs shared ads in regional designs online and on billboards. VRR's Oliver Wittke: „Mit der gemeinsamen Kampagne der Verkehrsverbünde schaffen wir einen einheitlichen Auftritt.“</p>
+        <div class="links"><a href="https://www.vrr.de/verbuende-allianz-setzt-sich-fuer-deutschlandticket-ein/" target="_blank" rel="noopener">VRR press release</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Official press release, VDV (9 November)</span>
+        <h3>VDV wants ERTMS retrofit funding guaranteed to 2037</h3>
+        <p>The federal guideline plans about €1.7bn through 2030 to fit ERTMS to around 12,600 vehicles; VDV says it only works if projects running past 2030 are covered by multi-year budget commitments.</p>
+        <div class="links"><a href="https://www.vdv.de/presse.aspx?id=32dd0f89-8308-4471-af7d-cede849fffa7&amp;mode=detail&amp;coriander=V3_9d09b163-14d4-51e1-7b6d-dfc828ea9830" target="_blank" rel="noopener">VDV press release</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="aviation" style="--c:var(--air)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global aviation</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M8 29l32-3 10-19h9l-5 18 28-3 8-10h8l-3 15 3 15h-8l-8-10-28-3 5 18h-9L40 28l-32 1z" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Developing. Reported by aeroTELEGRAPH</span>
+        <h3>Spain's strike could affect up to 663,000 air passengers</h3>
+        <p>Minimum services require 18% to 85% of flights depending on route, with island links most protected and short mainland routes least; up to 4,600 movements may be hit, including air traffic control. Airlines and Aena had not published cancellation lists in the reports read.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/generalstreik-in-spanien-koennte-tausende-fluege-beeintraechtigen/cxcw9cd" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">777X part based on a Reuters summary. Reported by aeroTELEGRAPH</span>
+        <h3>Emirates freezes Berlin plans, eyes up to five 777X in late 2027</h3>
+        <p>Tim Clark said Germany's cap of seven weekly flights without onward rights puts the April launch on hold: „Bis wir mehr Klarheit haben, liegt das Vorhaben auf Eis.“ He hopes for the first 777X jets towards the end of 2027.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/airlines/emirates-wuerde-gerne-ab-april-mit-boeing-777-nach-berlin-fliegen-muss-aber-noch/szs72y4" target="_blank" rel="noopener">aeroTELEGRAPH</a><a href="https://www.marketscreener.com/news/emirates-hopes-to-get-up-to-five-boeing-777x-jets-next-year-president-says-ce785edadb81f626" target="_blank" rel="noopener">Reuters (MarketScreener)</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported by Simple Flying</span>
+        <h3>Lufthansa takes its first A350-1000, its 700th Airbus</h3>
+        <p>D-AIFA “Deutschland” ferries to Munich today and starts Munich–Tokyo Haneda on 3 December, the group's first long-haul jet with Starlink WiFi. Spohr says it uses up to 30% less fuel per passenger.</p>
+        <div class="links"><a href="https://simpleflying.com/lufthansa-first-a350-1000-delivery-700th-airbus-overall/" target="_blank" rel="noopener">Read at Simple Flying</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="topic" style="--c:var(--tech)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Topic of the day: Open source</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M30 4h44v44H30zM30 18h44M30 33h44M37 11h4M37 25h4M37 40h4M50 11h17M50 25h17M50 40h17M4 26h26M74 26h26"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Official announcement, Asahi Linux. Also reported by It's FOSS</span>
+        <h3>Asahi Linux moves from MIT to GPL after code was taken</h3>
+        <p>The Apple Silicon Linux project is relicensing its repositories to GPL-2.0-or-later, saying unreleased code was taken without credit or rewritten with LLM help to hide its origin. BSD developers have criticised the move; OpenBSD relies on Asahi's m1n1 bootloader.</p>
+        <div class="links"><a href="https://asahilinux.org/2026/11/progress-report-7-3/" target="_blank" rel="noopener">Asahi Linux</a><a href="https://itsfoss.com/news/asahi-linux-drops-mit-for-gpl/" target="_blank" rel="noopener">It's FOSS</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported by Phoronix</span>
+        <h3>Synaptics legal threat stops open DisplayLink driver “Vino”</h3>
+        <p>A cease-and-desist citing patents was posted to LKML and the reverse-engineered Rust driver's repository is no longer public. Phoronix expects no upstream driver for current DisplayLink hardware soon.</p>
+        <div class="links"><a href="https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver" target="_blank" rel="noopener">Read at Phoronix</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Company claims, not independently confirmed. Reported by TechRadar</span>
+        <h3>OpenAI says its agents found 948 Linux kernel root bugs</h3>
+        <p>OpenAI says a 30-hour automated run found 948 local privilege-escalation flaws and sent patches to maintainers; 61 were fixed when the analysis ended. It raises questions about maintainer load from AI-found bugs.</p>
+        <div class="links"><a href="https://techradar.com/pro/security/openai-says-its-cyber-model-found-and-patched-nearly-1000-linux-kernel-security-issues" target="_blank" rel="noopener">Read at TechRadar</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="notice" aria-labelledby="notes">
+    <h2 id="notes">About this edition</h2>
+    <p><strong>Source access:</strong> Reuters, AP and Die Zeit were blocked for Claude's web tools, and tagesschau, BBC News, Der Spiegel, Süddeutsche Zeitung, RTVE, El País and La Vanguardia were blocked or not reachable in recent runs. World and German items therefore come from ZDFheute, Al Jazeera and Tagesspiegel, and Spanish items from elDiario.es and Público. The Emirates 777X detail rests on a paywalled Reuters summary seen only in headline form. Eurailpress showed only stale pages, and Bahn Manager and the federal transport ministry site did not load. FlightGlobal, aero.de and airliners.de showed outdated content. heise was blocked; Golem, ServeTheHome and Hacker News were not checked; LWN subscriber-only articles were not used.</p>
+    <p><strong>Pictures:</strong> This page uses custom icons. News photos are left out.</p>
+    <p><strong>Trial run:</strong> This page is updated each morning alongside the regular text digest. Each edition replaces the one before it.</p>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://www.zdfheute.de/politik/ausland/ukraine-verhandlungen-abu-dhabi-selenskyj-bilanz-gefangenenaustausch-100.html" target="_blank" rel="noopener">ZDFheute: Abu Dhabi talks, day one</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/11/russia-claims-interception-of-146-drones-in-leningrad-region" target="_blank" rel="noopener">Al Jazeera: Drones over Leningrad region</a></li>
+      <li><a href="https://www.aljazeera.com/news/liveblog/2026/11/11/iran-war-live-hegseth-survives-impeachment-bid-iran-denies-us-talks" target="_blank" rel="noopener">Al Jazeera: Hegseth survives impeachment bid</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/11/us-charges-3-iranian-backed-men-over-alleged-plot-at-uk-fairford-air-base" target="_blank" rel="noopener">Al Jazeera: RAF Fairford plot charges</a></li>
+      <li><a href="https://www.zdfheute.de/politik/klima-co2-emissionen-global-carbon-project-100.html" target="_blank" rel="noopener">ZDFheute: Global Carbon Project</a></li>
+      <li><a href="https://www.zdfheute.de/politik/ausland/eu-ukraine-finanzierung-streit-fico-merz-100.html" target="_blank" rel="noopener">ZDFheute: Merz and Fico</a></li>
+      <li><a href="https://www.tagesspiegel.de/politik/beliebt-bei-ehepaaren-finanzminister-klingbeil-will-steuerklassen-iii-und-v-abschaffen-16267048.html" target="_blank" rel="noopener">Tagesspiegel: Tax classes III and V</a></li>
+      <li><a href="https://www.tagesspiegel.de/politik/reuters-hunderttausende-konnten-profitieren-spd-fraktion-dringt-auf-neues-bleiberecht-fur-arbeitende-gefluchtete-16270254.html" target="_blank" rel="noopener">Tagesspiegel (Reuters): SPD Bleiberecht paper</a></li>
+      <li><a href="https://www.zdfheute.de/politik/deutschland/mecklenburg-vorpommern-koalitionsvertrag-rot-rot-gruen-100.html" target="_blank" rel="noopener">ZDFheute: MV coalition deal</a></li>
+      <li><a href="https://eldiario.es/economia/huelga-general-11-noviembre-ultima-hora-directo-arranca-gran-paro-vivienda_133_13653845.html" target="_blank" rel="noopener">elDiario.es: 11-N strike live</a></li>
+      <li><a href="https://www.publico.es/politica/gobierno/gobierno-despeja-agenda-respalda-huelga-inedita-nadie-favor-derechos.html" target="_blank" rel="noopener">Público: Government and the strike</a></li>
+      <li><a href="https://www.eldiario.es/politica/pp-asume-programa-electoral-prioridad-nacional-vox-modificar-imv-atajar-absentismo-injustificado_1_13652361.html" target="_blank" rel="noopener">elDiario.es: PP programme</a></li>
+      <li><a href="https://www.publico.es/politica/gobierno/gobierno-recurre-constitucional-ley-valenciana-incluyo-prioridad-nacional.html" target="_blank" rel="noopener">Público: Challenge to Valencian law</a></li>
+      <li><a href="https://www.eldiario.es/politica/abogada-koldo-garcia-renuncia-defensa_1_13652818.html" target="_blank" rel="noopener">elDiario.es: Koldo García's lawyer resigns</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/rheinbahn-mehr-sicherheitsmassnahmen/" target="_blank" rel="noopener">Zughalt.de: Rheinbahn safety programme</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/vrn-analysiert-knoten-leistung/" target="_blank" rel="noopener">Zughalt.de: VRN and Mannheim hub</a></li>
+      <li><a href="https://www.vrr.de/verbuende-allianz-setzt-sich-fuer-deutschlandticket-ein/" target="_blank" rel="noopener">VRR press release: Verbünde-Allianz</a></li>
+      <li><a href="https://www.vdv.de/presse.aspx?id=32dd0f89-8308-4471-af7d-cede849fffa7&amp;mode=detail&amp;coriander=V3_9d09b163-14d4-51e1-7b6d-dfc828ea9830" target="_blank" rel="noopener">VDV press release: ERTMS funding</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/generalstreik-in-spanien-koennte-tausende-fluege-beeintraechtigen/cxcw9cd" target="_blank" rel="noopener">aeroTELEGRAPH: Spain strike and flights</a></li>
+      <li><a href="https://www.aerotelegraph.com/airlines/emirates-wuerde-gerne-ab-april-mit-boeing-777-nach-berlin-fliegen-muss-aber-noch/szs72y4" target="_blank" rel="noopener">aeroTELEGRAPH: Emirates and Berlin</a></li>
+      <li><a href="https://www.marketscreener.com/news/emirates-hopes-to-get-up-to-five-boeing-777x-jets-next-year-president-says-ce785edadb81f626" target="_blank" rel="noopener">Reuters via MarketScreener: Emirates 777X</a></li>
+      <li><a href="https://simpleflying.com/lufthansa-first-a350-1000-delivery-700th-airbus-overall/" target="_blank" rel="noopener">Simple Flying: Lufthansa A350-1000</a></li>
+      <li><a href="https://asahilinux.org/2026/11/progress-report-7-3/" target="_blank" rel="noopener">Asahi Linux: Progress report 7.3</a></li>
+      <li><a href="https://itsfoss.com/news/asahi-linux-drops-mit-for-gpl/" target="_blank" rel="noopener">It's FOSS: Asahi drops MIT for GPL</a></li>
+      <li><a href="https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver" target="_blank" rel="noopener">Phoronix: Synaptics blocks Vino</a></li>
+      <li><a href="https://techradar.com/pro/security/openai-says-its-cyber-model-found-and-patched-nearly-1000-linux-kernel-security-issues" target="_blank" rel="noopener">TechRadar: OpenAI kernel bug report</a></li>
+    </ol>
+  </section>
+</main>
+
+</body></html>

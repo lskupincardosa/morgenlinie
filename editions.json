@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-11T20:21:11Z",
+  "editions": [
+    {
+      "date": "2026-11-11",
+      "path": "editions/2026-11-11.html",
+      "topic": "Open source",
+      "sha256": "b2925dbf04ad5b2859232a25feaeb19071fc9d07eda6cd92e4b5654cc2c3940f",
+      "bytes": 33005
+    }
+  ]
+}
