@@ -9,7 +9,7 @@ enum AppConfig {
             return url
         }
         #endif
-        return URL(string: "https://lskupincardosa.github.io/morgenlinie/")!
+        return URL(string: "https://morgenlinie.lskupincardosa.workers.dev/")!
     }()
     static let manifestURL = baseURL.appending(path: "editions.json")
     static let supportedSchemaVersion = 1
