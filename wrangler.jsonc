@@ -1,0 +1,13 @@
+// Cloudflare Workers config. The archive is plain static files, so no Worker
+// code runs: Cloudflare serves this folder (minus .assetsignore) as static assets.
+// Workers Builds redeploys on every push to main (deploy command: npx wrangler deploy).
+{
+  "name": "morgenlinie",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "."
+  },
+  "observability": {
+    "enabled": false
+  }
+}

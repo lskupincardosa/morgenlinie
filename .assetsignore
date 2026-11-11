@@ -1,0 +1,13 @@
+# Repo files that should not be published
+.git
+.gitignore
+.assetsignore
+.nojekyll
+.DS_Store
+wrangler.jsonc
+README.md
+scripts
+ios
+node_modules
+.wrangler
+.cloudflare

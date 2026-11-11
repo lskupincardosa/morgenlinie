@@ -1,14 +1,15 @@
 # Morgenlinie
 
-Archive of the daily Morgenlinie news page, served by GitHub Pages for the Morgenlinie iOS app.
+Archive of the daily Morgenlinie news page, served as static assets by a Cloudflare Worker for the Morgenlinie iOS app.
 
 - `editions/YYYY-MM-DD.html`: one self-contained page per day, stored byte-for-byte as published
 - `editions.json`: manifest the app syncs from (date, topic, sha256, size), newest first
 - `index.html`: plain archive list for browsers (`noindex`)
 - `scripts/add_edition.py`: adds a page and rebuilds `editions.json` and `index.html`
-- `ios/`: the iOS app (SwiftUI). Public via Pages, so keep secrets out of it.
+- `ios/`: the iOS app (SwiftUI). Not published (see `.assetsignore`), but the repo is public, so keep secrets out of it.
+- `wrangler.jsonc`, `.assetsignore`, `_headers`: Cloudflare config. Workers Builds redeploys on every push to `main`.
 
-Base URL: https://lskupincardosa.github.io/morgenlinie/
+Base URL: https://morgenlinie.lskupincardosa.workers.dev/ (`editions.json` is served with `max-age=0` and an ETag, so new editions show up immediately).
 
 ## Adding an edition
 
