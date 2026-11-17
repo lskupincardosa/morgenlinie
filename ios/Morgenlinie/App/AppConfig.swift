@@ -15,7 +15,7 @@ enum AppConfig {
     static let supportedSchemaVersion = 1
 
     /// Must match BGTaskSchedulerPermittedIdentifiers in Info.plist.
-    static let refreshTaskID = "com.lskupincardosa.morgenlinie.refresh"
+    static let refreshTaskID = "tech.flyingant.morgenlinie.refresh"
     /// The export lands at about 07:50 Berlin; ask iOS to wake us a little later.
     static let refreshTime = DateComponents(hour: 7, minute: 55)
     static let editionTimeZone = TimeZone(identifier: "Europe/Berlin")!

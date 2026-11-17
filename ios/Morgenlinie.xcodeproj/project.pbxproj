@@ -194,11 +194,11 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					411CAC00723F5E427B27B4CC = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 449GV3DLPZ;
 						ProvisioningStyle = Automatic;
 					};
 					ECE931560B23F7497C6670DB = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 449GV3DLPZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -287,7 +287,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lskupincardosa.MorgenlinieTests;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.flyingant.MorgenlinieTests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Morgenlinie.app/Morgenlinie";
@@ -305,7 +305,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lskupincardosa.morgenlinie;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.flyingant.morgenlinie;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -348,7 +348,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 449GV3DLPZ;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -382,7 +382,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lskupincardosa.MorgenlinieTests;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.flyingant.MorgenlinieTests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Morgenlinie.app/Morgenlinie";
@@ -400,7 +400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lskupincardosa.morgenlinie;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.flyingant.morgenlinie;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -443,7 +443,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 449GV3DLPZ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
