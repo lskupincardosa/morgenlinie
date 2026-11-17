@@ -31,22 +31,17 @@ struct RootView: View {
 
 struct TodayView: View {
     @Environment(AppModel.self) private var model
-    @Environment(\.readingLayout) private var layout
     @Query(sort: \Edition.date, order: .reverse) private var editions: [Edition]
 
+    /// Always the page on its own, full width, also on the unfolded iPhone Duo and iPad.
+    /// The list beside the page is the Archive tab's job.
     var body: some View {
-        if layout.isWide {
-            EditionColumns(title: "Editions", editions: editions,
-                           selection: Binding(get: { date }, set: { select($0) }),
-                           web: model.todayReader)
-        } else {
-            NavigationStack {
-                if let date {
-                    ReaderScreen(editions: editions, date: Binding(get: { date }, set: { select($0) }),
-                                 sharedWeb: model.todayReader)
-                } else {
-                    EmptyArchiveView()
-                }
+        NavigationStack {
+            if let date {
+                ReaderScreen(editions: editions, date: Binding(get: { date }, set: { select($0) }),
+                             sharedWeb: model.todayReader)
+            } else {
+                EmptyArchiveView()
             }
         }
     }
