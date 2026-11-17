@@ -52,6 +52,27 @@ final class AppModel {
         }
     }
 
+    /// Switches to another archive (nil = the default): removes the downloaded editions,
+    /// since dates from two archives would collide, and syncs from the new address.
+    func switchArchive(to url: URL?) async {
+        if let url, url != AppConfig.defaultBaseURL {
+            UserDefaults.standard.set(url.absoluteString, forKey: AppConfig.baseURLKey)
+        } else {
+            UserDefaults.standard.removeObject(forKey: AppConfig.baseURLKey)
+        }
+        let context = container.mainContext
+        try? context.delete(model: Edition.self)
+        try? context.save()
+        EditionStore.removeAll()
+        sync.resetCache()
+        todayDate = nil
+        archiveDate = nil
+        archivePath = []
+        todayReader.forget()
+        archiveReader.forget()
+        await refresh()
+    }
+
     func open(date: String?) {
         selectedTab = .today
         todayDate = date

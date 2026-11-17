@@ -56,3 +56,18 @@ struct EditionHTMLTests {
         #expect(ISO8601DateFormatter().string(from: next) == "2026-11-12T06:55:00Z")
     }
 }
+
+struct AppConfigTests {
+    @Test func normalizesArchiveAddresses() {
+        #expect(AppConfig.normalizedBaseURL("example.com")?.absoluteString == "https://example.com/")
+        #expect(AppConfig.normalizedBaseURL(" https://a.workers.dev/editions.json ")?.absoluteString == "https://a.workers.dev/")
+        #expect(AppConfig.normalizedBaseURL("http://localhost:8000")?.absoluteString == "http://localhost:8000/")
+        #expect(AppConfig.normalizedBaseURL("") == nil)
+        #expect(AppConfig.normalizedBaseURL("ftp://x.org") == nil)
+    }
+
+    @Test func addsAppStyleInsideHead() {
+        let out = EditionHTML.addingAppStyle(to: "<html><head><title>x</title></head><body></body></html>")
+        #expect(out.contains("\(EditionHTML.appStyle)</head>"))
+    }
+}

@@ -83,7 +83,8 @@ final class ReaderWebModel {
             html = "<meta name=viewport content='width=device-width'><p style='font:17px -apple-system;padding:24px'>This edition's file is missing. Pull to refresh in the archive to download it again.</p>"
         }
         policy.documentURL = edition.webURL
-        _ = page.load(html: EditionHTML.applyingTheme(theme.dataTheme, to: html), baseURL: edition.webURL)
+        _ = page.load(html: EditionHTML.addingAppStyle(to: EditionHTML.applyingTheme(theme.dataTheme, to: html)),
+                      baseURL: edition.webURL)
     }
 
     /// Makes the next `show` load the page again, even for the same edition.

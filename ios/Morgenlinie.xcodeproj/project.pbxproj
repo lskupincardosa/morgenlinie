@@ -12,6 +12,7 @@
 		0AF5769EA84490B6C2F3FBD1 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A890B68C0EEC7E4C68D3341 /* BackgroundRefresh.swift */; };
 		0F8AFDB769D589EA51B3C2A3 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE9CE35FADB854C8DD34D7 /* Notifier.swift */; };
 		3178E645E070FECD4FE13EF2 /* Edition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F410894796EF9BB4B4CD8596 /* Edition.swift */; };
+		36C64B203D89C49FB147B06D /* ArchiveSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E244661950B436E6E62B04D2 /* ArchiveSourceView.swift */; };
 		64C0F0C32BE9C17A196942E5 /* ReaderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7F28BC09BD055CDE36C72 /* ReaderScreen.swift */; };
 		71FF9F139BAEFF4007E964E8 /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3D6F79A271AB7BA5D39677 /* Manifest.swift */; };
 		8784F6EF90CE126300F367F1 /* MorgenlinieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059DDAC2993170CC480B7596 /* MorgenlinieApp.swift */; };
@@ -59,6 +60,7 @@
 		B60D97473F120D6ED7811EAA /* EditionSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionSync.swift; sourceTree = "<group>"; };
 		BD22D788FAFADF3042866A04 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CD270236353A1134B1973A91 /* EditionHTMLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionHTMLTests.swift; sourceTree = "<group>"; };
+		E244661950B436E6E62B04D2 /* ArchiveSourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSourceView.swift; sourceTree = "<group>"; };
 		F410894796EF9BB4B4CD8596 /* Edition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edition.swift; sourceTree = "<group>"; };
 		FCCA87ABB6DE83D25C9B7675 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C836EAF118DF51268E8CC7 /* AppIconPicker.swift */,
+				E244661950B436E6E62B04D2 /* ArchiveSourceView.swift */,
 				A72F9893AE1EDDFE3A7B8102 /* ArchiveView.swift */,
 				A31B869706DBD6089C7B3729 /* EditionWebView.swift */,
 				3BA7F28BC09BD055CDE36C72 /* ReaderScreen.swift */,
@@ -245,6 +248,7 @@
 				C725F409E764E2EB73F4C2B8 /* AppConfig.swift in Sources */,
 				CD315F7B340380DF852BB72F /* AppIconPicker.swift in Sources */,
 				9FF67CDD49A8ED0D1C673224 /* AppModel.swift in Sources */,
+				36C64B203D89C49FB147B06D /* ArchiveSourceView.swift in Sources */,
 				FC4FC340E926706A689CAC44 /* ArchiveView.swift in Sources */,
 				0AF5769EA84490B6C2F3FBD1 /* BackgroundRefresh.swift in Sources */,
 				3178E645E070FECD4FE13EF2 /* Edition.swift in Sources */,

@@ -21,6 +21,24 @@ final class EditionSync {
         lastSuccess = defaults.object(forKey: "lastSyncSuccess") as? Date
     }
 
+    /// Forgets the manifest ETag and status, e.g. after switching archives.
+    func resetCache() {
+        defaults.removeObject(forKey: etagKey)
+        defaults.removeObject(forKey: "lastSyncSuccess")
+        lastSuccess = nil
+        lastError = nil
+        needsAppUpdate = false
+    }
+
+    /// Checks that `base` serves a manifest this app can read.
+    func probe(base: URL) async throws {
+        let request = URLRequest(url: base.appending(path: "editions.json"), cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
+        let (data, response) = try await session.data(for: request)
+        let status = (response as? HTTPURLResponse)?.statusCode ?? -1
+        guard status == 200 else { throw SyncError.http(status) }
+        guard (try? JSONDecoder().decode(Manifest.VersionProbe.self, from: data)) != nil else { throw SyncError.notAnArchive }
+    }
+
     /// Returns the dates of editions that were new on this device (newest first).
     @discardableResult
     func run(context: ModelContext) async -> [String] {
@@ -115,11 +133,12 @@ final class EditionSync {
     }
 
     enum SyncError: LocalizedError {
-        case http(Int), checksum(String), downloads(Int)
+        case http(Int), checksum(String), downloads(Int), notAnArchive
         var errorDescription: String? {
             switch self {
             case .http(let code): "The server answered with status \(code)."
             case .checksum(let date): "The edition for \(date) didn't match its checksum."
+            case .notAnArchive: "That address doesn't serve a Morgenlinie archive (editions.json)."
             case .downloads(let n): n == 1 ? "One edition couldn't be downloaded." : "\(n) editions couldn't be downloaded."
             }
         }

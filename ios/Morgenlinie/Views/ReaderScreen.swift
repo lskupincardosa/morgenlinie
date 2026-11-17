@@ -25,6 +25,7 @@ struct ReaderScreen: View {
             if let web {
                 WebView(web.page)
                     .webViewLinkPreviews(.disabled)
+                    .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
             } else {
                 Color.clear
             }
@@ -78,7 +79,17 @@ struct IdentifiableURL: Identifiable {
 }
 
 struct SafariView: UIViewControllerRepresentable {
+    /// Settings toggle: open articles in Safari's Reader view (text and pictures, no ads).
+    static let readerKey = "openLinksInReader"
+
     let url: URL
-    func makeUIViewController(context: Context) -> SFSafariViewController { SFSafariViewController(url: url) }
+    @AppStorage(SafariView.readerKey) private var useReader = true
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        let config = SFSafariViewController.Configuration()
+        // Falls back to the normal page when a site has no Reader view (e.g. some paywalls).
+        config.entersReaderIfAvailable = useReader
+        return SFSafariViewController(url: url, configuration: config)
+    }
     func updateUIViewController(_ controller: SFSafariViewController, context: Context) {}
 }

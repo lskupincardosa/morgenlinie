@@ -37,6 +37,20 @@ enum EditionHTML {
         return out
     }
 
+    /// App-only CSS: the page never scrolls sideways (the route nav keeps its own scroller).
+    static let appStyle = "<style id=\"morgenlinie-app\">html,body{overflow-x:clip;max-width:100%}</style>"
+
+    /// Adds `appStyle` right before </head>, or at the start if there is no head.
+    static func addingAppStyle(to html: String) -> String {
+        var out = html
+        if let end = out.firstRange(of: /<\/head>/.ignoresCase()) {
+            out.insert(contentsOf: appStyle, at: end.lowerBound)
+        } else {
+            out = appStyle + out
+        }
+        return out
+    }
+
     static func decodeEntities(_ s: String) -> String {
         guard s.contains("&") else { return s }
         return s.replacingOccurrences(of: "&quot;", with: "\"")
