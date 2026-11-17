@@ -86,6 +86,11 @@ final class ReaderWebModel {
         _ = page.load(html: EditionHTML.applyingTheme(theme.dataTheme, to: html), baseURL: edition.webURL)
     }
 
+    /// Makes the next `show` load the page again, even for the same edition.
+    func forget() {
+        loadedKey = nil
+    }
+
     func jump(to sectionID: String) async {
         _ = try? await page.callJavaScript(
             "const el = document.getElementById(id); if (el) { el.scrollIntoView({behavior: 'smooth'}); history.replaceState(null, '', '#' + id) }",

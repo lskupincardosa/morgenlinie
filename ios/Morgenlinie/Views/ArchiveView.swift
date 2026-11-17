@@ -3,7 +3,48 @@ import SwiftUI
 
 struct ArchiveView: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.readingLayout) private var layout
     @Query(sort: \Edition.date, order: .reverse) private var editions: [Edition]
+
+    var body: some View {
+        @Bindable var model = model
+        Group {
+            if layout.isWide {
+                EditionColumns(title: "Archive", editions: editions, selection: $model.archiveDate,
+                               web: model.archiveReader)
+            } else {
+                NavigationStack(path: $model.archivePath) {
+                    ArchiveList(title: "Archive", editions: editions)
+                        .navigationDestination(for: String.self) { opened in
+                            ReaderScreen(editions: editions,
+                                         date: Binding(get: { model.archiveDate ?? opened },
+                                                       set: { model.archiveDate = $0 }),
+                                         sharedWeb: model.archiveReader)
+                        }
+                }
+            }
+        }
+        .onChange(of: model.archivePath) { _, path in
+            model.archiveDate = path.last
+            // Back in the list: the next edition opened starts at the top, as before.
+            if path.isEmpty { model.archiveReader.forget() }
+        }
+        .onChange(of: layout.isWide) { _, isWide in
+            // Folding keeps the edition that was open beside the list.
+            if !isWide { model.archivePath = model.archiveDate.map { [$0] } ?? [] }
+        }
+    }
+}
+
+/// Editions grouped by month. `editions` is newest first.
+struct ArchiveList: View {
+    let title: LocalizedStringKey
+    let editions: [Edition]
+    /// With a selection, rows select an edition for the reader beside the list; without one,
+    /// they push the reader.
+    var selection: Binding<String?>?
+
+    @Environment(AppModel.self) private var model
 
     private var months: [(key: String, editions: [Edition])] {
         var result: [(key: String, editions: [Edition])] = []
@@ -18,42 +59,28 @@ struct ArchiveView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            List {
-                if model.sync.needsAppUpdate {
-                    UpdateHint()
-                }
-                ForEach(months, id: \.key) { month in
-                    Section(month.editions[0].day.formatted(.dateTime.month(.wide).year())) {
-                        ForEach(month.editions) { edition in
+        List(selection: selection) {
+            if model.sync.needsAppUpdate {
+                UpdateHint()
+            }
+            ForEach(months, id: \.key) { month in
+                Section(month.editions[0].day.formatted(.dateTime.month(.wide).year())) {
+                    ForEach(month.editions) { edition in
+                        if selection == nil {
                             NavigationLink(value: edition.date) { ArchiveRow(edition: edition) }
+                        } else {
+                            ArchiveRow(edition: edition)
+                                .tag(edition.date) // otherwise the month's ID is the selection
                         }
                     }
                 }
             }
-            .navigationTitle("Archive")
-            .navigationDestination(for: String.self) { date in
-                ArchiveReader(editions: editions, initialDate: date)
-            }
-            .refreshable { await model.refresh() }
-            .overlay {
-                if editions.isEmpty { EmptyArchiveView() }
-            }
         }
-    }
-}
-
-private struct ArchiveReader: View {
-    let editions: [Edition]
-    @State private var date: String
-
-    init(editions: [Edition], initialDate: String) {
-        self.editions = editions
-        _date = State(initialValue: initialDate)
-    }
-
-    var body: some View {
-        ReaderScreen(editions: editions, date: $date)
+        .navigationTitle(title)
+        .refreshable { await model.refresh() }
+        .overlay {
+            if editions.isEmpty { EmptyArchiveView() }
+        }
     }
 }
 

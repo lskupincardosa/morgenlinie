@@ -14,6 +14,15 @@ final class AppModel {
     var selectedTab: AppTab = .today
     /// The edition shown in the Today tab; nil means the newest one.
     var todayDate: String?
+    /// The edition open in the Archive tab and the stack that led there. Kept here so they
+    /// survive the layout change when an iPhone Duo is folded or unfolded.
+    var archiveDate: String?
+    var archivePath: [String] = []
+
+    /// The readers outlive their views, so a rebuilt layout shows the same page at the same
+    /// scroll position instead of loading it again.
+    @ObservationIgnored lazy var todayReader = ReaderWebModel()
+    @ObservationIgnored lazy var archiveReader = ReaderWebModel()
 
     private init() {
         do {

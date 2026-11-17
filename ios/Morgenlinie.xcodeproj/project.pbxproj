@@ -18,6 +18,7 @@
 		954E15169E05B5B61A8F0E9A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B36520A0143D71D0F22C6E4 /* SettingsView.swift */; };
 		9FF67CDD49A8ED0D1C673224 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCA87ABB6DE83D25C9B7675 /* AppModel.swift */; };
 		A7F55C6282AFE55A03AB4AE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3027324CD3115A87AD31FDFA /* Assets.xcassets */; };
+		ABF16891F6B799391D318801 /* ReadingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57421C2C1854E4708AD379D0 /* ReadingLayout.swift */; };
 		AEA4DB435239285EC7708C25 /* EditionHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5EB4A2CC3930F5FC3A4764 /* EditionHTML.swift */; };
 		C4DD1E261BE9BD8D8545D7F4 /* EditionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31B869706DBD6089C7B3729 /* EditionWebView.swift */; };
 		C725F409E764E2EB73F4C2B8 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5331BAF0E051861F70D75B3A /* AppConfig.swift */; };
@@ -47,6 +48,7 @@
 		3BA7F28BC09BD055CDE36C72 /* ReaderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderScreen.swift; sourceTree = "<group>"; };
 		48CE9CE35FADB854C8DD34D7 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		5331BAF0E051861F70D75B3A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		57421C2C1854E4708AD379D0 /* ReadingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingLayout.swift; sourceTree = "<group>"; };
 		5D66C0A2BF0FDA71A68DAE0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7A2D453D8E2A03E8DAEAFCD3 /* MorgenlinieTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MorgenlinieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B36520A0143D71D0F22C6E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				A72F9893AE1EDDFE3A7B8102 /* ArchiveView.swift */,
 				A31B869706DBD6089C7B3729 /* EditionWebView.swift */,
 				3BA7F28BC09BD055CDE36C72 /* ReaderScreen.swift */,
+				57421C2C1854E4708AD379D0 /* ReadingLayout.swift */,
 				BD22D788FAFADF3042866A04 /* RootView.swift */,
 				9B36520A0143D71D0F22C6E4 /* SettingsView.swift */,
 			);
@@ -249,6 +252,7 @@
 				8784F6EF90CE126300F367F1 /* MorgenlinieApp.swift in Sources */,
 				0F8AFDB769D589EA51B3C2A3 /* Notifier.swift in Sources */,
 				64C0F0C32BE9C17A196942E5 /* ReaderScreen.swift in Sources */,
+				ABF16891F6B799391D318801 /* ReadingLayout.swift in Sources */,
 				D09692BBF5CB85E601163D55 /* RootView.swift in Sources */,
 				954E15169E05B5B61A8F0E9A /* SettingsView.swift in Sources */,
 			);
