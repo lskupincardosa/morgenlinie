@@ -6,12 +6,15 @@ import WebKit
 struct ReaderScreen: View {
     let editions: [Edition]
     @Binding var date: String
+    /// A reader owned by someone else keeps its page when this view is rebuilt.
+    var sharedWeb: ReaderWebModel?
 
     @AppStorage(ReaderTheme.storageKey) private var theme: ReaderTheme = .system
-    @State private var web: ReaderWebModel?
+    @State private var ownWeb: ReaderWebModel?
     @State private var sections: [EditionHTML.Section] = []
     @State private var safariURL: IdentifiableURL?
 
+    private var web: ReaderWebModel? { sharedWeb ?? ownWeb }
     private var index: Int? { editions.firstIndex { $0.date == date } }
     private var edition: Edition? { index.map { editions[$0] } }
     private var older: Edition? { index.flatMap { $0 + 1 < editions.count ? editions[$0 + 1] : nil } }
@@ -49,7 +52,7 @@ struct ReaderScreen: View {
             }
         }
         .onAppear {
-            if web == nil { web = ReaderWebModel() }
+            if web == nil { ownWeb = ReaderWebModel() }
             web?.setExternalLinkHandler { safariURL = IdentifiableURL(url: $0) }
             load()
         }

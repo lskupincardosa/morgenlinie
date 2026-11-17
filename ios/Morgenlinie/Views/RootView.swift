@@ -4,6 +4,9 @@ import SwiftUI
 struct RootView: View {
     @Environment(AppModel.self) private var model
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.horizontalSizeClass) private var widthClass
+    @Environment(\.verticalSizeClass) private var heightClass
+    @State private var foldOffset: CGFloat?
 
     var body: some View {
         @Bindable var model = model
@@ -12,6 +15,10 @@ struct RootView: View {
             Tab("Archive", systemImage: "calendar", value: AppTab.archive) { ArchiveView() }
             Tab("Settings", systemImage: "gearshape", value: AppTab.settings) { SettingsView() }
         }
+        .environment(\.readingLayout, ReadingLayout(
+            isWide: foldOffset != nil || (widthClass == .regular && heightClass == .regular),
+            foldOffset: foldOffset))
+        .onGeometryChange(for: CGFloat?.self, of: ReadingLayout.verticalFoldOffset) { foldOffset = $0 }
         .onChange(of: scenePhase, initial: true) { _, phase in
             switch phase {
             case .active: Task { await model.refresh() }
@@ -24,18 +31,33 @@ struct RootView: View {
 
 struct TodayView: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.readingLayout) private var layout
     @Query(sort: \Edition.date, order: .reverse) private var editions: [Edition]
 
     var body: some View {
-        NavigationStack {
-            if let newest = editions.first {
-                ReaderScreen(editions: editions, date: Binding(
-                    get: { model.todayDate.flatMap { d in editions.contains { $0.date == d } ? d : nil } ?? newest.date },
-                    set: { model.todayDate = $0 == newest.date ? nil : $0 }))
-            } else {
-                EmptyArchiveView()
+        if layout.isWide {
+            EditionColumns(title: "Editions", editions: editions,
+                           selection: Binding(get: { date }, set: { select($0) }),
+                           web: model.todayReader)
+        } else {
+            NavigationStack {
+                if let date {
+                    ReaderScreen(editions: editions, date: Binding(get: { date }, set: { select($0) }),
+                                 sharedWeb: model.todayReader)
+                } else {
+                    EmptyArchiveView()
+                }
             }
         }
+    }
+
+    /// `model.todayDate` if that edition exists, otherwise the newest one.
+    private var date: String? {
+        model.todayDate.flatMap { d in editions.contains { $0.date == d } ? d : nil } ?? editions.first?.date
+    }
+
+    private func select(_ date: String?) {
+        model.todayDate = date == editions.first?.date ? nil : date
     }
 }
 
