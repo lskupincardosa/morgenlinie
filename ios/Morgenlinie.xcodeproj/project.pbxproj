@@ -22,6 +22,7 @@
 		AEA4DB435239285EC7708C25 /* EditionHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5EB4A2CC3930F5FC3A4764 /* EditionHTML.swift */; };
 		C4DD1E261BE9BD8D8545D7F4 /* EditionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31B869706DBD6089C7B3729 /* EditionWebView.swift */; };
 		C725F409E764E2EB73F4C2B8 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5331BAF0E051861F70D75B3A /* AppConfig.swift */; };
+		CD315F7B340380DF852BB72F /* AppIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C836EAF118DF51268E8CC7 /* AppIconPicker.swift */; };
 		D09692BBF5CB85E601163D55 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD22D788FAFADF3042866A04 /* RootView.swift */; };
 		EA4C0DEAD7E564ED7EA3ED2D /* EditionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1CBDCBE78B1566DC223E0D /* EditionStore.swift */; };
 		FC4FC340E926706A689CAC44 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72F9893AE1EDDFE3A7B8102 /* ArchiveView.swift */; };
@@ -53,6 +54,7 @@
 		7A2D453D8E2A03E8DAEAFCD3 /* MorgenlinieTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MorgenlinieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B36520A0143D71D0F22C6E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A31B869706DBD6089C7B3729 /* EditionWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionWebView.swift; sourceTree = "<group>"; };
+		A4C836EAF118DF51268E8CC7 /* AppIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconPicker.swift; sourceTree = "<group>"; };
 		A72F9893AE1EDDFE3A7B8102 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
 		B60D97473F120D6ED7811EAA /* EditionSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionSync.swift; sourceTree = "<group>"; };
 		BD22D788FAFADF3042866A04 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		EAA8166012938A249A17E78D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A4C836EAF118DF51268E8CC7 /* AppIconPicker.swift */,
 				A72F9893AE1EDDFE3A7B8102 /* ArchiveView.swift */,
 				A31B869706DBD6089C7B3729 /* EditionWebView.swift */,
 				3BA7F28BC09BD055CDE36C72 /* ReaderScreen.swift */,
@@ -240,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C725F409E764E2EB73F4C2B8 /* AppConfig.swift in Sources */,
+				CD315F7B340380DF852BB72F /* AppIconPicker.swift in Sources */,
 				9FF67CDD49A8ED0D1C673224 /* AppModel.swift in Sources */,
 				FC4FC340E926706A689CAC44 /* ArchiveView.swift in Sources */,
 				0AF5769EA84490B6C2F3FBD1 /* BackgroundRefresh.swift in Sources */,
@@ -297,8 +301,10 @@
 		3D2D41E0652C6562ED1E9CEC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-RouteLine AppIcon-StopBadge AppIcon-Sunrise AppIcon-BoardLight AppIcon-RouteGermany AppIcon-BadgeRail";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Morgenlinie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -392,8 +398,10 @@
 		81D0F31ABA1C53FFDF92791B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-RouteLine AppIcon-StopBadge AppIcon-Sunrise AppIcon-BoardLight AppIcon-RouteGermany AppIcon-BadgeRail";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Morgenlinie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

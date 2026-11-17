@@ -20,6 +20,10 @@ struct SettingsView: View {
                     }
                 }
 
+                Section("App icon") {
+                    AppIconPicker()
+                }
+
                 Section {
                     Toggle("New edition notifications", isOn: $notificationsEnabled)
                     if notificationsEnabled && notificationsDenied {
