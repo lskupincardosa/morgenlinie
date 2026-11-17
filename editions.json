@@ -1,7 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-11T20:21:11Z",
+  "updatedAt": "2026-11-17T16:17:37Z",
   "editions": [
+    {
+      "date": "2026-11-17",
+      "path": "editions/2026-11-17.html",
+      "topic": "Self-hosting",
+      "sha256": "7db6b5904fb8b3df900f3090b8325dcbc3dd9ee8fb6035e3edc83bb74c03c24e",
+      "bytes": 26549
+    },
     {
       "date": "2026-11-11",
       "path": "editions/2026-11-11.html",
