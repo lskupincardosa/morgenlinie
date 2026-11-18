@@ -48,8 +48,7 @@ final class AppModel {
         todayDate = nil
         // No notification for the initial download after install.
         if fromBackground, hadEditions {
-            let edition = try? context.fetch(FetchDescriptor<Edition>(predicate: #Predicate { $0.date == newest })).first
-            await Notifier.postNewEdition(date: newest, topic: edition?.topic, headline: edition?.leadHeadline)
+            await Notifier.postNewEdition(date: newest)
         }
     }
 

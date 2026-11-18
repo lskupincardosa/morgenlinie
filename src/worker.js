@@ -6,15 +6,20 @@
 //   POST /push/register    {"token": "<hex APNs device token>", "env": "sandbox" | "production"}
 //   POST /push/unregister  {"token": "<hex>"}
 //   POST /push/test        Authorization: Bearer <ADMIN_TOKEN>; sends the newest edition now
+//                          (?kind=missing sends the "no edition yet" warning instead)
 //
 // A cron trigger runs check() every 10 minutes: when editions.json names a newer date than the
-// one last announced, every registered device gets one notification.
+// one last announced, every registered device gets one notification. If today's edition (Berlin
+// date) is still missing at 07:30 Berlin time, devices get one warning that day instead.
+// Notifications never contain news, only that a new edition is ready.
 //
 // Secrets (npx wrangler secret put …): APNS_KEY (the .p8 file), APNS_KEY_ID, ADMIN_TOKEN.
 // Vars (wrangler.jsonc): APNS_TEAM_ID, APNS_TOPIC (the app's bundle ID).
 
 const MAX_DEVICES = 50;
 const LAST_KEY = "state:lastNotified";
+const MISSING_KEY = "state:missingAlerted";
+const MISSING_AFTER = "07:30"; // Berlin time; the archive routine pushes at about 06:45
 const HOSTS = {
   production: "https://api.push.apple.com",
   sandbox: "https://api.sandbox.push.apple.com",
@@ -71,9 +76,12 @@ async function test(request, env) {
   if (!env.ADMIN_TOKEN || !timingSafeEqual(auth, `Bearer ${env.ADMIN_TOKEN}`)) {
     return json({ error: "unauthorized" }, 401);
   }
+  if (new URL(request.url).searchParams.get("kind") === "missing") {
+    return json({ kind: "missing", results: await notifyAll(env, missingPayload(), `missing-${berlinNow().date}`) });
+  }
   const edition = await newestEdition(env);
   if (!edition) return json({ error: "no editions" }, 500);
-  const results = await notifyAll(env, edition);
+  const results = await notifyAll(env, editionPayload(edition.date), `edition-${edition.date}`);
   return json({ edition: edition.date, results });
 }
 
@@ -88,15 +96,33 @@ async function check(env) {
     await env.PUSH.put(LAST_KEY, edition.date);
     return;
   }
-  if (edition.date <= last) return;
   if (!env.APNS_KEY || !env.APNS_KEY_ID) {
-    console.warn("new edition", edition.date, "but APNs secrets are not set; not announcing yet");
+    console.warn("APNs secrets are not set; not sending anything");
     return;
   }
-  // Mark first, so a slow or failing APNs call never leads to a second notification.
-  await env.PUSH.put(LAST_KEY, edition.date);
-  const results = await notifyAll(env, edition);
-  console.log("notified", edition.date, JSON.stringify(results));
+  if (edition.date > last) {
+    // Mark first, so a slow or failing APNs call never leads to a second notification.
+    await env.PUSH.put(LAST_KEY, edition.date);
+    const results = await notifyAll(env, editionPayload(edition.date), `edition-${edition.date}`);
+    console.log("notified", edition.date, JSON.stringify(results));
+    return;
+  }
+  // Nothing new. Warn once a day if today's edition is overdue.
+  const now = berlinNow();
+  if (edition.date >= now.date || now.time < MISSING_AFTER) return;
+  if ((await env.PUSH.get(MISSING_KEY)) === now.date) return;
+  await env.PUSH.put(MISSING_KEY, now.date);
+  const results = await notifyAll(env, missingPayload(), `missing-${now.date}`);
+  console.log("missing edition warning", now.date, "newest is", edition.date, JSON.stringify(results));
+}
+
+// Current Berlin date ("2026-11-18") and time ("07:30").
+function berlinNow() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Berlin", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+  }).formatToParts(new Date()).map((p) => [p.type, p.value]));
+  return { date: `${parts.year}-${parts.month}-${parts.day}`, time: `${parts.hour}:${parts.minute}` };
 }
 
 // ---- Editions ----
@@ -106,39 +132,15 @@ async function newestEdition(env) {
   if (!res.ok) return null;
   const manifest = await res.json();
   const entry = manifest?.editions?.[0];
-  if (!entry?.date || !entry?.path) return null;
-  let headline = null;
-  const page = await env.ASSETS.fetch(new Request(`https://assets.local/${entry.path}`));
-  if (page.ok) headline = leadHeadline(await page.text());
-  return { date: entry.date, topic: entry.topic ?? null, headline };
-}
-
-// Same rule as the app (EditionHTML.leadHeadline): the first <h3> after the lead story.
-function leadHeadline(html) {
-  const start = html.indexOf('<article class="story lead">');
-  if (start < 0) return null;
-  const m = /<h3[^>]*>([\s\S]*?)<\/h3>/.exec(html.slice(start));
-  if (!m) return null;
-  const text = decodeEntities(m[1].replace(/<[^>]+>/g, "")).split(/\s+/).filter(Boolean).join(" ");
-  return text || null;
-}
-
-function decodeEntities(s) {
-  const named = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
-  return s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (all, e) => {
-    if (e[0] === "#") {
-      const code = e[1] === "x" || e[1] === "X" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : all;
-    }
-    return named[e.toLowerCase()] ?? all;
-  });
+  if (!entry?.date) return null;
+  return { date: entry.date };
 }
 
 const WEEKDAYS = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
   "September", "Oktober", "November", "Dezember"];
 
-// "2026-11-18" → "Mittwoch, 18. November" (matches the app's local notification title).
+// "2026-11-18" → "Mittwoch, 18. November".
 function germanTitle(date) {
   const [y, m, d] = date.split("-").map(Number);
   const weekday = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
@@ -147,19 +149,32 @@ function germanTitle(date) {
 
 // ---- APNs ----
 
-async function notifyAll(env, edition) {
-  const payload = {
+// Keep in sync with Notifier.postNewEdition in the app (the background-refresh fallback).
+function editionPayload(date) {
+  return {
     aps: {
-      alert: {
-        title: `Morgenlinie · ${germanTitle(edition.date)}`,
-        ...(edition.topic ? { subtitle: edition.topic } : {}),
-        body: edition.headline ?? "Die neue Ausgabe ist da.",
-      },
+      alert: { title: "Morgenlinie", body: `Die Ausgabe für ${germanTitle(date)} ist da.` },
       sound: "default",
       "thread-id": "editions",
     },
-    date: edition.date,
+    date,
   };
+}
+
+function missingPayload() {
+  return {
+    aps: {
+      alert: {
+        title: "Morgenlinie: keine neue Ausgabe",
+        body: `Bis ${MISSING_AFTER} Uhr ist keine Ausgabe für heute angekommen. Digest- oder Archiv-Routine prüfen.`,
+      },
+      sound: "default",
+      "thread-id": "status",
+    },
+  };
+}
+
+async function notifyAll(env, payload, collapseId) {
   const { keys } = await env.PUSH.list({ prefix: "device:", limit: MAX_DEVICES });
   if (keys.length === 0) return [];
   const jwt = await providerToken(env);
@@ -167,19 +182,19 @@ async function notifyAll(env, edition) {
   for (const { name } of keys) {
     const token = name.slice("device:".length);
     const record = JSON.parse((await env.PUSH.get(name)) ?? "{}");
-    results.push(await sendToDevice(env, jwt, token, record, payload, edition.date));
+    results.push(await sendToDevice(env, jwt, token, record, payload, collapseId));
   }
   return results;
 }
 
-async function sendToDevice(env, jwt, token, record, payload, date) {
+async function sendToDevice(env, jwt, token, record, payload, collapseId) {
   const preferred = record.env === "production" ? "production" : "sandbox";
   const other = preferred === "production" ? "sandbox" : "production";
-  let res = await apnsPost(env, jwt, preferred, token, payload, date);
+  let res = await apnsPost(env, jwt, preferred, token, payload, collapseId);
   // Xcode builds use the sandbox, TestFlight and App Store builds production. If the app
   // guessed wrong, the token is "bad" on one host and fine on the other.
   if (res.status === 400 && res.reason === "BadDeviceToken") {
-    const retry = await apnsPost(env, jwt, other, token, payload, date);
+    const retry = await apnsPost(env, jwt, other, token, payload, collapseId);
     if (retry.status === 200) {
       await env.PUSH.put(`device:${token}`, JSON.stringify({ ...record, env: other }));
     }
@@ -191,7 +206,7 @@ async function sendToDevice(env, jwt, token, record, payload, date) {
   return { device: token.slice(0, 8), status: res.status, reason: res.reason ?? null };
 }
 
-async function apnsPost(env, jwt, apnsEnv, token, payload, date) {
+async function apnsPost(env, jwt, apnsEnv, token, payload, collapseId) {
   const res = await fetch(`${HOSTS[apnsEnv]}/3/device/${token}`, {
     method: "POST",
     headers: {
@@ -199,7 +214,7 @@ async function apnsPost(env, jwt, apnsEnv, token, payload, date) {
       "apns-topic": env.APNS_TOPIC,
       "apns-push-type": "alert",
       "apns-priority": "10",
-      "apns-collapse-id": `edition-${date}`,
+      "apns-collapse-id": collapseId,
       "apns-expiration": String(Math.floor(Date.now() / 1000) + 12 * 3600),
       "content-type": "application/json",
     },

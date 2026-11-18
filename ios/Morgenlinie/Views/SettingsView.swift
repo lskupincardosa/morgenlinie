@@ -41,7 +41,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Updates")
                 } footer: {
-                    Text("A notification arrives as soon as the new edition is published, usually around 06:45 Berlin time.")
+                    Text("A notification arrives as soon as the new edition is published, usually around 06:45 Berlin time. If there is none by 07:30, you get a warning instead.")
                 }
 
                 Section {
