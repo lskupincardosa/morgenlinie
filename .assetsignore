@@ -11,3 +11,7 @@ ios
 node_modules
 .wrangler
 .cloudflare
+src
+package.json
+package-lock.json
+.dev.vars

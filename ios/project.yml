@@ -18,6 +18,10 @@ targets:
     platform: iOS
     sources:
       - Morgenlinie
+    entitlements:
+      path: Morgenlinie/Morgenlinie.entitlements
+      properties:
+        aps-environment: development
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: tech.flyingant.morgenlinie

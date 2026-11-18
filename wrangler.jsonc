@@ -1,13 +1,29 @@
-// Cloudflare Workers config. The archive is plain static files, so no Worker
-// code runs: Cloudflare serves this folder (minus .assetsignore) as static assets.
+// Cloudflare Workers config. The archive is plain static files served from this folder
+// (minus .assetsignore). Worker code (src/worker.js) runs only for /push/* and on the cron
+// trigger, which sends push notifications for new editions.
 // Workers Builds redeploys on every push to main (deploy command: npx wrangler deploy).
 {
   "name": "morgenlinie",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/push/*"]
+  },
+  "kv_namespaces": [
+    // Registered device tokens ("device:<hex>") and the last announced edition date.
+    { "binding": "PUSH", "id": "3f914c89b518499f928113c8e95e6edc" }
+  ],
+  "triggers": {
+    // Every 10 minutes: announce a new edition soon after the archive routine pushes it.
+    "crons": ["*/10 * * * *"]
+  },
+  "vars": {
+    "APNS_TEAM_ID": "449GV3DLPZ",
+    "APNS_TOPIC": "tech.flyingant.morgenlinie"
   },
   "observability": {
-    "enabled": false
+    "enabled": true
   }
 }

@@ -41,7 +41,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Updates")
                 } footer: {
-                    Text("The app checks for a new edition shortly after 06:50 Berlin time. iOS decides exactly when, so it can be later.")
+                    Text("A notification arrives as soon as the new edition is published, usually around 06:45 Berlin time.")
                 }
 
                 Section {
@@ -84,10 +84,13 @@ struct SettingsView: View {
                 await checkAuthorization()
             }
             .onChange(of: notificationsEnabled) { _, enabled in
-                guard enabled else { return }
                 Task {
-                    await Notifier.requestAuthorization()
-                    await checkAuthorization()
+                    if enabled {
+                        await Notifier.requestAuthorization()
+                        await checkAuthorization()
+                    }
+                    // Registers with the archive's push service, or removes this iPhone from it.
+                    await PushRegistration.refresh()
                 }
             }
         }

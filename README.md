@@ -7,6 +7,7 @@ Archive of the daily Morgenlinie news page, served as static assets by a Cloudfl
 - `index.html`: plain archive list for browsers (`noindex`)
 - `scripts/add_edition.py`: adds a page and rebuilds `editions.json` and `index.html`
 - `ios/`: the iOS app (SwiftUI). Not published (see `.assetsignore`), but the repo is public, so keep secrets out of it.
+- `src/worker.js`: push notifications for new editions (only `/push/*` and a 10-minute cron run code; everything else is a static asset)
 - `wrangler.jsonc`, `.assetsignore`, `_headers`: Cloudflare config. Workers Builds redeploys on every push to `main`.
 
 Base URL: https://morgenlinie.lskupincardosa.workers.dev/ (`editions.json` is served with `max-age=0` and an ETag, so new editions show up immediately).
@@ -38,3 +39,13 @@ This runs automatically: the "Morning news digest" task (05:10 Atlantic/Canary, 
 ```
 
 Bump `schemaVersion` only for breaking changes; the app ignores manifests with a version it does not know.
+
+## Push notifications
+
+The app registers its APNs device token with `POST /push/register`; tokens live in the `PUSH` KV namespace. Every 10 minutes a cron trigger compares the newest date in `editions.json` with the last one announced and, when it is newer, sends one notification per device (title, topic, lead headline). The first run after a deploy only records the current edition.
+
+Secrets (set once with `npx wrangler secret put NAME`): `APNS_KEY` (contents of the `.p8` key), `APNS_KEY_ID`, `ADMIN_TOKEN`. To send the newest edition to all devices right away:
+
+```sh
+curl -X POST -H "Authorization: Bearer $ADMIN_TOKEN" https://morgenlinie.lskupincardosa.workers.dev/push/test
+```

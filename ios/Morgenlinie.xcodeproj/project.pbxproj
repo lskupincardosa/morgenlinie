@@ -11,6 +11,7 @@
 		08D4770D018C280E07F4679B /* EditionSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D97473F120D6ED7811EAA /* EditionSync.swift */; };
 		0AF5769EA84490B6C2F3FBD1 /* BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A890B68C0EEC7E4C68D3341 /* BackgroundRefresh.swift */; };
 		0F8AFDB769D589EA51B3C2A3 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE9CE35FADB854C8DD34D7 /* Notifier.swift */; };
+		2DB0C491E6C27F7A169EDE11 /* PushRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8989A2F48D23F39C943A03B5 /* PushRegistration.swift */; };
 		3178E645E070FECD4FE13EF2 /* Edition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F410894796EF9BB4B4CD8596 /* Edition.swift */; };
 		36C64B203D89C49FB147B06D /* ArchiveSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E244661950B436E6E62B04D2 /* ArchiveSourceView.swift */; };
 		64C0F0C32BE9C17A196942E5 /* ReaderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7F28BC09BD055CDE36C72 /* ReaderScreen.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		059DDAC2993170CC480B7596 /* MorgenlinieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorgenlinieApp.swift; sourceTree = "<group>"; };
 		0E3D6F79A271AB7BA5D39677 /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
+		10B75927CB754090B9A49C15 /* Morgenlinie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Morgenlinie.entitlements; sourceTree = "<group>"; };
 		1F5EB4A2CC3930F5FC3A4764 /* EditionHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionHTML.swift; sourceTree = "<group>"; };
 		2BF6F26DA9B0F0B65B7D246F /* Morgenlinie.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Morgenlinie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D1CBDCBE78B1566DC223E0D /* EditionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionStore.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 		57421C2C1854E4708AD379D0 /* ReadingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingLayout.swift; sourceTree = "<group>"; };
 		5D66C0A2BF0FDA71A68DAE0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7A2D453D8E2A03E8DAEAFCD3 /* MorgenlinieTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MorgenlinieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8989A2F48D23F39C943A03B5 /* PushRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushRegistration.swift; sourceTree = "<group>"; };
 		9B36520A0143D71D0F22C6E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A31B869706DBD6089C7B3729 /* EditionWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditionWebView.swift; sourceTree = "<group>"; };
 		A4C836EAF118DF51268E8CC7 /* AppIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconPicker.swift; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 			children = (
 				3027324CD3115A87AD31FDFA /* Assets.xcassets */,
 				5D66C0A2BF0FDA71A68DAE0E /* Info.plist */,
+				10B75927CB754090B9A49C15 /* Morgenlinie.entitlements */,
 				6DE3D183A339B4D08AB10962 /* App */,
 				206D448D93DA55710A17130A /* Model */,
 				D30ABC772AB339130A508BFF /* Sync */,
@@ -124,6 +128,7 @@
 				2D1CBDCBE78B1566DC223E0D /* EditionStore.swift */,
 				B60D97473F120D6ED7811EAA /* EditionSync.swift */,
 				48CE9CE35FADB854C8DD34D7 /* Notifier.swift */,
+				8989A2F48D23F39C943A03B5 /* PushRegistration.swift */,
 			);
 			path = Sync;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				71FF9F139BAEFF4007E964E8 /* Manifest.swift in Sources */,
 				8784F6EF90CE126300F367F1 /* MorgenlinieApp.swift in Sources */,
 				0F8AFDB769D589EA51B3C2A3 /* Notifier.swift in Sources */,
+				2DB0C491E6C27F7A169EDE11 /* PushRegistration.swift in Sources */,
 				64C0F0C32BE9C17A196942E5 /* ReaderScreen.swift in Sources */,
 				ABF16891F6B799391D318801 /* ReadingLayout.swift in Sources */,
 				D09692BBF5CB85E601163D55 /* RootView.swift in Sources */,
@@ -309,6 +315,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Morgenlinie/Morgenlinie.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Morgenlinie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,6 +413,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Morgenlinie/Morgenlinie.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Morgenlinie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

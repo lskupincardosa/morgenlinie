@@ -42,6 +42,7 @@ final class AppModel {
            !UserDefaults.standard.bool(forKey: "askedForNotifications") {
             UserDefaults.standard.set(true, forKey: "askedForNotifications")
             await Notifier.requestAuthorization()
+            await PushRegistration.refresh()
         }
         guard let newest = newDates.first else { return }
         todayDate = nil
@@ -55,6 +56,8 @@ final class AppModel {
     /// Switches to another archive (nil = the default): removes the downloaded editions,
     /// since dates from two archives would collide, and syncs from the new address.
     func switchArchive(to url: URL?) async {
+        // Leave the old archive's push list; the new one may not offer push at all.
+        await PushRegistration.unregister()
         if let url, url != AppConfig.defaultBaseURL {
             UserDefaults.standard.set(url.absoluteString, forKey: AppConfig.baseURLKey)
         } else {
@@ -71,6 +74,7 @@ final class AppModel {
         todayReader.forget()
         archiveReader.forget()
         await refresh()
+        await PushRegistration.refresh()
     }
 
     func open(date: String?) {

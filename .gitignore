@@ -5,3 +5,4 @@ xcuserdata/
 .wrangler/
 .cloudflare/
 node_modules/
+.dev.vars
