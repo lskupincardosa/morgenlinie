@@ -22,7 +22,7 @@ git push origin main
 
 The date comes from the page header (`<div class="sign-meta"><span>Wednesday 11 November 2026</span>`), the topic from `<h2>Topic of the day: …</h2>` (`null` on weekends). Rerunning for the same day overwrites that edition; rerunning with the same file changes nothing.
 
-This runs automatically: the "Morning news digest" task (06:40 Atlantic/Canary) publishes the page to the Morgenlinie artifact, and the "Morgenlinie archive" routine (07:10 Atlantic/Canary, https://claude.ai/code/routines/trig_01AbDQPC9hrD2E77gfHVEcnm) reads it, runs this script and pushes to `main`.
+This runs automatically: the "Morning news digest" task (05:10 Atlantic/Canary, 06:10 Berlin) publishes the page to the Morgenlinie artifact, and the "Morgenlinie archive" routine (05:40 Atlantic/Canary, 06:40 Berlin, https://claude.ai/code/routines/trig_01AbDQPC9hrD2E77gfHVEcnm) reads it, runs this script and pushes to `main`.
 
 ## Manifest format
 
