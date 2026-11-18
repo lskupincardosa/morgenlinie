@@ -1,0 +1,296 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Morgenlinie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Doto:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a transit line. The sign announces the edition; each section is a stop on one continuous route. */
+:root {
+  --ground: #edf1f2; --paper: #fbfcfc; --ink: #15252c; --muted: #52646c; --line-soft: #c9d4d8;
+  --sign: #0f1b20; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #1c6f8c; --de: #b23a48; --es: #a65f00; --rail: #1f7a55; --air: #4a5bb5; --tech: #7a4a9e;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --dot: "Doto", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark }
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: 76px }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55 }
+a { color: inherit }
+a:focus-visible { outline: 3px solid var(--sign-text); outline-offset: 2px }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+
+.sign { background: var(--sign); color: var(--sign-text) }
+.sign .wrap { display: grid; gap: 6px; padding-block: 28px 22px }
+.sign-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: .05em; color: var(--sign-dim); text-transform: uppercase }
+h1 { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(2.7rem, 10.5vw, 6.2rem); line-height: 1; letter-spacing: .01em }
+.sign-note { margin: 4px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.2rem; color: #f3e6cf }
+
+.route { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line-soft) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sign) }
+.route-scroll { overflow-x: auto; scrollbar-width: none }
+.route ol { list-style: none; display: flex; align-items: stretch; gap: 4px; margin: 0; padding: 9px 0; min-width: max-content }
+.route a { display: flex; align-items: center; gap: 7px; padding: 5px 9px 5px 5px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; border-radius: 4px }
+.route a:hover { background: var(--ground) }
+.bug { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding-inline: 5px; border-radius: 3px; color: var(--paper); background: var(--c); font-family: var(--display); font-weight: 700; font-size: .95rem; line-height: 1 }
+
+main { padding-block: 22px 44px }
+.stop { --c: var(--world); position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 16px; padding-bottom: 42px }
+.stop::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 0; width: 8px; background: var(--c) }
+.stop:last-of-type::before { bottom: 36px }
+.dot { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: 8px solid var(--c); margin-top: 4px }
+.stop-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 42px; margin-bottom: 14px }
+h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.05; text-wrap: balance }
+.stop-head svg { width: 104px; height: 52px; flex: none; color: var(--c) }
+.stories { grid-column: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.story { min-width: 0; display: flex; flex-direction: column; background: var(--paper); padding: 18px 20px; border-radius: 4px }
+.story.lead { grid-column: 1 / -1 }
+.story.lead h3 { font-size: clamp(1.65rem, 3.3vw, 2.15rem) }
+.story.lead p { max-width: 68ch }
+h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 1.42rem; line-height: 1.14; text-wrap: balance }
+.story p { margin: 0 0 12px }
+.kind { align-self: flex-start; margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: .84rem; letter-spacing: .07em; text-transform: uppercase; color: var(--c) }
+.links { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: auto; font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--c) }
+.links a { text-underline-offset: 3px }
+
+.closure { --c: var(--rail); margin-top: 2px; margin-bottom: 14px; overflow-x: auto }
+.closure svg { display: block; width: 100%; height: auto; color: var(--ink) }
+
+.notice { background: var(--paper); border-radius: 4px; padding: 20px; margin-left: 50px; display: grid; gap: 8px }
+.notice h2 { font-size: 1.55rem }
+.notice p { margin: 0; max-width: 72ch }
+.sources { columns: 2; column-gap: 28px; margin: 6px 0 0; padding-left: 20px; font-size: .94rem }
+.sources li { break-inside: avoid; margin-bottom: 4px }
+
+@media (max-width: 680px) {
+  body { font-size: 16.5px }
+  .stories { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 2px; position: relative }
+  .stop { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px }
+  .stop::before { display: none }
+  .stop-head svg { width: 76px; height: 38px }
+  .notice { margin-left: 0 }
+  .sources { columns: 1 }
+  html { scroll-padding-top: 66px }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+</style>
+
+<header class="sign">
+  <div class="wrap">
+    <div class="sign-meta"><span>Wednesday 18 November 2026</span><span>Preview edition</span></div>
+    <h1>MORGENLINIE</h1>
+    <p class="sign-note">Your morning news, six stops. About six minutes.</p>
+  </div>
+</header>
+
+<nav class="route" aria-label="Sections">
+  <div class="wrap route-scroll">
+    <ol>
+      <li><a href="#world" style="--c:var(--world)"><span class="bug">1</span>World</a></li>
+      <li><a href="#germany" style="--c:var(--de)"><span class="bug">2</span>Germany</a></li>
+      <li><a href="#spain" style="--c:var(--es)"><span class="bug">3</span>Spain</a></li>
+      <li><a href="#rail" style="--c:var(--rail)"><span class="bug">4</span>Rail</a></li>
+      <li><a href="#aviation" style="--c:var(--air)"><span class="bug">5</span>Aviation</a></li>
+      <li><a href="#topic" style="--c:var(--tech)"><span class="bug">6</span>Open source</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="stop" id="world" style="--c:var(--world)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global headlines</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="52" cy="26" r="23"/><ellipse cx="52" cy="26" rx="10" ry="23"/><path d="M30 18h44M30 34h44M4 26h25M75 26h25"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">No date for next round. Reported by Al Jazeera</span>
+        <h3>Ukraine talks with US and European envoys; next step in Berlin</h3>
+        <p>Zelenskyy held online talks with Witkoff, Kushner and representatives of France, Germany, Britain, Italy and Poland; they agreed to meet the Coalition of the Willing in Berlin. Zelenskyy says Europe will be represented in future talks with Russia, but Kremlin aide Ushakov said Moscow has not agreed to that. Kushner: “a final agreement will require difficult decisions.” Ukraine struck the Crimea Bridge again overnight; the extent of damage is unclear.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/17/ukraine-holds-peace-talks-with-us-europe-as-conflict-escalates" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">New export rule. Reported by Al Jazeera</span>
+        <h3>US moves to block China's remote access to AI chips</h3>
+        <p>The Commerce Department's BIS now requires export licences for advanced chips to Indonesia, Malaysia, Singapore, Thailand and Brazil, citing “unacceptable risk of diversion”. Commerce and Justice also confirmed a criminal investigation into Megaspeed; Nvidia shares fell 4.1% on Monday.</p>
+        <div class="links"><a href="https://www.aljazeera.com/economy/2026/11/17/us-moves-to-block-chinas-remote-access-to-ai-chips-amid-nvidia-scandal" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Developing. Iranian claims unverified. Al Jazeera with Reuters</span>
+        <h3>UKMTO reports two tankers attacked near Hormuz</h3>
+        <p>One tanker was disabled by an engine-room fire 7 nm north of Khasab, Oman; another was hit by a projectile. No casualties. Iran claims mine strikes, but it is unclear whether these are the same incidents.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/17/tankers-hit-in-strait-of-hormuz-as-drone-raises-alarm-at-iraq-gas-field" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Army figures unverified. Reported by Al Jazeera</span>
+        <h3>Yemen: government forces regroup to defend Aden as Houthis advance</h3>
+        <p>Government-aligned forces pulled back from positions near Bab al-Mandeb, and the Houthis reportedly cut a Red Sea coastal supply route. Parliament voted to designate the Houthis a “terrorist organisation”.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/17/yemen-army-reports-661-attacks-on-houthis-amid-houthi-push-towards-aden" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="germany" style="--c:var(--de)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>German politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M22 47h60M28 47V28h48v19M36 47V28M46 47V28M58 47V28M68 47V28M28 28h48M38 28c0-13 7-20 14-20s14 7 14 20M52 8V3"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Developing. Tagesspiegel (dpa, AFP, Reuters)</span>
+        <h3>Koalitionsausschuss agrees Stromsteuer cut for 2027</h3>
+        <p>After talks from 17:30 to about 2:00, CDU, CSU and SPD agreed to cut the electricity tax to the EU minimum for all consumers from 1 January 2027, initially until the end of 2027 (about €5bn a year). How it will be financed was not reported; a written statement was still to come. No outcomes were reported yet on pensions, Wahlrecht or the fuel-price cap.</p>
+        <div class="links"><a href="https://www.tagesspiegel.de/politik/merz-stromsteuer-entlastung-beschlossen--start-zum-1-januar-2027-16296823.html" target="_blank" rel="noopener">Read at Tagesspiegel</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Planned for 2027. Reported by ZDFheute</span>
+        <h3>Germany and four EU states seek “return hub” in Rwanda</h3>
+        <p>Germany, Austria, Denmark, the Netherlands and Greece want to send rejected asylum seekers there. Dobrindt (CSU) says it will respect human rights; development minister Alabali Radovan (SPD) has reservations, and Caritas and the IRC criticise the plan.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/ausland/abschiebezentren-ruanda-kritik-eu-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="spain" style="--c:var(--es)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Spanish politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M27 25h50v23H27zM39 25l13-8 13 8M41 14l20-8 7 15"/><path d="M45 34h14"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Approved. Reported by elDiario.es</span>
+        <h3>Council of Ministers approves 4.5% pay rise for public employees</h3>
+        <p>The decree covers more than three million workers from January 2027, under the 2025 deal with CCOO, UGT and CSIF; minister Óscar López called it the largest rise since 1992 and „un orgullo“. The Diputación Permanente must still validate it. Infobae reports the government also approved a minimum wage of €1,286 a month.</p>
+        <div class="links"><a href="https://www.eldiario.es/economia/gobierno-aprueba-subida-salarial-4-5-funcionarios_1_13670267.html" target="_blank" rel="noopener">Read at elDiario.es</a><a href="https://www.infobae.com/espana/2026/11/17/elecciones-generales-29-n-en-directo-ultima-hora-de-los-sondeos-la-campana-y-la-subida-de-sueldo-de-los-funcionarios/" target="_blank" rel="noopener">Infobae live</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Polls differ. Reported by Infobae</span>
+        <h3>Most polls give PP and Vox a majority</h3>
+        <p>NC Report, Sigma Dos, GAD3, DYM and InvyMark project an absolute majority for PP and Vox; the CIS and SW Demoscopia put the PSOE ahead. Eleven days before 29-N.</p>
+        <div class="links"><a href="https://www.infobae.com/espana/2026/11/17/elecciones-generales-29-n-en-directo-ultima-hora-de-los-sondeos-la-campana-y-la-subida-de-sueldo-de-los-funcionarios/" target="_blank" rel="noopener">Read at Infobae</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Preliminary findings. Reported by Público</span>
+        <h3>CNI finds no evidence Morocco orchestrated the Ceuta entry</h3>
+        <p>A report to Audiencia Nacional judge María Tardón found no evidence the July mass entry was „instigada, planeada o coordinada“ by Rabat, describing a social-media call and border failures.</p>
+        <div class="links"><a href="https://www.publico.es/politica/tribunales/cni-concluye-hay-evidencias-entrada-migranantes-ceuta-fuera-fruto-accion-marroqui.html" target="_blank" rel="noopener">Read at Público</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="rail" style="--c:var(--rail)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Rail and public transport</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M10 39h84v-20a8 8 0 0 0-8-8H18a8 8 0 0 0-8 8zM21 11V5h62v6M21 18h20v11H21zM47 18h10v21H47zM63 18h20v11H63zM22 39v5m60-5v5M5 47h94"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Funding agreement in 2027. Bahnblogstelle (dpa)</span>
+        <h3>München–Mühldorf upgrade: first financing step in sight</h3>
+        <p>Federal transport minister Steffen Bilger (CDU) says the federal government will sign a financing agreement with DB in 2027 for a first section west of Dorfen (€115m) of the ABS 38, estimated at €4.5bn in total; Bavaria expects construction to start by 2029. The Greens and VCD say overall funding is not yet secured.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/266671/finanzierung-des-bahnausbaus-muenchen-muehldorf-in-sicht/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Follow-up. Bahnblogstelle (dpa, EVN)</span>
+        <h3>Berlin–Hannover diversion via Magdeburg running again</h3>
+        <p>After Monday's signalling damage, freight trains returned on Tuesday and regular service resumes this morning. About 100 trains were diverted or cancelled.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/266638/zugverkehr-ueber-umleitungsstrecke-zwischen-hannover-und-berlin-rollt-wieder-an/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="aviation" style="--c:var(--air)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global aviation</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M8 29l32-3 10-19h9l-5 18 28-3 8-10h8l-3 15 3 15h-8l-8-10-28-3 5 18h-9L40 28l-32 1z" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Deadline 23 November. Reported by aeroTELEGRAPH</span>
+        <h3>Lufthansa and Vereinigung Cockpit deadlocked</h3>
+        <p>After 18 mediation rounds, Lufthansa rejects the mediators' proposal and wants its own offer as the basis. VC gives it until 23 November to return to talks: „Wer sämtliche Lösungsansätze ablehnt, macht eine Einigung unmöglich.“ No strike has been announced.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/airlines/lufthansa-und-pilotengewerkschaft-streiten-jetzt-sogar-darueber-wie-sie-ihren-streit/j8z0623" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Opening 2029. Reported by aeroTELEGRAPH</span>
+        <h3>Ryanair to build €500m engine centre in Seville</h3>
+        <p>Its first engine MRO site, for CFM56-7B and LEAP-1B engines, with more than 600 jobs; construction starts in early 2027.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/ryanair-investiert-500-millionen-euro-in-triebwerkswartung-in-sevilla/6h0ew79" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Cabin refit. Reported by aeroTELEGRAPH</span>
+        <h3>Lufthansa A380's old business class gone by March</h3>
+        <p>The A380s get Thompson Vantage XL seats, not Allegris; business class drops from 78 to 68 seats. All eight aircraft are to be converted by summer 2027.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/flugerlebnis/airbus-a380-von-lufthansa-alte-business-class-ab-maerz-geschichte/w7vxlfc" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="topic" style="--c:var(--tech)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Topic of the day: Open source</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M30 4h44v44H30zM30 18h44M30 33h44"/><path d="M37 11h14M37 26h14M37 41h14"/><circle cx="66" cy="11" r="2"/><circle cx="66" cy="26" r="2"/><circle cx="66" cy="41" r="2"/><path d="M4 26h26M74 26h26"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Governance. Manjaro forum, via LWN</span>
+        <h3>Manjaro Project e.V. founded, independent of Manjaro GmbH</h3>
+        <p>After a governance dispute, Manjaro team members registered a non-profit in Berlin, separate from the commercial Manjaro GmbH &amp; Co KG. Company assets have not been transferred yet; an 18 November update says talks with the company have begun.</p>
+        <div class="links"><a href="https://forum.manjaro.org/t/the-manjaro-project-e-v-is-now-official/191197" target="_blank" rel="noopener">Read on the Manjaro forum</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Release. Rust blog</span>
+        <h3>Rust 1.100.0 stabilises the never type</h3>
+        <p>It also stabilises the core Allocator trait, and Cargo now warns about unused dependencies and supports a minimum publish age for new crate versions.</p>
+        <div class="links"><a href="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/" target="_blank" rel="noopener">Read the release notes</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Anniversary. Daniel Stenberg's blog</span>
+        <h3>curl's ancestor turns 30</h3>
+        <p>httpget 0.1 was posted on 11 November 1996. libcurl is estimated to run in about thirty billion installations. Stenberg: “curl is my life. My life is curl.”</p>
+        <div class="links"><a href="https://daniel.haxx.se/blog/2026/11/11/30-years-of-internet-transfers-with-curl/" target="_blank" rel="noopener">Read the blog post</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="notice" aria-labelledby="notes">
+    <h2 id="notes">About this edition</h2>
+    <p><strong>Source access:</strong> AP, BBC News, El País, RTVE, DW and The Guardian were blocked for Claude's web tools this morning, and tagesschau, Der Spiegel, Süddeutsche Zeitung, Die Zeit, Reuters and La Vanguardia were not reached directly. World items come from Al Jazeera, partly with Reuters. The Koalitionsausschuss result comes from Tagesspiegel (with dpa, AFP and Reuters); the official written statement had not been published yet, and ZDFheute had no result at publication. Spanish items come from elDiario.es, Infobae and Público. Rail items come from Bahnblogstelle, crediting dpa. Eurailpress showed no current news. Open source uses a 7-day window. A British Airways taxiway incident at Heathrow was left out because the report relied on The Sun.</p>
+    <p><strong>Pictures:</strong> This page uses custom icons. News photos are left out.</p>
+    <p><strong>Trial run:</strong> This page is updated each morning alongside the regular text digest. Each edition replaces the one before it.</p>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://www.aljazeera.com/news/2026/11/17/ukraine-holds-peace-talks-with-us-europe-as-conflict-escalates" target="_blank" rel="noopener">Al Jazeera: Ukraine peace talks</a></li>
+      <li><a href="https://www.aljazeera.com/economy/2026/11/17/us-moves-to-block-chinas-remote-access-to-ai-chips-amid-nvidia-scandal" target="_blank" rel="noopener">Al Jazeera: US AI chip rule</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/17/tankers-hit-in-strait-of-hormuz-as-drone-raises-alarm-at-iraq-gas-field" target="_blank" rel="noopener">Al Jazeera: Tankers hit near Hormuz</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/17/yemen-army-reports-661-attacks-on-houthis-amid-houthi-push-towards-aden" target="_blank" rel="noopener">Al Jazeera: Yemen and Aden</a></li>
+      <li><a href="https://www.tagesspiegel.de/politik/merz-stromsteuer-entlastung-beschlossen--start-zum-1-januar-2027-16296823.html" target="_blank" rel="noopener">Tagesspiegel: Stromsteuer decision</a></li>
+      <li><a href="https://www.zdfheute.de/politik/ausland/abschiebezentren-ruanda-kritik-eu-100.html" target="_blank" rel="noopener">ZDFheute: Rwanda return hub</a></li>
+      <li><a href="https://www.eldiario.es/economia/gobierno-aprueba-subida-salarial-4-5-funcionarios_1_13670267.html" target="_blank" rel="noopener">elDiario.es: Public pay rise approved</a></li>
+      <li><a href="https://www.infobae.com/espana/2026/11/17/elecciones-generales-29-n-en-directo-ultima-hora-de-los-sondeos-la-campana-y-la-subida-de-sueldo-de-los-funcionarios/" target="_blank" rel="noopener">Infobae: 29-N live, 17 November</a></li>
+      <li><a href="https://www.publico.es/politica/tribunales/cni-concluye-hay-evidencias-entrada-migranantes-ceuta-fuera-fruto-accion-marroqui.html" target="_blank" rel="noopener">Público: CNI on Ceuta</a></li>
+      <li><a href="https://bahnblogstelle.com/266671/finanzierung-des-bahnausbaus-muenchen-muehldorf-in-sicht/" target="_blank" rel="noopener">Bahnblogstelle: München–Mühldorf</a></li>
+      <li><a href="https://bahnblogstelle.com/266638/zugverkehr-ueber-umleitungsstrecke-zwischen-hannover-und-berlin-rollt-wieder-an/" target="_blank" rel="noopener">Bahnblogstelle: Diversion route reopens</a></li>
+      <li><a href="https://www.aerotelegraph.com/airlines/lufthansa-und-pilotengewerkschaft-streiten-jetzt-sogar-darueber-wie-sie-ihren-streit/j8z0623" target="_blank" rel="noopener">aeroTELEGRAPH: Lufthansa and VC</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/ryanair-investiert-500-millionen-euro-in-triebwerkswartung-in-sevilla/6h0ew79" target="_blank" rel="noopener">aeroTELEGRAPH: Ryanair Seville</a></li>
+      <li><a href="https://www.aerotelegraph.com/flugerlebnis/airbus-a380-von-lufthansa-alte-business-class-ab-maerz-geschichte/w7vxlfc" target="_blank" rel="noopener">aeroTELEGRAPH: Lufthansa A380 cabin</a></li>
+      <li><a href="https://forum.manjaro.org/t/the-manjaro-project-e-v-is-now-official/191197" target="_blank" rel="noopener">Manjaro forum: Project e.V.</a></li>
+      <li><a href="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/" target="_blank" rel="noopener">Rust blog: Rust 1.100.0</a></li>
+      <li><a href="https://daniel.haxx.se/blog/2026/11/11/30-years-of-internet-transfers-with-curl/" target="_blank" rel="noopener">Daniel Stenberg: 30 years of curl</a></li>
+      <li><a href="https://lwn.net/" target="_blank" rel="noopener">LWN.net front page</a></li>
+    </ol>
+  </section>
+</main>
+
+</body></html>
