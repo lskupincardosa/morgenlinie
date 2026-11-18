@@ -50,10 +50,10 @@ struct EditionHTMLTests {
     }
 
     @Test func nextRefreshIsBerlinMorning() {
-        // 21:00 UTC on 11 Nov = 22:00 Berlin → next is 12 Nov 07:55 Berlin = 06:55 UTC.
+        // 21:00 UTC on 11 Nov = 22:00 Berlin → next is 12 Nov 06:50 Berlin = 05:50 UTC.
         let now = ISO8601DateFormatter().date(from: "2026-11-11T21:00:00Z")!
         let next = BackgroundRefresh.nextRefreshDate(after: now)
-        #expect(ISO8601DateFormatter().string(from: next) == "2026-11-12T06:55:00Z")
+        #expect(ISO8601DateFormatter().string(from: next) == "2026-11-12T05:50:00Z")
     }
 }
 

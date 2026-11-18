@@ -41,7 +41,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Updates")
                 } footer: {
-                    Text("The app checks for a new edition shortly after 07:55 Berlin time. iOS decides exactly when, so it can be later.")
+                    Text("The app checks for a new edition shortly after 06:50 Berlin time. iOS decides exactly when, so it can be later.")
                 }
 
                 Section {

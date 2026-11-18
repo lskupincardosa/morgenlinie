@@ -16,7 +16,7 @@ Signing uses team 449GV3DLPZ (set in `project.yml`). Bundle ID: `tech.flyingant.
 
 - `App/AppConfig.swift`: base URL, refresh time, task ID (the only place with URLs)
 - `Sync/EditionSync.swift`: `editions.json` with ETag, sha256-verified downloads, never deletes local editions
-- `Sync/BackgroundRefresh.swift`: `BGAppRefreshTask` for the next 07:55 Europe/Berlin
+- `Sync/BackgroundRefresh.swift`: `BGAppRefreshTask` for the next 06:50 Europe/Berlin
 - `Views/ReaderScreen.swift`, `Views/EditionWebView.swift`: reader; anchors stay in place, http(s) links open in Safari View
 - `Views/ReadingLayout.swift`: list and reader side by side on wide screens (iPad, unfolded iPhone Duo), split at the fold when iOS 27.1+ reports one; iPhones keep the single column
 - Editions live in Application Support/Editions/YYYY-MM-DD.html

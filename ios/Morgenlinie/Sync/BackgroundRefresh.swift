@@ -2,7 +2,7 @@ import BackgroundTasks
 import Foundation
 
 enum BackgroundRefresh {
-    /// Next 07:55 Europe/Berlin. iOS decides when the task really runs.
+    /// Next 06:50 Europe/Berlin. iOS decides when the task really runs.
     static func nextRefreshDate(after now: Date = .now) -> Date {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = AppConfig.editionTimeZone
