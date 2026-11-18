@@ -43,9 +43,13 @@ enum EditionDate {
         iso.wholeMatch(of: /\d{4}-\d{2}-\d{2}/) != nil && date(from: iso) != nil
     }
 
-    /// "Mittwoch, 11. November" — notification title, German as in the spec.
-    static func germanTitle(_ iso: String) -> String {
+    /// "Wednesday 11 November", as in the edition header. Used in notifications.
+    static func longTitle(_ iso: String) -> String {
         guard let d = date(from: iso) else { return iso }
-        return d.formatted(.dateTime.weekday(.wide).day().month(.wide).locale(Locale(identifier: "de_DE")))
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_GB")
+        f.timeZone = Calendar.current.timeZone
+        f.dateFormat = "EEEE d MMMM"
+        return f.string(from: d)
     }
 }

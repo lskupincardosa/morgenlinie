@@ -13,7 +13,7 @@ enum Notifier {
         (try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])) ?? false
     }
 
-    /// "Die Ausgabe für Mittwoch, 11. November ist da." No news in the notification itself.
+    /// "The edition for Wednesday 11 November is ready." No news in the notification itself.
     /// Keep in sync with editionPayload in src/worker.js (the push sent by the Worker).
     static func postNewEdition(date: String) async {
         guard isEnabled else { return }
@@ -22,7 +22,7 @@ enum Notifier {
         if delivered.contains(where: { $0.request.content.userInfo["date"] as? String == date }) { return }
         let content = UNMutableNotificationContent()
         content.title = "Morgenlinie"
-        content.body = "Die Ausgabe für \(EditionDate.germanTitle(date)) ist da."
+        content.body = "The edition for \(EditionDate.longTitle(date)) is ready."
         content.sound = .default
         content.userInfo = ["date": date]
         content.threadIdentifier = "editions"

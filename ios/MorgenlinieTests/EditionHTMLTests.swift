@@ -45,8 +45,8 @@ struct EditionHTMLTests {
         #expect(manifest.editions.map(\.isWellFormed) == [true, false])
     }
 
-    @Test func germanNotificationTitle() {
-        #expect(EditionDate.germanTitle("2026-11-11") == "Mittwoch, 11. November")
+    @Test func notificationDateTitle() {
+        #expect(EditionDate.longTitle("2026-11-11") == "Wednesday 11 November")
     }
 
     @Test func nextRefreshIsBerlinMorning() {

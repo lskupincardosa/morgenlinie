@@ -136,15 +136,15 @@ async function newestEdition(env) {
   return { date: entry.date };
 }
 
-const WEEKDAYS = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
-const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
-  "September", "Oktober", "November", "Dezember"];
+const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August",
+  "September", "October", "November", "December"];
 
-// "2026-11-18" → "Mittwoch, 18. November".
-function germanTitle(date) {
+// "2026-11-18" → "Wednesday 18 November", as in the edition header.
+function longTitle(date) {
   const [y, m, d] = date.split("-").map(Number);
   const weekday = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
-  return `${WEEKDAYS[weekday]}, ${d}. ${MONTHS[m - 1]}`;
+  return `${WEEKDAYS[weekday]} ${d} ${MONTHS[m - 1]}`;
 }
 
 // ---- APNs ----
@@ -153,7 +153,7 @@ function germanTitle(date) {
 function editionPayload(date) {
   return {
     aps: {
-      alert: { title: "Morgenlinie", body: `Die Ausgabe für ${germanTitle(date)} ist da.` },
+      alert: { title: "Morgenlinie", body: `The edition for ${longTitle(date)} is ready.` },
       sound: "default",
       "thread-id": "editions",
     },
@@ -165,8 +165,8 @@ function missingPayload() {
   return {
     aps: {
       alert: {
-        title: "Morgenlinie: keine neue Ausgabe",
-        body: `Bis ${MISSING_AFTER} Uhr ist keine Ausgabe für heute angekommen. Digest- oder Archiv-Routine prüfen.`,
+        title: "Morgenlinie: no edition today",
+        body: `No edition for today had arrived by ${MISSING_AFTER}. Check the digest and archive routines.`,
       },
       sound: "default",
       "thread-id": "status",

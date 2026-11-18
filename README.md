@@ -42,7 +42,7 @@ Bump `schemaVersion` only for breaking changes; the app ignores manifests with a
 
 ## Push notifications
 
-The app registers its APNs device token with `POST /push/register`; tokens live in the `PUSH` KV namespace. Every 10 minutes a cron trigger compares the newest date in `editions.json` with the last one announced and, when it is newer, sends one notification per device ("Die Ausgabe für … ist da", no news content). If today's edition is still missing at 07:30 Berlin time, it sends one warning that day instead (`POST /push/test?kind=missing` to try it). The first run after a deploy only records the current edition.
+The app registers its APNs device token with `POST /push/register`; tokens live in the `PUSH` KV namespace. Every 10 minutes a cron trigger compares the newest date in `editions.json` with the last one announced and, when it is newer, sends one notification per device ("The edition for … is ready", no news content). If today's edition is still missing at 07:30 Berlin time, it sends one warning that day instead (`POST /push/test?kind=missing` to try it). The first run after a deploy only records the current edition.
 
 Secrets (set once with `npx wrangler secret put NAME`): `APNS_KEY` (contents of the `.p8` key), `APNS_KEY_ID`, `ADMIN_TOKEN`. To send the newest edition to all devices right away:
 
