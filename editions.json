@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-18T19:01:58Z",
+  "updatedAt": "2026-11-18T19:27:07Z",
   "editions": [
     {
       "date": "2026-11-18",
       "path": "editions/2026-11-18.html",
       "topic": "Open source",
-      "sha256": "2532e4cde217a21025e96e1d237de6c3f828c6080d7a4e5b550b9d46bb2b97b9",
-      "bytes": 26752
+      "sha256": "8b67b948f39b7cec6dd1bdc051fa600da3062b12628e25c68a2f381e23ccadc6",
+      "bytes": 33034
     },
     {
       "date": "2026-11-17",
