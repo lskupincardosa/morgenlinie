@@ -23,6 +23,8 @@ const HOSTS = {
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
+    // Missing assets also land here; only /push/* is ours.
+    if (!pathname.startsWith("/push/")) return new Response("Not found", { status: 404 });
     if (request.method !== "POST") return json({ error: "method not allowed" }, 405);
     try {
       if (pathname === "/push/register") return await register(request, env);
