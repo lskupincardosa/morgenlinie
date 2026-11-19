@@ -1,7 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-18T19:27:07Z",
+  "updatedAt": "2026-11-19T05:40:43Z",
   "editions": [
+    {
+      "date": "2026-11-19",
+      "path": "editions/2026-11-19.html",
+      "topic": "Popular GitHub repos",
+      "sha256": "90fa1641450505f57f7bed52ac0f21d51c923d953e79c09789467a463d9879ec",
+      "bytes": 30104
+    },
     {
       "date": "2026-11-18",
       "path": "editions/2026-11-18.html",
