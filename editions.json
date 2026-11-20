@@ -1,7 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-19T05:40:43Z",
+  "updatedAt": "2026-11-20T05:41:10Z",
   "editions": [
+    {
+      "date": "2026-11-20",
+      "path": "editions/2026-11-20.html",
+      "topic": "Best of the week",
+      "sha256": "308f58b19335e67b0e7d4568b9196f13b1013316cbfe9e3c6defaa3446114e20",
+      "bytes": 28623
+    },
     {
       "date": "2026-11-19",
       "path": "editions/2026-11-19.html",

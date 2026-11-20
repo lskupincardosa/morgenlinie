@@ -1,0 +1,315 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Morgenlinie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Doto:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a transit line. The sign announces the edition; each section is a stop on one continuous route. */
+:root {
+  --ground: #edf1f2; --paper: #fbfcfc; --ink: #15252c; --muted: #52646c; --line-soft: #c9d4d8;
+  --sign: #0f1b20; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #1c6f8c; --de: #b23a48; --es: #a65f00; --rail: #1f7a55; --air: #4a5bb5; --tech: #7a4a9e;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --dot: "Doto", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark }
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: 76px }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55 }
+a { color: inherit }
+a:focus-visible { outline: 3px solid var(--sign-text); outline-offset: 2px }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+
+.sign { background: var(--sign); color: var(--sign-text) }
+.sign .wrap { display: grid; gap: 6px; padding-block: 28px 22px }
+.sign-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: .05em; color: var(--sign-dim); text-transform: uppercase }
+h1 { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(2.7rem, 10.5vw, 6.2rem); line-height: 1; letter-spacing: .01em }
+.sign-note { margin: 4px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.2rem; color: #f3e6cf }
+
+.route { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line-soft) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sign) }
+.route-scroll { overflow-x: auto; scrollbar-width: none }
+.route ol { list-style: none; display: flex; align-items: stretch; gap: 4px; margin: 0; padding: 9px 0; min-width: max-content }
+.route a { display: flex; align-items: center; gap: 7px; padding: 5px 9px 5px 5px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; border-radius: 4px }
+.route a:hover { background: var(--ground) }
+.bug { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding-inline: 5px; border-radius: 3px; color: var(--paper); background: var(--c); font-family: var(--display); font-weight: 700; font-size: .95rem; line-height: 1 }
+
+main { padding-block: 22px 44px }
+.stop { --c: var(--world); position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 16px; padding-bottom: 42px }
+.stop::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 0; width: 8px; background: var(--c) }
+.stop:last-of-type::before { bottom: 36px }
+.dot { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: 8px solid var(--c); margin-top: 4px }
+.stop-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 42px; margin-bottom: 14px }
+h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.05; text-wrap: balance }
+.stop-head svg { width: 104px; height: 52px; flex: none; color: var(--c) }
+.stories { grid-column: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.story { min-width: 0; display: flex; flex-direction: column; background: var(--paper); padding: 18px 20px; border-radius: 4px }
+.story.lead { grid-column: 1 / -1 }
+.story.lead h3 { font-size: clamp(1.65rem, 3.3vw, 2.15rem) }
+.story.lead p { max-width: 68ch }
+h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 1.42rem; line-height: 1.14; text-wrap: balance }
+.story p { margin: 0 0 12px }
+.kind { align-self: flex-start; margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: .84rem; letter-spacing: .07em; text-transform: uppercase; color: var(--c) }
+.links { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: auto; font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--c) }
+.links a { text-underline-offset: 3px }
+
+.closure { --c: var(--rail); margin-top: 2px; margin-bottom: 14px; overflow-x: auto }
+.closure svg { display: block; width: 100%; height: auto; color: var(--ink) }
+
+.notice { background: var(--paper); border-radius: 4px; padding: 20px; margin-left: 50px; display: grid; gap: 8px }
+.notice h2 { font-size: 1.55rem }
+.notice p { margin: 0; max-width: 72ch }
+.sources { columns: 2; column-gap: 28px; margin: 6px 0 0; padding-left: 20px; font-size: .94rem }
+.sources li { break-inside: avoid; margin-bottom: 4px }
+
+@media (max-width: 680px) {
+  body { font-size: 16.5px }
+  .stories { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 2px; position: relative }
+  .stop { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px }
+  .stop::before { display: none }
+  .stop-head svg { width: 76px; height: 38px }
+  .notice { margin-left: 0 }
+  .sources { columns: 1 }
+  html { scroll-padding-top: 66px }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+</style>
+
+<header class="sign">
+  <div class="wrap">
+    <div class="sign-meta"><span>Friday 20 November 2026</span><span>Preview edition</span></div>
+    <h1>MORGENLINIE</h1>
+    <p class="sign-note">Your morning news, six stops. About six minutes.</p>
+  </div>
+</header>
+
+<nav class="route" aria-label="Sections">
+  <div class="wrap route-scroll">
+    <ol>
+      <li><a href="#world" style="--c:var(--world)"><span class="bug">1</span>World</a></li>
+      <li><a href="#germany" style="--c:var(--de)"><span class="bug">2</span>Germany</a></li>
+      <li><a href="#spain" style="--c:var(--es)"><span class="bug">3</span>Spain</a></li>
+      <li><a href="#rail" style="--c:var(--rail)"><span class="bug">4</span>Rail</a></li>
+      <li><a href="#aviation" style="--c:var(--air)"><span class="bug">5</span>Aviation</a></li>
+      <li><a href="#topic" style="--c:var(--tech)"><span class="bug">6</span>Best of the week</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="stop" id="world" style="--c:var(--world)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global headlines</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="52" cy="26" r="23"/><ellipse cx="52" cy="26" rx="10" ry="23"/><path d="M30 18h44M30 34h44M4 26h25M75 26h25"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Declaration, no Ukraine breakthrough. CBS News, Al Jazeera</span>
+        <h3>Trump, Xi and Putin issue joint declaration after Shenzhen summit</h3>
+        <p>The 90-minute three-way meeting at APEC ended with a statement saying a nuclear war cannot be won, calling for stable energy supplies and UN reform, and urging the ICC not to „abuse their positions“. There was no progress on Ukraine: Putin said „We will not negotiate after the attacks on the Crimean bridge.“ Trump called the meeting a 12 out of 10 and has invited Putin to next month's G20 in Miami.</p>
+        <div class="links"><a href="https://www.cbsnews.com/news/trump-xi-putin-china-apec-summit/" target="_blank" rel="noopener">Read at CBS News</a><a href="https://www.aljazeera.com/news/2026/11/19/groundbreaking-trump-xi-putin-summit-five-key-takeaways" target="_blank" rel="noopener">Al Jazeera takeaways</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Ruling, 9–6. Al Jazeera</span>
+        <h3>ICJ finds Myanmar committed genocide against the Rohingya</h3>
+        <p>In the case brought by The Gambia in 2019, the court found Myanmar responsible for genocide in northern Rakhine and ordered reparations, including safe return. It is the first time the ICJ has found a state responsible for genocide; enforcement is uncertain.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/19/un-top-court-finds-myanmar-killed-10000-rohingya-as-it-rules-on-genocide" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Extent being assessed. Al Jazeera, Khaleej Times</span>
+        <h3>Houthi attack damages tower in Riyadh's financial district</h3>
+        <p>The Saudi-led coalition said it intercepted missiles aimed at Riyadh and the south, with debris causing „material damage“; no injuries were reported. The Houthis said they targeted the airport and financial centre, as the Iran war spreads across the Gulf.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/19/saudi-led-coalition-intercepts-houthi-missiles-targeting-riyadh-and-south" target="_blank" rel="noopener">Read at Al Jazeera</a><a href="https://www.khaleejtimes.com/world/gulf/tower-riyadh-financial-district-damaged-houthi-attack-november-19-2026" target="_blank" rel="noopener">Khaleej Times</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="germany" style="--c:var(--de)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>German politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M22 47h60M28 47V28h48v19M36 47V28M46 47V28M58 47V28M68 47V28M28 28h48M38 28c0-13 7-20 14-20s14 7 14 20M52 8V3"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Meeting held. Al Jazeera</span>
+        <h3>Merz hosts „Coalition of the Willing“ in Berlin after Shenzhen summit</h3>
+        <p>Leaders including Macron and Zelenskyy, plus US envoys Jared Kushner and Steve Witkoff, met at the Chancellery on Thursday. Merz called the Shenzhen meeting a „photo op“ and said talks „can only be successful with Ukraine and Europe“; Zelenskyy said Europe is ready with new sanctions.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/19/european-leaders-unite-in-berlin-to-reaffirm-support-for-ukraine" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Investigation. ZDFheute</span>
+        <h3>LKA examines possible coercion inside Sachsen-Anhalt's CDU</h3>
+        <p>After the AfD's Tobias Rausch was elected Landtagspräsident, CDU members were asked to swear they had not backed AfD candidates. The LKA sent 23 questions to 15 CDU deputies as witnesses; prosecutors say no case is open.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/deutschland/cdu-sachsen-anhalt-wahl-landtagspraesident-lka-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Cabinet draft. ZDFheute</span>
+        <h3>Cabinet backs biggest Kindschaftsrecht reform since 1998</h3>
+        <p>Justice Minister Stefanie Hubig's (SPD) bill would let courts exclude contact for a parent who is violent towards the other parent and gives children from 14 a say in custody agreements. It now goes to the Bundestag.</p>
+        <div class="links"><a href="https://www.zdfheute.de/politik/deutschland/justiz-kindschaftsrecht-umgangsrecht-haeusliche-gewalt-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Next steps. ZDFheute ticker</span>
+        <h3>Stromsteuer cut heads to Haushaltsausschuss; final budget vote 27 November</h3>
+        <p>The Bundestag budget committee will take up the planned cut next week. Ministers Katherina Reiche (CDU) and Carsten Schneider (SPD) warned of extra costs from energy reforms while backing renewables.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="spain" style="--c:var(--es)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Spanish politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M27 25h50v23H27zM39 25l13-8 13 8M41 14l20-8 7 15"/><path d="M45 34h14"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Held, no poll results yet. elDiario.es</span>
+        <h3>Sánchez and Feijóo clash in their only cara a cara before 29-N</h3>
+        <p>elDiario.es described Sánchez as calm and avoiding confrontation, and Feijóo as on the attack, over housing, taxes, public services, corruption and migration. No audience figures or polls on the winner were available when read. Debates with eight candidates and with the four largest parties follow next week.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13675733.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Summons. elDiario.es</span>
+        <h3>Koldo case: Guardia Civil commander summoned as investigated</h3>
+        <p>Judge Ismael Moreno called Rubén Villalba for 23 November over cash Víctor de Aldama says he paid him (about €25,000). Koldo García denied from prison that money went to the PSOE.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13675733.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Campaign. elDiario.es</span>
+        <h3>Ayuso: „España tiene diez días para decidir si se suicida“</h3>
+        <p>The Madrid president also defended her housing agency after the Tribunal de Cuentas opened an inquiry into a €6.3 million Chamberí penthouse. Ada Colau (Frente Amplio) said excluding other parties from the debate shows „el bipartidismo se ha terminado“.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13675733.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="rail" style="--c:var(--rail)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Rail and public transport</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M10 39h84v-20a8 8 0 0 0-8-8H18a8 8 0 0 0-8 8zM21 11V5h62v6M21 18h20v11H21zM47 18h10v21H47zM63 18h20v11H63zM22 39v5m60-5v5M5 47h94"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">From 13 December. Zughalt.de</span>
+        <h3>DB Fernverkehr 2027: more trains, but construction shapes the timetable</h3>
+        <p>Berlin–Stuttgart ICE-Sprinter grow from one to three daily pairs and Berlin–Hamburg is due to go half-hourly after its rebuild. Berlin–Hannover is limited to three ICE per direction every two hours all year, and trains from NRW are rerouted, adding about 80 minutes. New offers include a €99.99 family return ticket and 25% cheaper monthly passes; DB says fares stay the same.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/fernverkehr-2027-mehr-zuege-trotz-baustellen/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Award final. Zughalt.de</span>
+        <h3>RRX Teilnetz B: Westfalenbahn wins RE 42 and RE 7</h3>
+        <p>VRR, NWL and go.Rheinland awarded the lot from December 2031 (RE 42) and 2032 (RE 7) to 2046, with 16 six-car Stadler Kiss Mix trains. RE 2, RE 3 and RE 45 stay with DB Regio.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/rrx-b-westfalenbahn-erhaelt-zuschlag/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Contract signed. Bahnblogstelle</span>
+        <h3>Stadler to build 63 Tango Nordic trams for Helsinki</h3>
+        <p>Stadler's first Finnish tram order, with options for up to 120 more; test running starts mid-2029. Value not disclosed.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/266806/vertragsunterzeichnung-stadler-baut-strassenbahnen-fuer-helsinki/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Planned cuts. Bahnblogstelle</span>
+        <h3>EVG and Verdi oppose Nürnberg transit cuts</h3>
+        <p>The unions warn that early-morning and weekend reductions would hit shift workers, commuters and families.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/266800/gewerkschaften-warnen-vor-nahverkehrskuerzungen-in-nuernberg/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Disruption. ZDFheute ticker</span>
+        <h3>Faulty Stellwerk hits long-distance trains Hannover–Göttingen</h3>
+        <p>A signal box defect caused cancellations and delays on Thursday morning, including services heading south.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="aviation" style="--c:var(--air)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global aviation</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M8 29l32-3 10-19h9l-5 18 28-3 8-10h8l-3 15 3 15h-8l-8-10-28-3 5 18h-9L40 28l-32 1z" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Analysis. aeroTELEGRAPH</span>
+        <h3>Fuel costs push small European airlines into a hard winter</h3>
+        <p>Dan Air, Animawings, Alba Star, Air Explore, Plus Ultra and Fly 4 Airlines have stopped flying or sought insolvency or creditor protection. Jet fuel is more than twice its early-year level amid the Iran war; Emirates' Tim Clark says „das eigentliche Problem ist der Crack Spread“, while Condor's Peter Gerber says the peak is behind us.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/airlines/warum-dieser-winter-fuer-kleine-airlines-zum-ueberlebenskampf-wird/l7z5480" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Landed safely. Simple Flying</span>
+        <h3>American A319 declares Mayday after engine flames spotted</h3>
+        <p>Flight 3230 Phoenix–Portland reported hydraulic problems; a trailing SkyWest crew saw flames. It landed back in Phoenix about 20 minutes after take-off with 120 on board.</p>
+        <div class="links"><a href="https://simpleflying.com/american-airlines-airbus-a319-pilots-declare-emergency-skywest-crew-spot-engine-flames" target="_blank" rel="noopener">Read at Simple Flying</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Incident. aeroTELEGRAPH</span>
+        <h3>Swiss A220 aborts take-off three times in Zurich</h3>
+        <p>On 17 November autothrust kept disengaging on HB-JCM; a jammed switch was found and the thrust lever unit replaced.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/airbus-a220-von-swiss-muss-start-in-zuerich-drei-mal-abbrechen/p98sw4v" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Report. ZDFheute ticker</span>
+        <h3>Atmosfair: air travel missed Paris climate goals in 2025</h3>
+        <p>Passenger aviation emissions hit a record, with barely any improvement in CO2 efficiency.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">Read at ZDFheute</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="topic" style="--c:var(--tech)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Topic of the day: Best of the week</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M30 4h44v44H30zM30 18h44M30 33h44"/><path d="M37 11h14M37 26h14M37 41h14"/><circle cx="66" cy="11" r="2"/><circle cx="66" cy="26" r="2"/><circle cx="66" cy="41" r="2"/><path d="M4 26h26M74 26h26"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Critical, patches out. Calif, Qualys</span>
+        <h3>Java4Shell: OpenJDK flaw allows remote code execution on AVX-512 CPUs</h3>
+        <p>CVE-2026-114938 is a heap overflow in HotSpot's Base64 decoder intrinsic, affecting OpenJDK 17.0.6 and newer (incl. 21, 25, 27) on x86-64 chips with AVX-512 VBMI, such as AMD Zen 4 and newer and Intel Xeon from Ice Lake. Researchers showed RCE against Keycloak, Jenkins, Jira and others in default setups. Oracle and OpenJDK patched on 17 November; until you can update, start the JVM with <code>-XX:-UseBASE64Intrinsics</code>. Relevant for homelab hosts running Java services on recent AMD hardware.</p>
+        <div class="links"><a href="https://calif.io/java4shell" target="_blank" rel="noopener">Read at Calif</a><a href="https://blog.qualys.com/vulnerabilities-threat-research/2026/11/17/how-to-find-mitigate-and-patch-the-critical-java4shell-flaw-cve-2026-114938-now" target="_blank" rel="noopener">Qualys guidance</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="notice" aria-labelledby="notes">
+    <h2 id="notes">About this edition</h2>
+    <p><strong>Source access:</strong> tagesschau.de, Süddeutsche Zeitung and Deutschlandfunk were blocked for Claude's web tools, and Reuters, AP, BBC, Der Spiegel, Die Zeit, El País, RTVE and La Vanguardia were not reached, so world news relies on CBS News, Al Jazeera and Khaleej Times. The ZDFheute ticker snapshot ran only to 08:52 on 19 November. German political news from the past 24 hours was thin; the LKA and Kindschaftsrecht items date from 18 November. Debate coverage comes from elDiario.es's live blog, read before audience figures or polls were published. A Bahnblogstelle item on Einzelwagenverkehr funding was left out because it relies on Politico.</p>
+    <p><strong>Pictures:</strong> This page uses custom icons. News photos are left out.</p>
+    <p><strong>Trial run:</strong> This page is updated each morning alongside the regular text digest. Each edition replaces the one before it.</p>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://www.cbsnews.com/news/trump-xi-putin-china-apec-summit/" target="_blank" rel="noopener">CBS News: Trump, Xi and Putin meet</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/19/groundbreaking-trump-xi-putin-summit-five-key-takeaways" target="_blank" rel="noopener">Al Jazeera: Summit takeaways</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/19/un-top-court-finds-myanmar-killed-10000-rohingya-as-it-rules-on-genocide" target="_blank" rel="noopener">Al Jazeera: ICJ Myanmar ruling</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/19/saudi-led-coalition-intercepts-houthi-missiles-targeting-riyadh-and-south" target="_blank" rel="noopener">Al Jazeera: Houthi missiles at Riyadh</a></li>
+      <li><a href="https://www.khaleejtimes.com/world/gulf/tower-riyadh-financial-district-damaged-houthi-attack-november-19-2026" target="_blank" rel="noopener">Khaleej Times: Riyadh tower damaged</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/19/european-leaders-unite-in-berlin-to-reaffirm-support-for-ukraine" target="_blank" rel="noopener">Al Jazeera: European leaders in Berlin</a></li>
+      <li><a href="https://www.zdfheute.de/politik/deutschland/cdu-sachsen-anhalt-wahl-landtagspraesident-lka-100.html" target="_blank" rel="noopener">ZDFheute: LKA and CDU Sachsen-Anhalt</a></li>
+      <li><a href="https://www.zdfheute.de/politik/deutschland/justiz-kindschaftsrecht-umgangsrecht-haeusliche-gewalt-100.html" target="_blank" rel="noopener">ZDFheute: Kindschaftsrecht reform</a></li>
+      <li><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute: Newsticker</a></li>
+      <li><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13675733.html" target="_blank" rel="noopener">elDiario.es: 29-N live blog, 19 November</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/fernverkehr-2027-mehr-zuege-trotz-baustellen/" target="_blank" rel="noopener">Zughalt.de: Fernverkehr 2027</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/rrx-b-westfalenbahn-erhaelt-zuschlag/" target="_blank" rel="noopener">Zughalt.de: RRX B award</a></li>
+      <li><a href="https://bahnblogstelle.com/266806/vertragsunterzeichnung-stadler-baut-strassenbahnen-fuer-helsinki/" target="_blank" rel="noopener">Bahnblogstelle: Stadler trams for Helsinki</a></li>
+      <li><a href="https://bahnblogstelle.com/266800/gewerkschaften-warnen-vor-nahverkehrskuerzungen-in-nuernberg/" target="_blank" rel="noopener">Bahnblogstelle: Nürnberg cuts</a></li>
+      <li><a href="https://www.aerotelegraph.com/airlines/warum-dieser-winter-fuer-kleine-airlines-zum-ueberlebenskampf-wird/l7z5480" target="_blank" rel="noopener">aeroTELEGRAPH: Small airlines' winter</a></li>
+      <li><a href="https://simpleflying.com/american-airlines-airbus-a319-pilots-declare-emergency-skywest-crew-spot-engine-flames" target="_blank" rel="noopener">Simple Flying: American A319 Mayday</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/airbus-a220-von-swiss-muss-start-in-zuerich-drei-mal-abbrechen/p98sw4v" target="_blank" rel="noopener">aeroTELEGRAPH: Swiss A220 in Zurich</a></li>
+      <li><a href="https://calif.io/java4shell" target="_blank" rel="noopener">Calif: Java4Shell</a></li>
+      <li><a href="https://blog.qualys.com/vulnerabilities-threat-research/2026/11/17/how-to-find-mitigate-and-patch-the-critical-java4shell-flaw-cve-2026-114938-now" target="_blank" rel="noopener">Qualys: Java4Shell mitigation</a></li>
+    </ol>
+  </section>
+</main>
+
+</body></html>
