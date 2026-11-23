@@ -1,7 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-22T05:41:03Z",
+  "updatedAt": "2026-11-23T05:41:33Z",
   "editions": [
+    {
+      "date": "2026-11-23",
+      "path": "editions/2026-11-23.html",
+      "topic": "Homelabbing",
+      "sha256": "151d81ae66dd48efbfda7dad38c01cd0e0f18dbf606c3e8e3ef89a8b7ba79c86",
+      "bytes": 29099
+    },
     {
       "date": "2026-11-22",
       "path": "editions/2026-11-22.html",

@@ -1,0 +1,322 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Morgenlinie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Doto:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a transit line. The sign announces the edition; each section is a stop on one continuous route. */
+:root {
+  --ground: #edf1f2; --paper: #fbfcfc; --ink: #15252c; --muted: #52646c; --line-soft: #c9d4d8;
+  --sign: #0f1b20; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #1c6f8c; --de: #b23a48; --es: #a65f00; --rail: #1f7a55; --air: #4a5bb5; --tech: #7a4a9e;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --dot: "Doto", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark }
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: 76px }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55 }
+a { color: inherit }
+a:focus-visible { outline: 3px solid var(--sign-text); outline-offset: 2px }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+
+.sign { background: var(--sign); color: var(--sign-text) }
+.sign .wrap { display: grid; gap: 6px; padding-block: 28px 22px }
+.sign-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: .05em; color: var(--sign-dim); text-transform: uppercase }
+h1 { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(2.7rem, 10.5vw, 6.2rem); line-height: 1; letter-spacing: .01em }
+.sign-note { margin: 4px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.2rem; color: #f3e6cf }
+
+.route { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line-soft) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sign) }
+.route-scroll { overflow-x: auto; scrollbar-width: none }
+.route ol { list-style: none; display: flex; align-items: stretch; gap: 4px; margin: 0; padding: 9px 0; min-width: max-content }
+.route a { display: flex; align-items: center; gap: 7px; padding: 5px 9px 5px 5px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; border-radius: 4px }
+.route a:hover { background: var(--ground) }
+.bug { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding-inline: 5px; border-radius: 3px; color: var(--paper); background: var(--c); font-family: var(--display); font-weight: 700; font-size: .95rem; line-height: 1 }
+
+main { padding-block: 22px 44px }
+.stop { --c: var(--world); position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 16px; padding-bottom: 42px }
+.stop::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 0; width: 8px; background: var(--c) }
+.stop:last-of-type::before { bottom: 36px }
+.dot { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: 8px solid var(--c); margin-top: 4px }
+.stop-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 42px; margin-bottom: 14px }
+h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.05; text-wrap: balance }
+.stop-head svg { width: 104px; height: 52px; flex: none; color: var(--c) }
+.stories { grid-column: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.story { min-width: 0; display: flex; flex-direction: column; background: var(--paper); padding: 18px 20px; border-radius: 4px }
+.story.lead { grid-column: 1 / -1 }
+.story.lead h3 { font-size: clamp(1.65rem, 3.3vw, 2.15rem) }
+.story.lead p { max-width: 68ch }
+h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 1.42rem; line-height: 1.14; text-wrap: balance }
+.story p { margin: 0 0 12px }
+.kind { align-self: flex-start; margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: .84rem; letter-spacing: .07em; text-transform: uppercase; color: var(--c) }
+.links { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: auto; font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--c) }
+.links a { text-underline-offset: 3px }
+
+.closure { --c: var(--rail); margin-top: 2px; margin-bottom: 14px; overflow-x: auto }
+.closure svg { display: block; width: 100%; height: auto; color: var(--ink) }
+
+.notice { background: var(--paper); border-radius: 4px; padding: 20px; margin-left: 50px; display: grid; gap: 8px }
+.notice h2 { font-size: 1.55rem }
+.notice p { margin: 0; max-width: 72ch }
+.sources { columns: 2; column-gap: 28px; margin: 6px 0 0; padding-left: 20px; font-size: .94rem }
+.sources li { break-inside: avoid; margin-bottom: 4px }
+
+@media (max-width: 680px) {
+  body { font-size: 16.5px }
+  .stories { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 2px; position: relative }
+  .stop { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px }
+  .stop::before { display: none }
+  .stop-head svg { width: 76px; height: 38px }
+  .notice { margin-left: 0 }
+  .sources { columns: 1 }
+  html { scroll-padding-top: 66px }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+</style>
+
+<header class="sign">
+  <div class="wrap">
+    <div class="sign-meta"><span>Monday 23 November 2026</span><span>Preview edition</span></div>
+    <h1>MORGENLINIE</h1>
+    <p class="sign-note">Your morning news, six stops. About six minutes.</p>
+  </div>
+</header>
+
+<nav class="route" aria-label="Sections">
+  <div class="wrap route-scroll">
+    <ol>
+      <li><a href="#world" style="--c:var(--world)"><span class="bug">1</span>World</a></li>
+      <li><a href="#germany" style="--c:var(--de)"><span class="bug">2</span>Germany</a></li>
+      <li><a href="#spain" style="--c:var(--es)"><span class="bug">3</span>Spain</a></li>
+      <li><a href="#rail" style="--c:var(--rail)"><span class="bug">4</span>Rail</a></li>
+      <li><a href="#aviation" style="--c:var(--air)"><span class="bug">5</span>Aviation</a></li>
+      <li><a href="#topic" style="--c:var(--tech)"><span class="bug">6</span>Homelab</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="stop" id="world" style="--c:var(--world)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global headlines</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="52" cy="26" r="23"/><ellipse cx="52" cy="26" rx="10" ry="23"/><path d="M30 18h44M30 34h44M4 26h25M75 26h25"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">No decisions adopted. UN News, ZDFheute</span>
+        <h3>COP31 in Antalya ends without a climate pact</h3>
+        <p>After two days of overtime, the summit closed on Sunday with no agreed text: the EU, Panama and the Marshall Islands rejected a cover decision that left out fossil fuels, and COP president Murat Kurum said "there is no agreement on this text". António Guterres called the outcome "deeply disappointing" and warned that 1.5 °C will be exceeded. Environment Minister Carsten Schneider blamed oil states: „Manche Ölstaaten merken, dass die Lage ernst wird für sie - darum blockieren sie so vehement.“ Open issues move to COP32 in Addis Ababa.</p>
+        <div class="links"><a href="https://news.un.org/en/story/2026/11/1168855" target="_blank" rel="noopener">Read at UN News</a><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Casualties. ZDFheute ticker</span>
+        <h3>Russian strikes kill several people around Kyiv</h3>
+        <p>A drone hit a supermarket in Bucha district, killing two; further deaths were reported in Bila Tserkva and Dymer. Zelensky said Russia is now targeting „Stromnetze und Übertragungsleitungen“.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Arrest. Al Jazeera</span>
+        <h3>Eleven killed as Mexico captures "El Chapo Isidro"</h3>
+        <p>Forces arrested Fausto Isidro Meza Flores, on the FBI's ten most wanted list, in Guasave, Sinaloa. Seven alleged gunmen and four soldiers died in the overnight operation.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/22/eleven-killed-in-burst-of-violence-during-mexican-cartel-leaders-capture" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Ceasefire strain. Al Jazeera</span>
+        <h3>Displaced Gazans protest as Israeli strikes continue</h3>
+        <p>Hundreds protested near the "Yellow Line" in Deir el-Balah. At least four Palestinians were killed on Saturday, three when a drone hit a food-aid van in Gaza City; Gaza's Health Ministry counts 1,661 deaths since the October 2025 ceasefire.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/22/displaced-palestinians-protest-as-israeli-air-strikes-continue-in-gaza" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="germany" style="--c:var(--de)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>German politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M22 47h60M28 47V28h48v19M36 47V28M46 47V28M58 47V28M68 47V28M28 28h48M38 28c0-13 7-20 14-20s14 7 14 20M52 8V3"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Coalition debate. ZDFheute ticker</span>
+        <h3>Söder wants the „Rente mit 63“ cut back; Wüst rejects his tax demand</h3>
+        <p>CSU leader Markus Söder signalled room for compromise on pension reform but said „Die Rente mit 63 muss reduziert werden“; the SPD wants to keep the current rule. NRW's Hendrik Wüst (CDU) rejected Söder's call for quick compensation of cold progression, pointing to the coalition committee's choice to cut electricity tax instead.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Labour dispute. ZDFheute ticker</span>
+        <h3>IG Metall defends wider strikes in metal and electrical industry</h3>
+        <p>The union wants 5% more pay; employers offered a one-off payment plus 1.3%. Christiane Benner: „Die Beschäftigten sind wütend.“</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">State visit. ZDFheute ticker</span>
+        <h3>Steinmeier begins Africa trip in Côte d'Ivoire</h3>
+        <p>The Federal President was received by Alassane Ouattara and continues to Ghana for an economic conference, then to Kenya.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="spain" style="--c:var(--es)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Spanish politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M27 25h50v23H27zM39 25l13-8 13 8M41 14l20-8 7 15"/><path d="M45 34h14"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Interview, 22 Nov. elDiario.es</span>
+        <h3>Sánchez: Zapatero is advising his campaign</h3>
+        <p>In a <em>Salvados</em> interview, Pedro Sánchez said José Luis Rodríguez Zapatero „me está ayudando de manera personal, me está aconsejando“, though he stays away from rallies. Zapatero is under investigation in the Plus Ultra case; Sánchez called him „un activo del partido“ and said of Thursday's debate with Feijóo: „Claramente gané.“</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/pedro-sanchez-revela-salvados-zapatero-le-ayudando-aconsejando-campana-electoral_1_13683140.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Rally, 21 Nov. elDiario.es</span>
+        <h3>Feijóo in Valencia: „No os fieis de las encuestas“</h3>
+        <p>At the PP's central rally in the bullring, Feijóo promised an anti-squatting law, a million homes and 500,000 jobs, and said of his rivals: „son capaces de todo y heridos son todavía más peligrosos“.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/feijoo-advierte-pp-acto-central-campana-no-fieis-son-capaces-heridos-son-peligrosos_1_13682705.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Rally, 21 Nov. elDiario.es</span>
+        <h3>Abascal presses Feijóo on pacts and announces legal action</h3>
+        <p>In Seville, the Vox leader asked Feijóo to say „con quién va a pactar“ after 29N and announced a complaint against ministers Albares and Bolaños over consular ballot boxes. He also warned of possible fraud without offering evidence.</p>
+        <div class="links"><a href="https://www.eldiario.es/andalucia/abascal-exige-feijoo-no-apele-voto-util-aclare-29n-si-posible-pp-pacte-restos-psoe_1_13682897.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Rally, 21 Nov. elDiario.es</span>
+        <h3>Frente Amplio rallies in Barcelona with Colau, Díaz and Delgado</h3>
+        <p>Yolanda Díaz made her first campaign appearance and criticised the PSOE's call for a tactical vote. Ada Colau: „Si el PSOE quiere hablar de voto útil no hay más utilidad que el voto de izquierdas.“</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/frente-amplio-llama-dar-vuelta-encuestas-acto-central-motosierra_1_13682824.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="rail" style="--c:var(--rail)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Rail and public transport</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M10 39h84v-20a8 8 0 0 0-8-8H18a8 8 0 0 0-8 8zM21 11V5h62v6M21 18h20v11H21zM47 18h10v21H47zM63 18h20v11H63zM22 39v5m60-5v5M5 47h94"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Framework contract. Bahnblogstelle, UTM</span>
+        <h3>Škoda wins up to 79 low-floor trams for Ruhrbahn, SWK Mobil and Stoag</h3>
+        <p>Essen/Mülheim, Krefeld and Oberhausen jointly tendered the double-ended NF5 trams in roughly 30 m and 38 m versions, for 170 to 230 passengers at up to 70 km/h. In Essen they replace the 1990s NF1 cars, mainly on lines 103, 105, 107 and 108. Value and delivery dates were not disclosed.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/267063/skoda-group-erhaelt-grossauftrag-neue-strassenbahnen-fuer-essen-krefeld-und-oberhausen/" target="_blank" rel="noopener">Read at Bahnblogstelle</a><a href="https://www.urban-transport-magazine.com/ruhrbahn-bestellt-bei-skoda-neue-niederflur-strassenbahnen/" target="_blank" rel="noopener">Urban Transport Magazine</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Pending final decision. Railcolor News</span>
+        <h3>Alpha Trains to supply 27 dual-mode locos for French night trains</h3>
+        <p>The deal is reportedly worth about €400m, with service from 2030; the locomotive type is not known yet. France's coach tender failed, so 1980s Corail cars are to be rebuilt.</p>
+        <div class="links"><a href="https://railcolornews.com/2026/11/21/alpha-trains-will-be-providing-27-dual-mode-locomotives-to-haul-sncfs-old-night-trains/" target="_blank" rel="noopener">Read at Railcolor News</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Line reopened. Bahnblogstelle</span>
+        <h3>ÖBB finishes 90 jobs in five days on the Arlberg line</h3>
+        <p>About 120 workers carried out maintenance and modernisation during the closure in Tyrol and Vorarlberg; normal service has resumed.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/267059/oebb-setzen-90-massnahmen-in-fuenf-tagen-auf-der-arlbergstrecke-um/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="aviation" style="--c:var(--air)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global aviation</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M8 29l32-3 10-19h9l-5 18 28-3 8-10h8l-3 15 3 15h-8l-8-10-28-3 5 18h-9L40 28l-32 1z" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Today. aeroTELEGRAPH, ZDFheute</span>
+        <h3>National strike grounds most Belgian flights today</h3>
+        <p>Air navigation service Skeyes provides no regular control from 07:00 to 21:00, handling only emergencies and safety-critical flights. Around 429 flights with about 59,500 passengers were planned at Brussels Airport; Charleroi is also hit. Unions are protesting the government's austerity policy.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/streik-legt-belgischen-luftverkehr-am-montag-weitgehend-lahm/5330jsg" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Reported, 20 Nov. AirlineGeeks</span>
+        <h3>Lufthansa reportedly plans to cut about 1,000 jobs</h3>
+        <p>Citing the Wall Street Journal and an internal letter, the cuts target Frankfurt and Munich. The letter says „The year 2026 has set us back“; pilot talks failed again this week.</p>
+        <div class="links"><a href="https://airlinegeeks.com/2026/11/20/report-lufthansa-to-cut-1000-jobs/" target="_blank" rel="noopener">Read at AirlineGeeks</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">IT outage. aeroTELEGRAPH</span>
+        <h3>Delta system fault triggers Atlanta ground stop</h3>
+        <p>A failure in Delta's weight-and-balance system led the FAA to halt Delta departures to Atlanta for about an hour on Sunday. The FAA said air traffic control was not involved.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/computerpanne-bei-delta-fuehrt-zu-flugstopp-in-atlanta/w9v4ecc" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Cause unclear. aeroTELEGRAPH</span>
+        <h3>About 30 passengers fall ill on two Condor flights to Frankfurt</h3>
+        <p>Both A330neo flights came from the Dominican Republic; rescue crews met the aircraft and two people went to hospital.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/sicherheit/krankheitswelle-an-bord-30-passagiere-auf-condor-fluegen-nach-frankfurt-betroffen/7xx2nws" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="topic" style="--c:var(--tech)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Topic of the day: Homelabbing</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M30 4h44v44H30zM30 16h44M30 28h44M30 40h44M36 10h4M36 22h4M36 34h4M60 10h8M60 22h8M60 34h8M8 26h22M74 26h22"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Community project. Hackaday, PrintableRacks</span>
+        <h3>PrintableRacks: plan a 10-inch homelab rack in the browser</h3>
+        <p>The free planner offers 17 frames (7 printable) and 706 parts, flags rail-standard, depth and slot conflicts, and exports a print-and-buy list with filament estimates. The site's own frame print kits are CC BY-NC-SA 4.0; the planner itself is not stated to be open source.</p>
+        <div class="links"><a href="https://hackaday.com/2026/11/20/printable-homelab-racks-you-can-design-in-a-browser" target="_blank" rel="noopener">Read at Hackaday</a><a href="https://printableracks.com/" target="_blank" rel="noopener">PrintableRacks</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Release. GitHub, selfh.st</span>
+        <h3>AdGuard Home reaches v1.0.0</h3>
+        <p>The network-wide DNS blocker gets a lighter, mobile-friendly UI and a new release model in which minor versions may break compatibility. Existing v0.107 configs keep working; new installs default to Cloudflare upstreams.</p>
+        <div class="links"><a href="https://github.com/AdguardTeam/AdGuardHome/releases/tag/v1.0.0" target="_blank" rel="noopener">Release notes</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Provisional spec. ServeTheHome</span>
+        <h3>JEDEC previews DDR6</h3>
+        <p>Provisional figures: 12.8 to 14.4 GT/s, a 96-bit DIMM bus and about 172.8 GB/s per DIMM, on a compact module about 74 mm wide. JEDEC targets better performance per watt; no final spec yet.</p>
+        <div class="links"><a href="https://www.servethehome.com/jedec-previews-ddr6-memory-standard-2-35x-more-bandwidth-44-narrower-dimms/" target="_blank" rel="noopener">Read at ServeTheHome</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="notice" aria-labelledby="notes">
+    <h2 id="notes">About this edition</h2>
+    <p><strong>Source access:</strong> tagesschau.de, BBC News, AP, Die Zeit, RTVE and La Vanguardia were blocked for Claude's web tools, and Reuters, Der Spiegel, Süddeutsche Zeitung and El País were not reached, so world news relies on UN News, Al Jazeera and the ZDFheute ticker, German politics on the ZDFheute ticker, and Spanish politics on elDiario.es. Deutsche Bahn's press page and Bahn Manager failed to load, Eurailpress returned an outdated page, and VRR and Zughalt.de had nothing newer than 20 November. The Spanish rally items date from Saturday 21 November; the Lufthansa report and the homelab items fall within the past seven days.</p>
+    <p><strong>Pictures:</strong> This page uses custom icons. News photos are left out.</p>
+    <p><strong>Trial run:</strong> This page is updated each morning alongside the regular text digest. Each edition replaces the one before it.</p>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://news.un.org/en/story/2026/11/1168855" target="_blank" rel="noopener">UN News: COP31 ends without climate pact</a></li>
+      <li><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute: Newsticker, 22 November</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/22/eleven-killed-in-burst-of-violence-during-mexican-cartel-leaders-capture" target="_blank" rel="noopener">Al Jazeera: Mexican cartel leader captured</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/22/displaced-palestinians-protest-as-israeli-air-strikes-continue-in-gaza" target="_blank" rel="noopener">Al Jazeera: Gaza protests and strikes</a></li>
+      <li><a href="https://www.eldiario.es/politica/pedro-sanchez-revela-salvados-zapatero-le-ayudando-aconsejando-campana-electoral_1_13683140.html" target="_blank" rel="noopener">elDiario.es: Sánchez on Zapatero</a></li>
+      <li><a href="https://www.eldiario.es/politica/feijoo-advierte-pp-acto-central-campana-no-fieis-son-capaces-heridos-son-peligrosos_1_13682705.html" target="_blank" rel="noopener">elDiario.es: Feijóo in Valencia</a></li>
+      <li><a href="https://www.eldiario.es/andalucia/abascal-exige-feijoo-no-apele-voto-util-aclare-29n-si-posible-pp-pacte-restos-psoe_1_13682897.html" target="_blank" rel="noopener">elDiario.es: Abascal in Seville</a></li>
+      <li><a href="https://www.eldiario.es/politica/frente-amplio-llama-dar-vuelta-encuestas-acto-central-motosierra_1_13682824.html" target="_blank" rel="noopener">elDiario.es: Frente Amplio in Barcelona</a></li>
+      <li><a href="https://bahnblogstelle.com/267063/skoda-group-erhaelt-grossauftrag-neue-strassenbahnen-fuer-essen-krefeld-und-oberhausen/" target="_blank" rel="noopener">Bahnblogstelle: Škoda trams for the Ruhr</a></li>
+      <li><a href="https://www.urban-transport-magazine.com/ruhrbahn-bestellt-bei-skoda-neue-niederflur-strassenbahnen/" target="_blank" rel="noopener">Urban Transport Magazine: Ruhrbahn orders from Škoda</a></li>
+      <li><a href="https://railcolornews.com/2026/11/21/alpha-trains-will-be-providing-27-dual-mode-locomotives-to-haul-sncfs-old-night-trains/" target="_blank" rel="noopener">Railcolor News: Alpha Trains night-train locos</a></li>
+      <li><a href="https://bahnblogstelle.com/267059/oebb-setzen-90-massnahmen-in-fuenf-tagen-auf-der-arlbergstrecke-um/" target="_blank" rel="noopener">Bahnblogstelle: ÖBB Arlberg works</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/streik-legt-belgischen-luftverkehr-am-montag-weitgehend-lahm/5330jsg" target="_blank" rel="noopener">aeroTELEGRAPH: Belgian strike</a></li>
+      <li><a href="https://airlinegeeks.com/2026/11/20/report-lufthansa-to-cut-1000-jobs/" target="_blank" rel="noopener">AirlineGeeks: Lufthansa job cuts</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/computerpanne-bei-delta-fuehrt-zu-flugstopp-in-atlanta/w9v4ecc" target="_blank" rel="noopener">aeroTELEGRAPH: Delta ground stop</a></li>
+      <li><a href="https://www.aerotelegraph.com/sicherheit/krankheitswelle-an-bord-30-passagiere-auf-condor-fluegen-nach-frankfurt-betroffen/7xx2nws" target="_blank" rel="noopener">aeroTELEGRAPH: Condor illness</a></li>
+      <li><a href="https://hackaday.com/2026/11/20/printable-homelab-racks-you-can-design-in-a-browser" target="_blank" rel="noopener">Hackaday: Printable homelab racks</a></li>
+      <li><a href="https://printableracks.com/" target="_blank" rel="noopener">PrintableRacks</a></li>
+      <li><a href="https://github.com/AdguardTeam/AdGuardHome/releases/tag/v1.0.0" target="_blank" rel="noopener">GitHub: AdGuard Home v1.0.0</a></li>
+      <li><a href="https://www.servethehome.com/jedec-previews-ddr6-memory-standard-2-35x-more-bandwidth-44-narrower-dimms/" target="_blank" rel="noopener">ServeTheHome: DDR6 preview</a></li>
+    </ol>
+  </section>
+</main>
+
+</body></html>
