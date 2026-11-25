@@ -1,0 +1,336 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Morgenlinie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Doto:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a transit line. The sign announces the edition; each section is a stop on one continuous route. */
+:root {
+  --ground: #edf1f2; --paper: #fbfcfc; --ink: #15252c; --muted: #52646c; --line-soft: #c9d4d8;
+  --sign: #0f1b20; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #1c6f8c; --de: #b23a48; --es: #a65f00; --rail: #1f7a55; --air: #4a5bb5; --tech: #7a4a9e;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --dot: "Doto", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark }
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: 76px }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55 }
+a { color: inherit }
+a:focus-visible { outline: 3px solid var(--sign-text); outline-offset: 2px }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+
+.sign { background: var(--sign); color: var(--sign-text) }
+.sign .wrap { display: grid; gap: 6px; padding-block: 28px 22px }
+.sign-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: .05em; color: var(--sign-dim); text-transform: uppercase }
+h1 { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(2.7rem, 10.5vw, 6.2rem); line-height: 1; letter-spacing: .01em }
+.sign-note { margin: 4px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.2rem; color: #f3e6cf }
+
+.route { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line-soft) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sign) }
+.route-scroll { overflow-x: auto; scrollbar-width: none }
+.route ol { list-style: none; display: flex; align-items: stretch; gap: 4px; margin: 0; padding: 9px 0; min-width: max-content }
+.route a { display: flex; align-items: center; gap: 7px; padding: 5px 9px 5px 5px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; border-radius: 4px }
+.route a:hover { background: var(--ground) }
+.bug { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding-inline: 5px; border-radius: 3px; color: var(--paper); background: var(--c); font-family: var(--display); font-weight: 700; font-size: .95rem; line-height: 1 }
+
+main { padding-block: 22px 44px }
+.stop { --c: var(--world); position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 16px; padding-bottom: 42px }
+.stop::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 0; width: 8px; background: var(--c) }
+.stop:last-of-type::before { bottom: 36px }
+.dot { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: 8px solid var(--c); margin-top: 4px }
+.stop-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 42px; margin-bottom: 14px }
+h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.05; text-wrap: balance }
+.stop-head svg { width: 104px; height: 52px; flex: none; color: var(--c) }
+.stories { grid-column: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.story { min-width: 0; display: flex; flex-direction: column; background: var(--paper); padding: 18px 20px; border-radius: 4px }
+.story.lead { grid-column: 1 / -1 }
+.story.lead h3 { font-size: clamp(1.65rem, 3.3vw, 2.15rem) }
+.story.lead p { max-width: 68ch }
+h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 1.42rem; line-height: 1.14; text-wrap: balance }
+.story p { margin: 0 0 12px }
+.kind { align-self: flex-start; margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: .84rem; letter-spacing: .07em; text-transform: uppercase; color: var(--c) }
+.links { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: auto; font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--c) }
+.links a { text-underline-offset: 3px }
+
+.closure { --c: var(--rail); margin-top: 2px; margin-bottom: 14px; overflow-x: auto }
+.closure svg { display: block; width: 100%; height: auto; color: var(--ink) }
+
+.notice { background: var(--paper); border-radius: 4px; padding: 20px; margin-left: 50px; display: grid; gap: 8px }
+.notice h2 { font-size: 1.55rem }
+.notice p { margin: 0; max-width: 72ch }
+.sources { columns: 2; column-gap: 28px; margin: 6px 0 0; padding-left: 20px; font-size: .94rem }
+.sources li { break-inside: avoid; margin-bottom: 4px }
+
+@media (max-width: 680px) {
+  body { font-size: 16.5px }
+  .stories { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 2px; position: relative }
+  .stop { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px }
+  .stop::before { display: none }
+  .stop-head svg { width: 76px; height: 38px }
+  .notice { margin-left: 0 }
+  .sources { columns: 1 }
+  html { scroll-padding-top: 66px }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+</style>
+
+<header class="sign">
+  <div class="wrap">
+    <div class="sign-meta"><span>Wednesday 25 November 2026</span><span>Preview edition</span></div>
+    <h1>MORGENLINIE</h1>
+    <p class="sign-note">Your morning news, six stops. About six minutes.</p>
+  </div>
+</header>
+
+<nav class="route" aria-label="Sections">
+  <div class="wrap route-scroll">
+    <ol>
+      <li><a href="#world" style="--c:var(--world)"><span class="bug">1</span>World</a></li>
+      <li><a href="#germany" style="--c:var(--de)"><span class="bug">2</span>Germany</a></li>
+      <li><a href="#spain" style="--c:var(--es)"><span class="bug">3</span>Spain</a></li>
+      <li><a href="#rail" style="--c:var(--rail)"><span class="bug">4</span>Rail</a></li>
+      <li><a href="#aviation" style="--c:var(--air)"><span class="bug">5</span>Aviation</a></li>
+      <li><a href="#topic" style="--c:var(--tech)"><span class="bug">6</span>Open source</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="stop" id="world" style="--c:var(--world)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global headlines</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="52" cy="26" r="23"/><ellipse cx="52" cy="26" rx="10" ry="23"/><path d="M30 18h44M30 34h44M4 26h25M75 26h25"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Developing. Al Jazeera</span>
+        <h3>Hormuz traffic down over 40% as the Gulf war spreads to Yemen and Riyadh</h3>
+        <p>Iran's navy says oil tankers hit mines and caught fire in the Strait of Hormuz on Tuesday; Al Jazeera's reports differ on whether two or three ships were hit, and there is no independent confirmation. Crossings fell from 226 (1–7 Nov) to 125 (17–23 Nov), per Marine Traffic data. The Saudi-led coalition has ordered civilians out of Yemen's Hodeidah port, the Houthis threaten Jeddah and other Saudi ports if it is attacked, and the coalition says Riyadh's PIF tower was targeted in a „terrorist attack“; who was behind it is unconfirmed.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/24/hormuz-oil-traffic-is-down-40-percent-are-irans-tanker-attacks-working" target="_blank" rel="noopener">Hormuz explainer</a><a href="https://www.aljazeera.com/news/liveblog/2026/11/25/iran-war-live-houthis-threaten-saudi-ports-over-coalitions-hodeidah-order" target="_blank" rel="noopener">Al Jazeera live blog</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Today. ZDFheute ticker</span>
+        <h3>Trump hosts Rutte at Mar-a-Lago</h3>
+        <p>A Ukraine ceasefire is expected to be the main topic. On Tuesday, Hungarian PM Péter Magyar met Zelensky in Uzhhorod.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">UN Security Council. Al Jazeera</span>
+        <h3>WFP warns of a „triple chokepoint“ for food</h3>
+        <p>Disruption at Hormuz, Bab al-Mandeb and the Black Sea could add $727m in costs by mid-2027, putting aid for 7.3 million people at risk. „It is a political problem,“ said WFP chief Luke Lindberg.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/2026/11/24/wars-choke-global-food-routes-threatening-aid-for-7-3-million-wfp-warns" target="_blank" rel="noopener">Read at Al Jazeera</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Attack. ZDFheute ticker</span>
+        <h3>Bomb injures at least 20 in Villavicencio, Colombia</h3>
+        <p>The blast came on the tenth anniversary of the FARC peace deal. A splinter group around Iván Mordisco is being blamed.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="germany" style="--c:var(--de)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>German politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M22 47h60M28 47V28h48v19M36 47V28M46 47V28M58 47V28M68 47V28M28 28h48M38 28c0-13 7-20 14-20s14 7 14 20M52 8V3"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Budget committee in December. ZDFheute ticker</span>
+        <h3>Government plans more than €4 billion for new Patriot missiles</h3>
+        <p>The federal government wants to buy new Patriot missiles and equipment; the Bundestag budget committee is expected to approve the purchase in December. On the same evening, the EU Commission warned that Germany's budget risks breaching EU net-spending rules.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Party dispute. ZDFheute ticker</span>
+        <h3>Vanessa Emde expelled from Berlin Left faction</h3>
+        <p>Emde criticised the decision: „Die Entscheidung ist eine Zäsur für die Linke.“</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Appointment. ZDFheute ticker</span>
+        <h3>Carsten Günther to head the Bundesverwaltungsgericht</h3>
+        <p>Günther has been named the new president of Germany's top administrative court in Leipzig.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="spain" style="--c:var(--es)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Spanish politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M27 25h50v23H27zM39 25l13-8 13 8M41 14l20-8 7 15"/><path d="M45 34h14"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Last cabinet before 29N. elDiario.es</span>
+        <h3>Birth leave rises to 20 weeks; 10 days for bereavement</h3>
+        <p>In its final meeting before Sunday's election, the Consejo de Ministros used a real decreto-ley to extend paid, non-transferable birth and care leave from 17 to 20 weeks per parent, and to 34 weeks for single-parent families. It also approved 10 days' leave on the death of a family member. Sánchez: „Cumplimos con el compromiso de alcanzar las 20 semanas en el permiso de nacimiento y cuidado.“</p>
+        <div class="links"><a href="https://www.eldiario.es/economia/gobierno-eleva-20-semanas-permiso-nacimiento-34-semanas-familias-monomarentales_1_13688066.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Abortion. elDiario.es</span>
+        <h3>Government to challenge Madrid's „concebido no nacido“ law</h3>
+        <p>Sánchez announced an appeal to the Tribunal Constitucional against the Ayuso government's law, plus a rule on the information women get before an abortion: „Hoy reforzamos las garantías…“</p>
+        <div class="links"><a href="https://www.eldiario.es/sociedad/gobierno-recurrira-tribunal-constitucional-ley-concebido-no-nacido-ayuso_1_13688058.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Polls disagree. elDiario.es</span>
+        <h3>First campaign day without polls; CIS figures split</h3>
+        <p>The last CIS gives the PSOE a lead of almost ten points, with PP and Vox short of a majority, while an alternative calculation of the same data shows a PP–PSOE tie and a right-wing majority.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13687918.html" target="_blank" rel="noopener">elDiario.es live blog</a><a href="https://www.eldiario.es/politica/calculo-alternativo-cis-da-empate-tecnico-pp-psoe-clara-mayoria-derechas_1_13686270.html" target="_blank" rel="noopener">Alternative CIS calculation</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="rail" style="--c:var(--rail)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Rail and public transport</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M10 39h84v-20a8 8 0 0 0-8-8H18a8 8 0 0 0-8 8zM21 11V5h62v6M21 18h20v11H21zM47 18h10v21H47zM63 18h20v11H63zM22 39v5m60-5v5M5 47h94"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Financing. Bahnblogstelle</span>
+        <h3>€900m for up to 50 new RRX trains in NRW</h3>
+        <p>VRR, NWL and go.Rheinland are financing new trains for RRX Teilnetz B, backed by a KfW IPEX-Bank loan of over €300m and the EIB. DB Regio gets 34 four-car Hitachi Eurocaravaggio units (RE 2, RE 3, RE 45) and WestfalenBahn 16 six-car Stadler KISS (RE 7, RE 42), entering service in December 2031 and 2032.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/267199/900-millionen-euro-fuer-neue-regionalzuege-in-nrw/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">From today. Bahnblogstelle</span>
+        <h3>Zweigkanal bridge stays single-track</h3>
+        <p>The bridge between Groß Gleidingen and Vechelde cannot carry two tracks. Until 12 December, S4 Hannover–Hildesheim is largely cancelled and NRW–Berlin long-distance trains take about 20 minutes longer.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/267217/offenbach-hauptbahnhof-wird-aufgewertet-bahnhof-schwerte-wird-modernisiert-zweigkanalbruecke-bleibt-eingleisig/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Ruling due today. Bahnblogstelle</span>
+        <h3>OLG Düsseldorf to rule on DB ticket sales</h3>
+        <p>DB is appealing the Bundeskartellamt's finding that it disadvantaged platforms such as Trainline and Omio. The ruling is due this morning.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/267211/hat-die-bahn-ihre-marktmacht-beim-ticketverkauf-ausgenutzt/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Recruitment. Bahnblogstelle</span>
+        <h3>DB to hire 5,000 trainees again in 2027</h3>
+        <p>The focus is on train control, onboard staff, electronics and track work. EVG chief Martin Burkert says the new staff are urgently needed.</p>
+        <div class="links"><a href="https://bahnblogstelle.com/267213/bahn-will-2027-erneut-5-000-nachwuchskraefte-einstellen/" target="_blank" rel="noopener">Read at Bahnblogstelle</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Rolling stock. Railcolor News</span>
+        <h3>Pesa to build tri-mode trains for Lower Silesia</h3>
+        <p>Koleje Dolnośląskie ordered two Class 55WE units running on catenary, batteries and hydrogen fuel cells. The value was not visible.</p>
+        <div class="links"><a href="https://railcolornews.com/2026/11/24/overhead-catenary-batteries-and-hydrogen-fuel-cells-new-pesa-trains-for-koleje-dolnoslaskie/" target="_blank" rel="noopener">Read at Railcolor</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Leasing. Railcolor News</span>
+        <h3>ČD returns first leased Vectrons early</h3>
+        <p>České dráhy is handing back three first-generation ELL Vectron MS before their lease ends. MÁV Rail Tours and CT Train take them over.</p>
+        <div class="links"><a href="https://railcolornews.com/2026/11/24/ceske-drahy-begins-returning-its-first-generation-of-leased-vectrons/" target="_blank" rel="noopener">Read at Railcolor</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="aviation" style="--c:var(--air)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global aviation</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M8 29l32-3 10-19h9l-5 18 28-3 8-10h8l-3 15 3 15h-8l-8-10-28-3 5 18h-9L40 28l-32 1z" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Order. aeroTELEGRAPH</span>
+        <h3>Xiamen Airlines orders 50 Boeing 737 MAX 8</h3>
+        <p>Parent China Southern disclosed the purchase agreement in a stock exchange filing; deliveries run from 2031 to 2034. The jets are meant to support the airline's move to the new Xiamen-Xiang'an airport and network growth. Xiamen is China's seventh-largest airline by seat capacity, per OAG.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/flugzeuge/xiamen-airlines-bestellt-50-boeing-737-max-8/w2kcgsk" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Pay dispute. aeroTELEGRAPH</span>
+        <h3>Vereinigung Cockpit hardens its line on Lufthansa</h3>
+        <p>The union's deadline to resume talks has passed. It says Lufthansa wants „erhebliche Zugeständnisse“ without job guarantees; no strike has been announced.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/tarifkonflikt-bei-lufthansa-vereinigung-cockpit-verschaerft-den-ton/k2rslev" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Settlement. aeroTELEGRAPH</span>
+        <h3>Ex-Air Berlin CEO Winkelmann settles</h3>
+        <p>„Ein hoher zweistelliger Millionenbetrag“ goes to the insolvency estates, ending the dispute over the late insolvency filing.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/airlines/air-berlin-frueherer-chef-zahlt-millionen-in-die-insolvenzmasse/7hxvkz0" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">New routes. aeroTELEGRAPH</span>
+        <h3>Eurowings to fly to Damascus from January</h3>
+        <p>Service from Hamburg, Düsseldorf, Berlin and Stuttgart starts on 11–13 January 2027, aimed at friends-and-family travel. Several airlines already serve Syria from Germany.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/airlines/eurowings-fliegt-ab-berlin-duesseldorf-hamburg-und-stuttgart-nach-syrien/d4mt6p6" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="topic" style="--c:var(--tech)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Topic of the day: Open source</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M30 4h44v44H30zM30 16h44M30 28h44M30 40h44M36 10h4M36 22h4M36 34h4M60 10h8M60 22h8M60 34h8M8 26h22M74 26h22"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Release. PostgreSQL</span>
+        <h3>PostgreSQL 19 released</h3>
+        <p>The 19 November release adds REPACK (CONCURRENTLY) to reclaim bloat without blocking reads or writes, plan-stability tools (pg_plan_advice), parallel index vacuuming in autovacuum and replication of sequence values. JIT is now off by default, and md5 passwords trigger warnings.</p>
+        <div class="links"><a href="https://www.postgresql.org/about/news/postgresql-19-released-3449/" target="_blank" rel="noopener">Release announcement</a><a href="https://lwn.net/Articles/1108561/" target="_blank" rel="noopener">LWN</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Licensing. LLVM forum</span>
+        <h3>LLVM ends its eight-year relicensing effort</h3>
+        <p>Over 99.5% of all code ever contributed is now under Apache-2.0 WITH LLVM-exception or gone: „We think that's a good moment to call the effort complete.“ Licence files will be updated for LLVM 25.</p>
+        <div class="links"><a href="https://discourse.llvm.org/t/wrapping-up-llvms-relicensing-effort/92906" target="_blank" rel="noopener">Read the announcement</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Governance. It's FOSS</span>
+        <h3>Mozilla: Apple's iOS engine rules still block Gecko</h3>
+        <p>Apple requires a separate app for a non-WebKit engine; nearly three years on, no such browser has launched in the EU. Mozilla says this is compliance in name only.</p>
+        <div class="links"><a href="https://itsfoss.com/news/firefox-apple-dispute/" target="_blank" rel="noopener">Read at It's FOSS</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="notice" aria-labelledby="notes">
+    <h2 id="notes">About this edition</h2>
+    <p><strong>Source access:</strong> tagesschau, BBC, AP, Die Zeit, Süddeutsche Zeitung and RTVE were blocked for Claude's web tools this morning, and Reuters, Der Spiegel, El País and La Vanguardia could not be reached, so world news relies on Al Jazeera and ZDFheute, German politics on ZDFheute's news ticker (short items, no separate articles), and Spanish politics on elDiario.es. The Railcolor items rest on the free summary, as the full articles are paywalled. The open-source items fall within the past seven days.</p>
+    <p><strong>Pictures:</strong> This page uses custom icons. News photos are left out.</p>
+    <p><strong>Trial run:</strong> This page is updated each morning alongside the regular text digest. Each edition replaces the one before it.</p>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://www.aljazeera.com/news/2026/11/24/hormuz-oil-traffic-is-down-40-percent-are-irans-tanker-attacks-working" target="_blank" rel="noopener">Al Jazeera: Hormuz traffic down 40%</a></li>
+      <li><a href="https://www.aljazeera.com/news/liveblog/2026/11/25/iran-war-live-houthis-threaten-saudi-ports-over-coalitions-hodeidah-order" target="_blank" rel="noopener">Al Jazeera: Live blog, 25 November</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/24/wars-choke-global-food-routes-threatening-aid-for-7-3-million-wfp-warns" target="_blank" rel="noopener">Al Jazeera: WFP warning</a></li>
+      <li><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute: Newsticker, 24 November</a></li>
+      <li><a href="https://www.eldiario.es/economia/gobierno-eleva-20-semanas-permiso-nacimiento-34-semanas-familias-monomarentales_1_13688066.html" target="_blank" rel="noopener">elDiario.es: Birth leave</a></li>
+      <li><a href="https://www.eldiario.es/sociedad/gobierno-recurrira-tribunal-constitucional-ley-concebido-no-nacido-ayuso_1_13688058.html" target="_blank" rel="noopener">elDiario.es: Appeal against Madrid law</a></li>
+      <li><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13687918.html" target="_blank" rel="noopener">elDiario.es: Live blog, 24 November</a></li>
+      <li><a href="https://www.eldiario.es/politica/calculo-alternativo-cis-da-empate-tecnico-pp-psoe-clara-mayoria-derechas_1_13686270.html" target="_blank" rel="noopener">elDiario.es: Alternative CIS calculation</a></li>
+      <li><a href="https://bahnblogstelle.com/267199/900-millionen-euro-fuer-neue-regionalzuege-in-nrw/" target="_blank" rel="noopener">Bahnblogstelle: RRX trains</a></li>
+      <li><a href="https://bahnblogstelle.com/267217/offenbach-hauptbahnhof-wird-aufgewertet-bahnhof-schwerte-wird-modernisiert-zweigkanalbruecke-bleibt-eingleisig/" target="_blank" rel="noopener">Bahnblogstelle: Zweigkanal bridge</a></li>
+      <li><a href="https://bahnblogstelle.com/267211/hat-die-bahn-ihre-marktmacht-beim-ticketverkauf-ausgenutzt/" target="_blank" rel="noopener">Bahnblogstelle: DB ticket sales</a></li>
+      <li><a href="https://bahnblogstelle.com/267213/bahn-will-2027-erneut-5-000-nachwuchskraefte-einstellen/" target="_blank" rel="noopener">Bahnblogstelle: DB trainees</a></li>
+      <li><a href="https://railcolornews.com/2026/11/24/overhead-catenary-batteries-and-hydrogen-fuel-cells-new-pesa-trains-for-koleje-dolnoslaskie/" target="_blank" rel="noopener">Railcolor News: Pesa for KD</a></li>
+      <li><a href="https://railcolornews.com/2026/11/24/ceske-drahy-begins-returning-its-first-generation-of-leased-vectrons/" target="_blank" rel="noopener">Railcolor News: ČD Vectrons</a></li>
+      <li><a href="https://www.aerotelegraph.com/flugzeuge/xiamen-airlines-bestellt-50-boeing-737-max-8/w2kcgsk" target="_blank" rel="noopener">aeroTELEGRAPH: Xiamen order</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/tarifkonflikt-bei-lufthansa-vereinigung-cockpit-verschaerft-den-ton/k2rslev" target="_blank" rel="noopener">aeroTELEGRAPH: Vereinigung Cockpit</a></li>
+      <li><a href="https://www.aerotelegraph.com/airlines/air-berlin-frueherer-chef-zahlt-millionen-in-die-insolvenzmasse/7hxvkz0" target="_blank" rel="noopener">aeroTELEGRAPH: Air Berlin settlement</a></li>
+      <li><a href="https://www.aerotelegraph.com/airlines/eurowings-fliegt-ab-berlin-duesseldorf-hamburg-und-stuttgart-nach-syrien/d4mt6p6" target="_blank" rel="noopener">aeroTELEGRAPH: Eurowings to Syria</a></li>
+      <li><a href="https://www.postgresql.org/about/news/postgresql-19-released-3449/" target="_blank" rel="noopener">PostgreSQL: Version 19 released</a></li>
+      <li><a href="https://lwn.net/Articles/1108561/" target="_blank" rel="noopener">LWN: PostgreSQL 19</a></li>
+      <li><a href="https://discourse.llvm.org/t/wrapping-up-llvms-relicensing-effort/92906" target="_blank" rel="noopener">LLVM: Relicensing wrap-up</a></li>
+      <li><a href="https://itsfoss.com/news/firefox-apple-dispute/" target="_blank" rel="noopener">It's FOSS: Firefox and Apple</a></li>
+    </ol>
+  </section>
+</main>
+
+</body></html>
