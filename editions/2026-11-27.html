@@ -1,0 +1,335 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Morgenlinie</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Doto:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a transit line. The sign announces the edition; each section is a stop on one continuous route. */
+:root {
+  --ground: #edf1f2; --paper: #fbfcfc; --ink: #15252c; --muted: #52646c; --line-soft: #c9d4d8;
+  --sign: #0f1b20; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #1c6f8c; --de: #b23a48; --es: #a65f00; --rail: #1f7a55; --air: #4a5bb5; --tech: #7a4a9e;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+  --dot: "Doto", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #101a1f; --paper: #17242a; --ink: #e8eff1; --muted: #a2b2b9; --line-soft: #33454d;
+  --sign: #081014; --sign-text: #ffb12b; --sign-dim: #8f9ca2;
+  --world: #5eb8d6; --de: #ef8a96; --es: #e7a84e; --rail: #62c79c; --air: #9faaf0; --tech: #c49ae4;
+  color-scheme: dark }
+* { box-sizing: border-box }
+html { scroll-behavior: smooth; scroll-padding-top: 76px }
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55 }
+a { color: inherit }
+a:focus-visible { outline: 3px solid var(--sign-text); outline-offset: 2px }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+
+.sign { background: var(--sign); color: var(--sign-text) }
+.sign .wrap { display: grid; gap: 6px; padding-block: 28px 22px }
+.sign-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px; font-family: var(--display); font-weight: 500; font-size: 1rem; letter-spacing: .05em; color: var(--sign-dim); text-transform: uppercase }
+h1 { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(2.7rem, 10.5vw, 6.2rem); line-height: 1; letter-spacing: .01em }
+.sign-note { margin: 4px 0 0; font-family: var(--display); font-weight: 500; font-size: 1.2rem; color: #f3e6cf }
+
+.route { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line-soft) }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sign) }
+.route-scroll { overflow-x: auto; scrollbar-width: none }
+.route ol { list-style: none; display: flex; align-items: stretch; gap: 4px; margin: 0; padding: 9px 0; min-width: max-content }
+.route a { display: flex; align-items: center; gap: 7px; padding: 5px 9px 5px 5px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; white-space: nowrap; border-radius: 4px }
+.route a:hover { background: var(--ground) }
+.bug { display: inline-grid; place-items: center; min-width: 28px; height: 24px; padding-inline: 5px; border-radius: 3px; color: var(--paper); background: var(--c); font-family: var(--display); font-weight: 700; font-size: .95rem; line-height: 1 }
+
+main { padding-block: 22px 44px }
+.stop { --c: var(--world); position: relative; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 0 16px; padding-bottom: 42px }
+.stop::before { content: ""; position: absolute; left: 13px; top: 6px; bottom: 0; width: 8px; background: var(--c) }
+.stop:last-of-type::before { bottom: 36px }
+.dot { position: relative; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); border: 8px solid var(--c); margin-top: 4px }
+.stop-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 42px; margin-bottom: 14px }
+h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.05; text-wrap: balance }
+.stop-head svg { width: 104px; height: 52px; flex: none; color: var(--c) }
+.stories { grid-column: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.story { min-width: 0; display: flex; flex-direction: column; background: var(--paper); padding: 18px 20px; border-radius: 4px }
+.story.lead { grid-column: 1 / -1 }
+.story.lead h3 { font-size: clamp(1.65rem, 3.3vw, 2.15rem) }
+.story.lead p { max-width: 68ch }
+h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 600; font-size: 1.42rem; line-height: 1.14; text-wrap: balance }
+.story p { margin: 0 0 12px }
+.kind { align-self: flex-start; margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: .84rem; letter-spacing: .07em; text-transform: uppercase; color: var(--c) }
+.links { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: auto; font-family: var(--display); font-weight: 600; font-size: 1.02rem; color: var(--c) }
+.links a { text-underline-offset: 3px }
+
+.closure { --c: var(--rail); margin-top: 2px; margin-bottom: 14px; overflow-x: auto }
+.closure svg { display: block; width: 100%; height: auto; color: var(--ink) }
+
+.notice { background: var(--paper); border-radius: 4px; padding: 20px; margin-left: 50px; display: grid; gap: 8px }
+.notice h2 { font-size: 1.55rem }
+.notice p { margin: 0; max-width: 72ch }
+.sources { columns: 2; column-gap: 28px; margin: 6px 0 0; padding-left: 20px; font-size: .94rem }
+.sources li { break-inside: avoid; margin-bottom: 4px }
+
+@media (max-width: 680px) {
+  body { font-size: 16.5px }
+  .stories { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 2px; position: relative }
+  .stop { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px }
+  .stop::before { display: none }
+  .stop-head svg { width: 76px; height: 38px }
+  .notice { margin-left: 0 }
+  .sources { columns: 1 }
+  html { scroll-padding-top: 66px }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+</style>
+
+<header class="sign">
+  <div class="wrap">
+    <div class="sign-meta"><span>Friday 27 November 2026</span><span>Preview edition</span></div>
+    <h1>MORGENLINIE</h1>
+    <p class="sign-note">Your morning news, six stops. About six minutes.</p>
+  </div>
+</header>
+
+<nav class="route" aria-label="Sections">
+  <div class="wrap route-scroll">
+    <ol>
+      <li><a href="#world" style="--c:var(--world)"><span class="bug">1</span>World</a></li>
+      <li><a href="#germany" style="--c:var(--de)"><span class="bug">2</span>Germany</a></li>
+      <li><a href="#spain" style="--c:var(--es)"><span class="bug">3</span>Spain</a></li>
+      <li><a href="#rail" style="--c:var(--rail)"><span class="bug">4</span>Rail</a></li>
+      <li><a href="#aviation" style="--c:var(--air)"><span class="bug">5</span>Aviation</a></li>
+      <li><a href="#topic" style="--c:var(--tech)"><span class="bug">6</span>Best of week</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="stop" id="world" style="--c:var(--world)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global headlines</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="52" cy="26" r="23"/><ellipse cx="52" cy="26" rx="10" ry="23"/><path d="M30 18h44M30 34h44M4 26h25M75 26h25"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Ukraine. RFE/RL</span>
+        <h3>Trump says he asked Putin to „pull back“ across Europe</h3>
+        <p>On Truth Social, Trump said he pressed Putin in recent talks in China to „pull back all military aggression against territories throughout Europe“, calling the war a „complete bloodbath“. He told reporters „I've been very tough on Russia, but I want to make a deal“. Separately, the Pentagon's review of US force posture in Europe will miss its provisional 1 December deadline. RFE/RL reports no Russian response.</p>
+        <div class="links"><a href="https://www.rferl.org/a/trump-putin-europe-ukraine-russia-aggression/33906739.html" target="_blank" rel="noopener">Read at RFE/RL</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">EU. ZDFheute ticker</span>
+        <h3>EU budget summit broken off without a deal</h3>
+        <p>The Brussels special summit on the long-term budget ended early on Thursday night, and it will not resume on Friday. Macron warned that without a deal by year-end, France's presidential election would leave him unable to keep negotiating.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Developing. Al Jazeera / ZDFheute</span>
+        <h3>Iran denies drone attack that killed two Italians in Kuwait</h3>
+        <p>Tehran rejects responsibility and calls it a possible „false flag“ operation. A separate attack on a refinery in Jazan, Saudi Arabia, killed one person; no attacker was named. Who carried out the attacks is unverified.</p>
+        <div class="links"><a href="https://www.aljazeera.com/news/liveblog/2026/11/26/iran-war-live-explosion-rocks-sanaa-missiles-intercepted-over-riyadh" target="_blank" rel="noopener">Al Jazeera live</a><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">USA. ZDFheute / Al Jazeera</span>
+        <h3>Thanksgiving storm cuts power to about 770,000 on the East Coast</h3>
+        <p>Outages, according to PowerOutage.us, were concentrated around Washington. In New York, the storms pushed the Macy's Thanksgiving Day Parade to Saturday.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a><a href="https://www.aljazeera.com/news/2026/11/26/storms-push-macys-thanksgiving-day-parade-in-new-york-city-to-saturday" target="_blank" rel="noopener">Al Jazeera</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="germany" style="--c:var(--de)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>German politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M22 47h60M28 47V28h48v19M36 47V28M46 47V28M58 47V28M68 47V28M28 28h48M38 28c0-13 7-20 14-20s14 7 14 20M52 8V3"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Today. Bundestag</span>
+        <h3>Bundestag votes on the 2027 federal budget</h3>
+        <p>After a 90-minute third reading, MPs vote today on spending of €555.94 billion, €31.4 billion more than in 2026. Net borrowing would be €122.97 billion, investment €61.85 billion and the defence budget €109.75 billion. ZDFheute notes the coalition's dispute over the budget was unusually long.</p>
+        <div class="links"><a href="https://www.bundestag.de/dokumente/textarchiv/2026/kw48-de-haushaltsgesetz-2027-dritte-lesung-1232350" target="_blank" rel="noopener">Read at bundestag.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Pensions. ZDFheute ticker</span>
+        <h3>Schweitzer: coalition „auf gutem Weg“ on pensions</h3>
+        <p>The labour minister (SPD) gave no timetable and left open whether a reform draft will come before Christmas.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">AI. ZDFheute ticker</span>
+        <h3>Federal government takes €1 stake in Cohere</h3>
+        <p>The symbolic stake gives the federal government extensive special rights, and a larger investment is being considered. The digital ministry confirmed a Spiegel report.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+      <article class="story" style="grid-column:1 / -1">
+        <span class="kind">Bundestag. ZDFheute ticker</span>
+        <h3>Klöckner opens proceedings against Left MPs</h3>
+        <p>After the protest at an event with ex-Mossad chief David Barnea, the Bundestag President ordered proceedings. Breaches of the house rules can bring fines of up to €2,000.</p>
+        <div class="links"><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute ticker</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="spain" style="--c:var(--es)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Spanish politics</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M27 25h50v23H27zM39 25l13-8 13 8M41 14l20-8 7 15"/><path d="M45 34h14"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Election. Público</span>
+        <h3>Sánchez, Feijóo, Abascal and Colau meet in the final debate</h3>
+        <p>The Academia de la Televisión debate, moderated by María Casado, ran on all the major channels ahead of Sunday's vote. Sánchez opened with „Estas elecciones no van de mí, van de vosotros“. Abascal refused to condemn violencia machista, which Colau and Sánchez used against Feijóo, who said his party condemns „cualquier tipo de violencia“. After Abascal called Sánchez a „buitre“, Sánchez replied „los insultos, al reality“. Público's live blog covers the first half of the debate.</p>
+        <div class="links"><a href="https://www.publico.es/politica/debate-cuatro-elecciones-generales-29n-directo.html" target="_blank" rel="noopener">Read at Público</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Congress. elDiario.es</span>
+        <h3>Diputación Permanente approves pay rise decrees</h3>
+        <p>A 4.5% rise for civil servants and an IRPF-exempt 2027 minimum wage were among five decrees ratified. Vox stayed away: „La motosierra no madruga“.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13694386.html" target="_blank" rel="noopener">elDiario.es live</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Campaign. elDiario.es</span>
+        <h3>Ex-Podemos figures back the Frente Amplio</h3>
+        <p>Manuela Carmena, Carolina Bescansa, Tania Sánchez and other former Podemos leaders called for a vote for Colau's list.</p>
+        <div class="links"><a href="https://www.eldiario.es/politica/carmena-bescansa-tania-sanchez-exdirigentes-entorno-piden-voto-frente-amplio_1_13694266.html" target="_blank" rel="noopener">Read at elDiario.es</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="rail" style="--c:var(--rail)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Rail and public transport</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M10 39h84v-20a8 8 0 0 0-8-8H18a8 8 0 0 0-8 8zM21 11V5h62v6M21 18h20v11H21zM47 18h10v21H47zM63 18h20v11H63zM22 39v5m60-5v5M5 47h94"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Policy. Zughalt.de</span>
+        <h3>Bund to steer DB InfraGO with penalties and KPIs</h3>
+        <p>Transport Minister Steffen Bilger (CDU) wants a new Leistungsvereinbarung to replace the LuFV III from 1 January 2027, on a Swiss-style model. The draft puts about €83 billion in federal funds through 2031 and covers 13 corridor renovations, down from 21, plus 500 stations. Penalties could reach €1 million a week for late reports. Approval by parliamentary bodies and DB's own bodies is still pending.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/bund-will-db-infrago-mit-poenalen-und-kennzahlen-steuern/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">VRR. Zughalt.de</span>
+        <h3>Essen Citybahn opens on 30 November</h3>
+        <p>Ruhrbahn's new line 108 runs from Katernberg on the surface via the Hauptbahnhof to Hindenburgstraße every ten minutes. Line 107 drops to 20 minutes over its full route. The open day is Sunday.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/essen-citybahn-vor-der-eroeffnung/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Bavaria. Zughalt.de</span>
+        <h3>S-Bahn to Wasserburg moves closer</h3>
+        <p>Bavaria and DB signed a planning contract for extra tracks and higher speeds between Grafing and Wasserburg.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/s-bahn-nach-wasserburg-rueckt-naeher/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Labour. Zughalt.de</span>
+        <h3>SWEG: new Verdi pay deal</h3>
+        <p>The agreement brings a one-off payment, 3.3% more from January 2027 and a 16-month term. It can be revoked until 4 December.</p>
+        <div class="links"><a href="https://www.zughalt.de/2026/11/sweg-neuer-verdi-tarifvertrag/" target="_blank" rel="noopener">Read at Zughalt.de</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Rolling stock. Railcolor News</span>
+        <h3>CAF's Oxygène shown at Paris Austerlitz</h3>
+        <p>SNCF's new Intercités train, meant to replace Corail coaches, was put on public display during its test campaign.</p>
+        <div class="links"><a href="https://railcolornews.com/2026/11/26/france-cafs-oxygene-unveiled-to-the-public-in-paris-austerlitz/" target="_blank" rel="noopener">Read at Railcolor</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Locomotives. Railcolor News</span>
+        <h3>DSB gets its first leased ELL Vectrons</h3>
+        <p>Designated Litra EBx 3300, they add to DSB's 42 owned EB Vectrons, which need backup until at least 2030.</p>
+        <div class="links"><a href="https://railcolornews.com/2026/11/26/litra-ebx-3300-dsb-receives-first-ell-vectrons/" target="_blank" rel="noopener">Read at Railcolor</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="aviation" style="--c:var(--air)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Global aviation</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M8 29l32-3 10-19h9l-5 18 28-3 8-10h8l-3 15 3 15h-8l-8-10-28-3 5 18h-9L40 28l-32 1z" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Airlines. aeroTELEGRAPH</span>
+        <h3>Norse Atlantic grounds its fleet</h3>
+        <p>The airline cancelled all of Thursday's flights and has „den Flugbetrieb vorerst eingestellt“, leaving its twelve Boeing 787s on the ground. The board intends to file for insolvency if short-term financing cannot be found quickly. Takeover talks continue, and PIA is replacing the Norse wet-lease flights with its own 777.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/airlines/norse-atlantic-stellt-flugbetrieb-ein-alle-boeing-787-bleiben-am-boden/hztw59g" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Safety. aeroTELEGRAPH</span>
+        <h3>FAA orders fuselage inspections on all Boeing 757s</h3>
+        <p>The order follows cracks found in previously repaired frames. It covers 427 US aircraft from 28 December, with up to 263 work hours each. There is no grounding.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/risse-in-der-rumpfstruktur-faa-ordnet-inspektionen-bei-boeing-757-an/y58pd38" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Airports. aeroTELEGRAPH</span>
+        <h3>MPs urge pause on Heathrow third runway</h3>
+        <p>The Commons Transport Committee cites a growth effect of only 0.05% of GDP and a clash with climate targets. Heathrow says it is sticking to its plans.</p>
+        <div class="links"><a href="https://www.aerotelegraph.com/ticker/parlamentsausschuss-fordert-stopp-der-ausbauplaene-fuer-london-heathrow/nb3l673" target="_blank" rel="noopener">Read at aeroTELEGRAPH</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="stop" id="topic" style="--c:var(--tech)">
+    <span class="dot" aria-hidden="true"></span>
+    <div class="stop-head"><h2>Topic of the day: Best of the week</h2>
+      <svg viewBox="0 0 104 52" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M30 4h44v44H30zM30 16h44M30 28h44M30 40h44M36 10h4M36 22h4M36 34h4M60 10h8M60 22h8M60 34h8M8 26h22M74 26h22"/></svg>
+    </div>
+    <div class="stories">
+      <article class="story lead">
+        <span class="kind">Pick of the week. CachyOS blog</span>
+        <h3>CachyOS adds a built-in recovery system and EAC v2 support</h3>
+        <p>The November release adds cachyos-recovery, a recovery environment of about 70 MB on the ESP. It boots from the bootloader or UEFI, can boot and roll back Btrfs snapshots, and regenerates kernels and boot configs without a live USB. A signed linux-cachyos-eac kernel also enables Easy Anti-Cheat v2, which needs Secure Boot and TPM 2.0. After updating, run <code>sudo chwd -a -f</code>.</p>
+        <div class="links"><a href="https://cachyos.org/blog/2611-november-release/" target="_blank" rel="noopener">Read the release notes</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Licensing. LLVM Discourse</span>
+        <h3>LLVM closes its eight-year relicensing effort</h3>
+        <p>Over 99.5% of contributed code is now Apache-2.0 WITH LLVM-exception or otherwise covered. File-level updates ship with LLVM 25.</p>
+        <div class="links"><a href="https://discourse.llvm.org/t/wrapping-up-llvms-relicensing-effort/92906" target="_blank" rel="noopener">Read the post</a></div>
+      </article>
+      <article class="story">
+        <span class="kind">Release. System76</span>
+        <h3>Pop!_OS 26.04 LTS lands with COSMIC</h3>
+        <p>The release brings drawing tablet support, automatic updates, remote desktop and new COSMIC apps. Upgrades from 24.04 open in December.</p>
+        <div class="links"><a href="https://system76.com/blog/post/pop_os-26-04-lts-has-landed" target="_blank" rel="noopener">Read at System76</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="notice" aria-labelledby="notes">
+    <h2 id="notes">About this edition</h2>
+    <p><strong>Source access:</strong> tagesschau and BBC were blocked for Claude's web tools this morning, and Reuters, AP, Spiegel, Zeit, SZ, RTVE, El País and La Vanguardia did not turn up usable pages. World news therefore relies on RFE/RL, Al Jazeera and ZDFheute, and German politics on the Bundestag and ZDFheute's news ticker, which has short items and no separate articles. Spanish politics relies on Público and elDiario.es. Público's live debate coverage stopped at 22:33, partway through. The Kuwait and Jazan attacks are not independently verified. Railcolor items are based on their free text only. Eurailpress, Bahnblogstelle and airliners.de were not checked. The best-of-the-week items come from official project pages.</p>
+    <p><strong>Pictures:</strong> This page uses custom icons. News photos are left out.</p>
+    <p><strong>Trial run:</strong> This page is updated each morning alongside the regular text digest. Each edition replaces the one before it.</p>
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li><a href="https://www.rferl.org/a/trump-putin-europe-ukraine-russia-aggression/33906739.html" target="_blank" rel="noopener">RFE/RL: Trump urges Putin to pull back</a></li>
+      <li><a href="https://www.zdfheute.de/newsticker/schlagzeilen-100.html" target="_blank" rel="noopener">ZDFheute: Newsticker, 26–27 November</a></li>
+      <li><a href="https://www.aljazeera.com/news/liveblog/2026/11/26/iran-war-live-explosion-rocks-sanaa-missiles-intercepted-over-riyadh" target="_blank" rel="noopener">Al Jazeera: Iran war live, 26 November</a></li>
+      <li><a href="https://www.aljazeera.com/news/2026/11/26/storms-push-macys-thanksgiving-day-parade-in-new-york-city-to-saturday" target="_blank" rel="noopener">Al Jazeera: Macy's parade postponed</a></li>
+      <li><a href="https://www.bundestag.de/dokumente/textarchiv/2026/kw48-de-haushaltsgesetz-2027-dritte-lesung-1232350" target="_blank" rel="noopener">Bundestag: Haushaltsgesetz 2027, third reading</a></li>
+      <li><a href="https://www.publico.es/politica/debate-cuatro-elecciones-generales-29n-directo.html" target="_blank" rel="noopener">Público: Debate a cuatro, live</a></li>
+      <li><a href="https://www.eldiario.es/politica/ultima-hora-elecciones-generales-actualidad-politica-directo_6_13694386.html" target="_blank" rel="noopener">elDiario.es: Election live blog</a></li>
+      <li><a href="https://www.eldiario.es/politica/carmena-bescansa-tania-sanchez-exdirigentes-entorno-piden-voto-frente-amplio_1_13694266.html" target="_blank" rel="noopener">elDiario.es: Ex-Podemos figures back Frente Amplio</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/bund-will-db-infrago-mit-poenalen-und-kennzahlen-steuern/" target="_blank" rel="noopener">Zughalt.de: DB InfraGO steering</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/essen-citybahn-vor-der-eroeffnung/" target="_blank" rel="noopener">Zughalt.de: Essen Citybahn</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/s-bahn-nach-wasserburg-rueckt-naeher/" target="_blank" rel="noopener">Zughalt.de: S-Bahn Wasserburg</a></li>
+      <li><a href="https://www.zughalt.de/2026/11/sweg-neuer-verdi-tarifvertrag/" target="_blank" rel="noopener">Zughalt.de: SWEG pay deal</a></li>
+      <li><a href="https://railcolornews.com/2026/11/26/france-cafs-oxygene-unveiled-to-the-public-in-paris-austerlitz/" target="_blank" rel="noopener">Railcolor News: CAF Oxygène</a></li>
+      <li><a href="https://railcolornews.com/2026/11/26/litra-ebx-3300-dsb-receives-first-ell-vectrons/" target="_blank" rel="noopener">Railcolor News: DSB Vectrons</a></li>
+      <li><a href="https://www.aerotelegraph.com/airlines/norse-atlantic-stellt-flugbetrieb-ein-alle-boeing-787-bleiben-am-boden/hztw59g" target="_blank" rel="noopener">aeroTELEGRAPH: Norse Atlantic grounded</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/pakistan-international-airlines-ersetzt-norse-atlantic-durch-eigene-boeing-777/e3gcf4f" target="_blank" rel="noopener">aeroTELEGRAPH: PIA replaces Norse</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/risse-in-der-rumpfstruktur-faa-ordnet-inspektionen-bei-boeing-757-an/y58pd38" target="_blank" rel="noopener">aeroTELEGRAPH: FAA 757 inspections</a></li>
+      <li><a href="https://www.aerotelegraph.com/ticker/parlamentsausschuss-fordert-stopp-der-ausbauplaene-fuer-london-heathrow/nb3l673" target="_blank" rel="noopener">aeroTELEGRAPH: Heathrow committee</a></li>
+      <li><a href="https://cachyos.org/blog/2611-november-release/" target="_blank" rel="noopener">CachyOS: November 2026 release</a></li>
+      <li><a href="https://discourse.llvm.org/t/wrapping-up-llvms-relicensing-effort/92906" target="_blank" rel="noopener">LLVM: Wrapping up relicensing</a></li>
+      <li><a href="https://system76.com/blog/post/pop_os-26-04-lts-has-landed" target="_blank" rel="noopener">System76: Pop!_OS 26.04 LTS</a></li>
+    </ol>
+  </section>
+</main>
+
+</body></html>
