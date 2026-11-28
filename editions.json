@@ -1,7 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-27T05:41:05Z",
+  "updatedAt": "2026-11-28T05:40:33Z",
   "editions": [
+    {
+      "date": "2026-11-28",
+      "path": "editions/2026-11-28.html",
+      "topic": null,
+      "sha256": "67a47db6ceb9e51349188b731d636abfdab330dc6f528e0893ab53e009326fa4",
+      "bytes": 28771
+    },
     {
       "date": "2026-11-27",
       "path": "editions/2026-11-27.html",
